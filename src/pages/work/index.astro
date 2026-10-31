@@ -1,0 +1,27 @@
+---
+// All work: a project index using the Collins-style rollover rows.
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import RolloverList from '../../components/RolloverList.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const rows = projects.map((p) => ({
+  name: p.data.client,
+  line: `${p.data.title} · ${p.data.year}`,
+  href: `/work/${p.id}/`,
+}));
+---
+<Base title="Work">
+  <section class="grid w-head" data-reveal>
+    <h1 class="label">Work</h1>
+    <p class="content statement">Every campaign, newest first.</p>
+  </section>
+  <section class="grid" data-reveal>
+    <p class="label">{projects.length} projects</p>
+    <div class="content"><RolloverList items={rows} /></div>
+  </section>
+</Base>
+
+<style>
+  .w-head { padding-block: clamp(2.5rem, 2rem + 4vw, 5rem) 3rem; }
+</style>

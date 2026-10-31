@@ -1,0 +1,46 @@
+---
+// Process, after Spiegel: the statement stays pinned on the left while numbered step cards
+// scroll past on the right.
+interface Step { title: string; body: string; }
+interface Props { items: Step[]; statement: string; sub?: string; }
+const { items, statement, sub } = Astro.props;
+---
+<div class="grid proc">
+  <div class="proc-intro">
+    <div class="proc-sticky">
+      <p class="statement">{statement}</p>
+      {sub && <p class="proc-sub">{sub}</p>}
+    </div>
+  </div>
+  <ol class="proc-cards">
+    {items.map((s, i) => (
+      <li class="proc-card" data-reveal>
+        <div class="proc-head">
+          <h3 class="proc-title">{s.title}</h3>
+          <span class="meta">{i + 1}</span>
+        </div>
+        <p class="proc-body">{s.body}</p>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  .proc { align-items: start; row-gap: 2rem; }
+  .proc-intro { grid-column: 1 / span 6; align-self: stretch; }
+  .proc-sticky { position: sticky; top: calc(var(--header-h) + 2rem); }
+  .proc-sub { margin-top: 1rem; color: var(--fg-muted); max-width: 36ch; }
+  .proc-cards {
+    grid-column: 7 / -1; display: grid; gap: 0.5rem;
+    padding: 0.5rem; border-radius: calc(var(--radius) * 1.25);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .proc-card { background: var(--bg-raised); border-radius: var(--radius); padding: 1.5rem; }
+  .proc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  .proc-title { font-size: var(--step-1); font-weight: 500; }
+  .proc-body { margin-top: 0.6rem; color: var(--fg-muted); max-width: 52ch; }
+  @media (max-width: 800px) {
+    .proc-intro, .proc-cards { grid-column: 1 / -1; }
+    .proc-sticky { position: static; }
+  }
+</style>

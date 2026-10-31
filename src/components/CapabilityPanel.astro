@@ -1,0 +1,70 @@
+---
+// Capabilities, after Spiegel: large discipline names stacked tight inside a rounded panel.
+// Hover (or tap / keyboard) opens a row to show a line and service tags; the other rows dim.
+interface Cap { name: string; line: string; tags: string[]; }
+interface Props { items: Cap[]; idPrefix: string; }
+const { items, idPrefix } = Astro.props;
+---
+<div class="cap-panel">
+  <ol class="caps" data-caps>
+    {items.map((c, i) => (
+      <li class="cap" data-expand-item>
+        <h3>
+          <button type="button" class="cap-trigger" data-expand aria-expanded="false" aria-controls={`${idPrefix}-${i}`}>
+            <span class="cap-name">{c.name}</span>
+            <span class="cap-num" aria-hidden="true">{i + 1}</span>
+          </button>
+        </h3>
+        <div class="cap-body" id={`${idPrefix}-${i}`}>
+          <div class="cap-inner">
+            <p class="cap-line">{c.line}</p>
+            <ul class="tags">{c.tags.map((t) => <li>{t}</li>)}</ul>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  .cap-panel {
+    background: var(--bg-raised);
+    border-radius: calc(var(--radius) * 1.25);
+    padding: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+  }
+  .cap { border-bottom: 1px solid var(--line); transition: opacity var(--dur-fast) var(--ease-out); }
+  .cap:last-child { border-bottom: 0; }
+  .cap-trigger {
+    width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+    padding-block: 0.6rem; text-align: left;
+  }
+  .cap-name { font-family: var(--font-display); font-size: var(--step-3); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+  .cap-num { font-size: var(--step-2); font-weight: 600; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+
+  .cap-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-med) var(--ease-inout); }
+  .cap-inner {
+    overflow: hidden; min-height: 0;
+    display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1rem 2rem; align-items: start;
+  }
+  .cap-line, .tags { opacity: 0; transform: translateY(-6px); transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out); }
+  .cap-line { color: var(--fg-muted); max-width: 46ch; padding-bottom: 1.25rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: flex-end; padding-bottom: 1.25rem; }
+  .tags li {
+    font-size: var(--step--1); padding: 0.3em 0.8em; border-radius: var(--radius-pill);
+    box-shadow: inset 0 0 0 1px var(--line); white-space: nowrap;
+  }
+
+  /* Open state: clicked/tapped/keyboard (.is-open) or hovered on devices with a mouse */
+  .cap.is-open .cap-body { grid-template-rows: 1fr; }
+  .cap.is-open :is(.cap-line, .tags) { opacity: 1; transform: none; transition-delay: 80ms; }
+  @media (hover: hover) {
+    .caps:hover .cap:not(:hover) { opacity: 0.4; }
+    .cap:hover .cap-body { grid-template-rows: 1fr; }
+    .cap:hover :is(.cap-line, .tags) { opacity: 1; transform: none; transition-delay: 80ms; }
+  }
+
+  @media (max-width: 800px) {
+    .cap-inner { grid-template-columns: 1fr; }
+    .tags { justify-content: flex-start; }
+  }
+</style>

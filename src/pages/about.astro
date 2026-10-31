@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import Placeholder from '../components/Placeholder.astro';
-import RolloverList from '../components/RolloverList.astro';
+import CapabilityPanel from '../components/CapabilityPanel.astro';
+import ProcessCards from '../components/ProcessCards.astro';
 import ExpandList from '../components/ExpandList.astro';
-import { capabilities, process } from '../data/site';
+import { capabilities, process, faqs } from '../data/site';
 ---
 <Base title="About">
   <section class="grid a-head" data-reveal>
@@ -20,14 +21,20 @@ import { capabilities, process } from '../data/site';
     </div>
   </section>
 
-  <section id="capabilities" class="section grid" aria-labelledby="cap-h">
-    <h2 id="cap-h" class="label">Capabilities</h2>
-    <div class="content" data-reveal><RolloverList items={capabilities} /></div>
+  <section id="capabilities" class="section" aria-labelledby="cap-h">
+    <div class="grid sec-head"><h2 id="cap-h" class="label">Capabilities</h2></div>
+    <div class="grid"><div class="full" data-reveal><CapabilityPanel items={capabilities} idPrefix="about-cap" /></div></div>
   </section>
 
-  <section id="process" class="section grid" aria-labelledby="proc-h">
-    <h2 id="proc-h" class="label">Process</h2>
-    <div class="content" data-reveal><ExpandList items={process} idPrefix="about-proc" /></div>
+  <section id="process" class="section" aria-labelledby="proc-h">
+    <div class="grid sec-head"><h2 id="proc-h" class="label">Process</h2></div>
+    <ProcessCards items={process} statement="How an idea gets from brief to the street." sub="Placeholder: a line on why the process is kept simple." />
+  </section>
+
+  <!-- Expanding panels, after Nonstop's FAQs -->
+  <section id="faq" class="section grid" aria-labelledby="faq-h">
+    <h2 id="faq-h" class="label">Questions</h2>
+    <div class="content" data-reveal><ExpandList items={faqs} numbered={false} idPrefix="faq" /></div>
   </section>
 </Base>
 
@@ -37,5 +44,7 @@ import { capabilities, process } from '../data/site';
   .bio { row-gap: 2rem; }
   .portrait { grid-column: 1 / span 4; }
   .bio-text { display: grid; gap: 1.1rem; align-content: start; max-width: 56ch; }
+  .sec-head { margin-bottom: 2.5rem; }
+  .full { grid-column: 1 / -1; }
   @media (max-width: 800px) { .portrait { grid-column: 1 / -1; } }
 </style>

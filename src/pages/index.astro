@@ -2,12 +2,11 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ProjectDeck from '../components/ProjectDeck.astro';
-import RolloverList from '../components/RolloverList.astro';
-import ExpandList from '../components/ExpandList.astro';
+import CapabilityPanel from '../components/CapabilityPanel.astro';
+import ProcessCards from '../components/ProcessCards.astro';
 import { capabilities, process } from '../data/site';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
-const capLinks = capabilities.map((c) => ({ ...c, href: '/about#capabilities' }));
 ---
 <Base>
   <!-- Short intro so the work sits high on the page (Spiegel) -->
@@ -25,26 +24,20 @@ const capLinks = capabilities.map((c) => ({ ...c, href: '/about#capabilities' })
       <p class="content meta">{projects.length} campaigns</p>
     </div>
     <ProjectDeck projects={projects} />
+    <div class="grid all-work"><p class="content"><a class="pill ghost" href="/work/">All work <span class="arrow" aria-hidden="true">→</span></a></p></div>
   </section>
 
-  <section class="section grid" aria-labelledby="cap-h">
-    <div class="label">
+  <section class="section" aria-labelledby="cap-h">
+    <div class="grid sec-head">
       <h2 id="cap-h" class="label">Capabilities</h2>
+      <p class="content statement" data-reveal>One idea, made to work everywhere the brand shows up.</p>
     </div>
-    <div class="content" data-reveal>
-      <p class="statement">One idea, made to work everywhere the brand shows up.</p>
-      <div class="spaced"><RolloverList items={capLinks} /></div>
-    </div>
+    <div class="grid"><div class="full" data-reveal><CapabilityPanel items={capabilities} idPrefix="home-cap" /></div></div>
   </section>
 
-  <section class="section grid" aria-labelledby="proc-h">
-    <div class="label">
-      <h2 id="proc-h" class="label">Process</h2>
-    </div>
-    <div class="content" data-reveal>
-      <p class="statement">How an idea gets from brief to the street.</p>
-      <div class="spaced"><ExpandList items={process} idPrefix="home-proc" /></div>
-    </div>
+  <section class="section" aria-labelledby="proc-h">
+    <div class="grid sec-head"><h2 id="proc-h" class="label">Process</h2></div>
+    <ProcessCards items={process} statement="How an idea gets from brief to the street." sub="Placeholder: a line on why the process is kept simple." />
   </section>
 </Base>
 
@@ -53,5 +46,7 @@ const capLinks = capabilities.map((c) => ({ ...c, href: '/about#capabilities' })
   .intro-line { font-size: var(--step-2); max-width: 24ch; }
   .intro-sub { display: block; margin-top: 1rem; font-size: var(--step-0); color: var(--fg-muted); max-width: 44ch; line-height: 1.5; }
   .work-head { padding-bottom: 0.75rem; }
-  .spaced { margin-top: 2.5rem; }
+  .all-work { padding-top: 1.5rem; }
+  .sec-head { margin-bottom: 2.5rem; }
+  .full { grid-column: 1 / -1; }
 </style>
