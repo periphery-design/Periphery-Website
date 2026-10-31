@@ -5,6 +5,8 @@ A creative portfolio site. Work is being built in phases:
 1. **Now:** function, structure, wireframes and interaction/animation. Greyscale placeholders only.
 2. **Later:** real colour, fonts (free Google Fonts the owner will upload), final logo, domain.
 
+Homepage hero: "Vision Beyond the Center." + subheading "We craft bold brand identities and high-impact visual strategies that capture attention from every angle." (Collins-style centred statement, case studies directly after).
+
 Content source: the owner's Behance (behance.net/TandersonCreative), first 5 projects to start.
 Prefer original high-res images supplied by the owner over images scraped from Behance.
 
