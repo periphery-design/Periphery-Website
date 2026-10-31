@@ -1,5 +1,5 @@
 ---
-// Campaign case-study template: brief → idea → execution across channels → results → next.
+// Campaign case-study template: overview → insight (or brief/idea) → execution → results → note → next.
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { Image } from 'astro:assets';
@@ -36,15 +36,36 @@ const d = project.data;
       <div><dt class="meta">Channels</dt><dd>{d.channels.join(', ')}</dd></div>
     </dl>
 
-    <section class="section grid" data-reveal>
-      <h2 class="label">The brief</h2>
-      <p class="content statement">{d.brief}</p>
-    </section>
+    {d.overview.length > 0 && (
+      <section class="section grid" data-reveal>
+        <h2 class="label">Overview</h2>
+        <div class="content prose lead">{d.overview.map((t) => <p>{t}</p>)}</div>
+      </section>
+    )}
 
-    <section class="section grid" data-reveal>
-      <h2 class="label">The idea</h2>
-      <p class="content statement">{d.idea}</p>
-    </section>
+    {d.insight && (
+      <section class="section grid insight" data-reveal aria-labelledby="ins-h">
+        <div class="insight-text">
+          <h2 id="ins-h" class="label">The insight</h2>
+          <div class="prose">{d.insight.paragraphs.map((t) => <p>{t}</p>)}</div>
+        </div>
+        <div class="insight-media"><Image src={d.insight.image} alt={d.insight.alt} widths={[600, 1000, 1400]} sizes="(min-width: 800px) 58vw, 100vw" /></div>
+      </section>
+    )}
+
+    {d.brief && (
+      <section class="section grid" data-reveal>
+        <h2 class="label">The brief</h2>
+        <p class="content statement">{d.brief}</p>
+      </section>
+    )}
+
+    {d.idea && (
+      <section class="section grid" data-reveal>
+        <h2 class="label">The idea</h2>
+        <p class="content statement">{d.idea}</p>
+      </section>
+    )}
 
     <section class="section" aria-labelledby="exec-h">
       <div class="grid"><h2 id="exec-h" class="label">Execution</h2><p class="content meta">How it ran across {d.channels.length} channels</p></div>
@@ -52,8 +73,12 @@ const d = project.data;
         <div class="blocks">
           {d.gallery.map((b) => b.type === 'split' ? (
             <div class:list={['grid', 'split', b.imageSide === 'left' && 'img-left']} data-reveal>
-              <div class="split-text"><p>{b.text}</p></div>
+              <div class="split-text"><div>{b.heading && <h3 class="split-h">{b.heading}</h3>}<p>{b.text}</p></div></div>
               <div class="split-media"><Image src={b.image} alt={b.alt} widths={[600, 1000, 1400]} sizes="(min-width: 800px) 50vw, 100vw" /></div>
+            </div>
+          ) : b.type === 'grid' ? (
+            <div class="grid img-grid" data-reveal>
+              {b.images.map((g) => <div class="img-wrap"><Image src={g.image} alt={g.alt} widths={[500, 900, 1300]} sizes="(min-width: 800px) 50vw, 100vw" /></div>)}
             </div>
           ) : (
             <figure class:list={['grid', 'img-block', b.size]} data-reveal>
@@ -80,6 +105,12 @@ const d = project.data;
           {d.results.map((r) => <li><span class="r-val">{r.value}</span><span class="meta">{r.label}</span></li>)}
         </ul>
       </section>
+    )}
+    {d.note && (
+      <aside class="section grid note" data-reveal>
+        <h2 class="label">Note</h2>
+        <p class="content">{d.note}</p>
+      </aside>
     )}
   </article>
 
@@ -135,6 +166,24 @@ const d = project.data;
   .img-block .img-wrap, .img-block figcaption { grid-column: 1 / -1; }
   .img-block.half .img-wrap { grid-column: span 6; }
   .img-block figcaption { margin-top: 0.6rem; }
+
+  /* Overview + insight */
+  .prose { display: grid; gap: 1.1em; max-width: 58ch; }
+  .lead { font-size: var(--step-1); line-height: 1.5; }
+  .insight { align-items: center; row-gap: 2rem; }
+  .insight-text { grid-column: 1 / span 5; display: grid; gap: 1.5rem; align-content: center; }
+  .insight-text .prose { font-size: var(--step-1); line-height: 1.5; }
+  .insight-media { grid-column: 6 / -1; }
+  .insight-media :global(img) { width: 100%; height: auto; border-radius: var(--radius); }
+  .img-grid { row-gap: var(--gutter); }
+  .img-grid .img-wrap { grid-column: span 6; }
+  .img-grid :global(img) { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 9; border-radius: var(--radius); }
+  .split-h { font-size: var(--step-1); font-weight: 600; margin-bottom: 1rem; }
+  .note { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: var(--section); }
+  .note p { color: var(--fg-muted); max-width: 64ch; }
+  @media (max-width: 800px) {
+    .insight-text, .insight-media, .img-grid .img-wrap { grid-column: 1 / -1; }
+  }
 
   /* Split block: live text on a raised panel beside the image (replaces text baked into boards) */
   .split { align-items: stretch; }

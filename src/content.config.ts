@@ -20,8 +20,14 @@ const projects = defineCollection({
         type: z.literal('split'),
         image: image(),
         alt: z.string(),
+        heading: z.string().optional(),
         text: z.string(),
         imageSide: z.enum(['left', 'right']).default('right'),
+      }),
+      // grid: several images laid out two-up on desktop, stacked on phones
+      z.object({
+        type: z.literal('grid'),
+        images: z.array(z.object({ image: image(), alt: z.string() })),
       }),
     ]);
 
@@ -37,8 +43,15 @@ const projects = defineCollection({
       order: z.number(),            // position on the homepage
       cover: image().optional(),    // homepage card + project hero
       coverAlt: z.string().optional(),
-      brief: z.string(),
-      idea: z.string(),
+      overview: z.array(z.string()).default([]),   // opening paragraphs under the hero
+      insight: z.object({                          // strategy text beside an image
+        paragraphs: z.array(z.string()),
+        image: image(),
+        alt: z.string(),
+      }).optional(),
+      brief: z.string().optional(),
+      idea: z.string().optional(),
+      note: z.string().optional(),                 // small closing context note
       gallery: z.array(block).default([]),
       results: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
     });
