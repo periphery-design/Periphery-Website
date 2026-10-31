@@ -36,6 +36,8 @@ for root, _, files in os.walk(out):
         if f.endswith(('.html', '.js', '.css')):
             fp = os.path.join(root, f); s = open(fp, encoding='utf-8').read()
             s = s.replace('_astro/', 'assets/')
+            if f.endswith('.css'):  # CSS lives in assets/, so its own references are siblings
+                s = s.replace('url(/assets/', 'url(./')
             for old, new in renames.items(): s = s.replace(old, new)
             open(fp, 'w', encoding='utf-8').write(s)
 print('preview ready:', out)

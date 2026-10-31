@@ -3,7 +3,7 @@
 ## Project brief
 A creative portfolio site. Work is being built in phases:
 1. **Now:** function, structure, wireframes and interaction/animation. Greyscale placeholders only.
-2. **Later:** real colour, fonts (free Google Fonts the owner will upload), final logo, domain.
+2. **Later:** real colour, final logo, domain. (Font is decided: Syne.)
 
 Homepage hero: "Vision Beyond the Center." + subheading "We craft bold brand identities and high-impact visual strategies that capture attention from every angle." (Collins-style centred statement, case studies directly after).
 
@@ -23,10 +23,12 @@ Take patterns and principles from these, never copy their code, copy, or assets.
   the story of a campaign (brief, idea, execution across channels, results), not just show a gallery.
 - **Homepage:** work near the top of the page.
 - **Theme:** both dark and light, with a toggle. Build every component with theme tokens from the start.
+- **Typeface:** Syne (variable, self-hosted in `src/assets/fonts/`, SIL OFL). ExtraBold = headline,
+  Bold = subheadings, Regular = nav and copy. Use the `--weight-headline/sub/body` tokens, never raw numbers.
 - **Stack/editing:** Astro in this repo, hosted free on Vercel or Netlify; the owner asks Claude to make updates.
 
 ### Open decisions (ask the owner, don't assume)
-Framework/host, domain, fonts, colour palette, logo — see the running decision log in `docs/decisions.md` once it exists.
+Host, domain, colour palette, logo — see the running decision log in `docs/decisions.md` once it exists.
 
 ## Which skill to use (there are ~79 installed; pick one per job)
 | Job | Use | Not |

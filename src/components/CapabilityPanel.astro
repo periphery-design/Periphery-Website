@@ -38,8 +38,8 @@ const { items, idPrefix } = Astro.props;
     width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
     padding-block: 0.6rem; text-align: left;
   }
-  .cap-name { font-family: var(--font-display); font-size: var(--step-3); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
-  .cap-num { font-size: var(--step-2); font-weight: 600; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .cap-name { font-family: var(--font-display); font-size: var(--step-3); font-weight: var(--weight-headline); letter-spacing: -0.03em; line-height: 1; }
+  .cap-num { font-size: var(--step-2); font-weight: var(--weight-sub); color: var(--fg-muted); font-variant-numeric: tabular-nums; }
 
   .cap-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-med) var(--ease-inout); }
   .cap-inner {

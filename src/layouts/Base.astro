@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import syneUrl from '../assets/fonts/syne-variable.woff2?url';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -15,6 +16,7 @@ const fullTitle = title ? `${title} — Periphery Design` : 'Periphery Design';
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <meta name="color-scheme" content="light dark" />
+    <link rel="preload" href={syneUrl} as="font" type="font/woff2" crossorigin />
     <!-- Theme before first paint: saved choice > device preference > light. -->
     <script is:inline>
       (() => {
