@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Placeholder from '../components/Placeholder.astro';
+import RolloverList from '../components/RolloverList.astro';
+import ExpandList from '../components/ExpandList.astro';
+import { capabilities, process } from '../data/site';
+---
+<Base title="About">
+  <section class="grid a-head" data-reveal>
+    <h1 class="label">About</h1>
+    <p class="content a-title">Placeholder: a short, confident line about Periphery Design and the kind of work it exists to make.</p>
+  </section>
+
+  <section class="grid bio" data-reveal>
+    <div class="portrait"><Placeholder label="Portrait or studio photo" ratio="4 / 5" /></div>
+    <div class="content bio-text">
+      <p>Placeholder bio, paragraph one: who you are, where you’ve worked, and what you’re known for.</p>
+      <p>Paragraph two: how you think about campaigns, and the kinds of brands and problems you want more of.</p>
+      <p class="meta">Selected clients: Client, Client, Client, Client, Client</p>
+    </div>
+  </section>
+
+  <section id="capabilities" class="section grid" aria-labelledby="cap-h">
+    <h2 id="cap-h" class="label">Capabilities</h2>
+    <div class="content" data-reveal><RolloverList items={capabilities} /></div>
+  </section>
+
+  <section id="process" class="section grid" aria-labelledby="proc-h">
+    <h2 id="proc-h" class="label">Process</h2>
+    <div class="content" data-reveal><ExpandList items={process} idPrefix="about-proc" /></div>
+  </section>
+</Base>
+
+<style>
+  .a-head { padding-block: clamp(2.5rem, 2rem + 4vw, 5rem) 3rem; }
+  .a-title { font-size: var(--step-3); max-width: 20ch; line-height: 1.05; }
+  .bio { row-gap: 2rem; }
+  .portrait { grid-column: 1 / span 4; }
+  .bio-text { display: grid; gap: 1.1rem; align-content: start; max-width: 56ch; }
+  @media (max-width: 800px) { .portrait { grid-column: 1 / -1; } }
+</style>

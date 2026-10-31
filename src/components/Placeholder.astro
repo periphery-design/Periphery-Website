@@ -1,0 +1,26 @@
+---
+// Grey stand-in for an image or video until real assets arrive.
+interface Props { label?: string; ratio?: string; class?: string; }
+const { label = 'Image', ratio = '4 / 3', class: cls } = Astro.props;
+---
+<div class:list={['ph', cls]} style={`aspect-ratio: ${ratio}`} role="img" aria-label={`Placeholder: ${label}`}>
+  <span>{label}</span>
+</div>
+
+<style>
+  .ph {
+    position: relative; width: 100%;
+    background: var(--placeholder);
+    border-radius: var(--radius);
+    display: grid; place-items: center;
+    color: var(--placeholder-ink); font-size: var(--step--1);
+    overflow: hidden;
+  }
+  /* Diagonal cross, the classic wireframe image marker */
+  .ph::before, .ph::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top right, transparent calc(50% - 0.5px), var(--line) 50%, transparent calc(50% + 0.5px));
+  }
+  .ph::after { transform: scaleX(-1); }
+  .ph span { position: relative; z-index: 1; background: var(--placeholder); padding: 0.2em 0.6em; border-radius: var(--radius-pill); }
+</style>

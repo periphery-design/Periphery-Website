@@ -1,0 +1,44 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="grid cta" data-reveal>
+    <p class="label">Start something</p>
+    <div class="content">
+      <p class="statement">Have a brand with something to say? Let’s make it impossible to ignore.</p>
+      <p class="cta-actions">
+        <a class="pill" href="mailto:hello@example.com">hello@example.com <span class="arrow">↗</span></a>
+        <a class="pill ghost" href="/contact">Contact page</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="grid bottom">
+    <ul class="social">
+      <li><a href="https://www.behance.net/TandersonCreative">Behance</a></li>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">LinkedIn</a></li>
+    </ul>
+    <p class="meta legal">© {year} Periphery Design</p>
+  </div>
+
+  <!-- Oversized wordmark, after Nonstop. Replaced by the logo once it exists. -->
+  <p class="wordmark" aria-hidden="true">Periphery</p>
+</footer>
+
+<style>
+  .site-footer { margin-top: var(--section); border-top: 1px solid var(--line); overflow: hidden; }
+  .cta { padding-block: 4rem 6rem; }
+  .cta-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+  .bottom { font-size: var(--step--1); align-items: end; }
+  .social { grid-column: 1 / span 6; display: flex; gap: 1.25rem; }
+  .social a { color: var(--fg-muted); transition: color var(--dur-fast) var(--ease-out); }
+  .social a:hover { color: var(--fg); }
+  .legal { grid-column: 7 / -1; text-align: right; }
+  .wordmark {
+    font-family: var(--font-display);
+    font-size: var(--step-4); line-height: 0.8; letter-spacing: -0.05em; font-weight: 600;
+    white-space: nowrap; color: var(--placeholder);
+    margin-top: 2rem; margin-bottom: -0.12em; padding-inline: calc(var(--gutter) * 0.5);
+  }
+</style>

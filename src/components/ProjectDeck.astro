@@ -1,0 +1,62 @@
+---
+// Selected work. On desktop each card pins under the header and the next card slides over it,
+// leaving the previous card's title strip visible — the "collapse" stack from Nonstop.
+import type { CollectionEntry } from 'astro:content';
+import Placeholder from './Placeholder.astro';
+
+interface Props { projects: CollectionEntry<'projects'>[]; }
+const { projects } = Astro.props;
+---
+<ol class="deck" style={`--count: ${projects.length}`}>
+  {projects.map((p, i) => (
+    <li class="card" style={`--i: ${i}`}>
+      <a href={`/work/${p.id}/`} class="card-link grid">
+        <div class="card-media">
+          <Placeholder label={`${p.data.client} — key visual`} ratio="16 / 11" />
+        </div>
+        <div class="card-text">
+          <div class="card-head">
+            <h3 class="card-title">{p.data.title}</h3>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </div>
+          <p class="meta">{p.data.client} · {p.data.year} · {p.data.sector}</p>
+          <p class="card-summary">{p.data.summary}</p>
+        </div>
+      </a>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .deck { --bar: 3.25rem; position: relative; }
+  .card {
+    position: sticky;
+    top: calc(var(--header-h) + var(--i) * var(--bar));
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+  }
+  .card-link { padding-block: 0.9rem 2.5rem; row-gap: 1rem; }
+  .card-media { grid-column: 1 / span 6; overflow: hidden; border-radius: var(--radius); }
+  .card-media :global(.ph) { transition: transform 900ms var(--ease-out); }
+  .card-text { grid-column: 7 / -1; display: flex; flex-direction: column; gap: 0.35rem; }
+  .card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  .card-title { font-size: var(--step-1); }
+  .card-summary { margin-top: auto; max-width: 52ch; color: var(--fg-muted); }
+
+  /* Hover: slow image push-in, arrow nudge, title underline (minimal, after Collins) */
+  .card-title {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size var(--dur-med) var(--ease-out);
+  }
+  .card-link:hover .card-title, .card-link:focus-visible .card-title { background-size: 100% 1px; }
+  @media (hover: hover) {
+    .card-link:hover .card-media :global(.ph) { transform: scale(1.03); }
+  }
+
+  /* Mobile: no pinning, simple stacked cards */
+  @media (max-width: 800px) {
+    .card { position: static; }
+    .card-media, .card-text { grid-column: 1 / -1; }
+    .card-summary { margin-top: 0.5rem; }
+  }
+</style>

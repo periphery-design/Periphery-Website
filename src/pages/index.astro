@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectDeck from '../components/ProjectDeck.astro';
+import RolloverList from '../components/RolloverList.astro';
+import ExpandList from '../components/ExpandList.astro';
+import { capabilities, process } from '../data/site';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const capLinks = capabilities.map((c) => ({ ...c, href: '/about#capabilities' }));
+---
+<Base>
+  <!-- Short intro so the work sits high on the page (Spiegel) -->
+  <section class="intro grid" data-reveal>
+    <p class="label">Periphery Design</p>
+    <h1 class="content intro-line">
+      Campaigns and ideas for brands that would rather be noticed than be safe.
+      <span class="intro-sub">Placeholder intro — one or two lines on who you are and what you make.</span>
+    </h1>
+  </section>
+
+  <section id="work" class="work" aria-labelledby="work-h">
+    <div class="grid work-head">
+      <h2 id="work-h" class="label">Selected work</h2>
+      <p class="content meta">{projects.length} campaigns</p>
+    </div>
+    <ProjectDeck projects={projects} />
+  </section>
+
+  <section class="section grid" aria-labelledby="cap-h">
+    <div class="label">
+      <h2 id="cap-h" class="label">Capabilities</h2>
+    </div>
+    <div class="content" data-reveal>
+      <p class="statement">One idea, made to work everywhere the brand shows up.</p>
+      <div class="spaced"><RolloverList items={capLinks} /></div>
+    </div>
+  </section>
+
+  <section class="section grid" aria-labelledby="proc-h">
+    <div class="label">
+      <h2 id="proc-h" class="label">Process</h2>
+    </div>
+    <div class="content" data-reveal>
+      <p class="statement">How an idea gets from brief to the street.</p>
+      <div class="spaced"><ExpandList items={process} idPrefix="home-proc" /></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro { padding-block: clamp(3rem, 2rem + 6vw, 7rem) clamp(2.5rem, 2rem + 3vw, 4.5rem); }
+  .intro-line { font-size: var(--step-2); max-width: 24ch; }
+  .intro-sub { display: block; margin-top: 1rem; font-size: var(--step-0); color: var(--fg-muted); max-width: 44ch; line-height: 1.5; }
+  .work-head { padding-bottom: 0.75rem; }
+  .spaced { margin-top: 2.5rem; }
+</style>

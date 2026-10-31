@@ -1,0 +1,61 @@
+---
+// Capabilities list. Hovering (or focusing) a row turns it into a filled rounded card with an
+// arrow while the other rows fade back — the Collins "programs" rollover.
+interface Item { name: string; line: string; href?: string; }
+interface Props { items: Item[]; }
+const { items } = Astro.props;
+---
+<ul class="rollover">
+  {items.map((it) => {
+    const Tag = it.href ? 'a' : 'div';
+    return (
+      <li>
+        <Tag class="row" href={it.href}>
+          <span class="row-name">{it.name}</span>
+          <span class="row-line">{it.line}</span>
+          {it.href && <span class="row-arrow" aria-hidden="true">→</span>}
+        </Tag>
+      </li>
+    );
+  })}
+</ul>
+
+<style>
+  .rollover li { border-bottom: 1px solid var(--line); }
+  .row {
+    position: relative; isolation: isolate;
+    display: grid; grid-template-columns: 1fr 1.4fr auto; align-items: center; gap: 1rem;
+    padding: 1.15rem 0.9rem; margin-inline: -0.9rem;
+    transition: color var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+  }
+  /* The filled card lives on a pseudo-element so it can scale in without moving the text */
+  .row::before {
+    content: ''; position: absolute; inset: -1px 0; z-index: -1;
+    background: var(--invert-bg); border-radius: var(--radius);
+    opacity: 0; transform: scale(0.98);
+    transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .row-name { font-size: var(--step-1); }
+  .row-line { font-size: var(--step--1); color: var(--fg-muted); transition: color var(--dur-fast) var(--ease-out); }
+  .row-arrow { opacity: 0; transform: translateX(-6px); transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+
+  @media (hover: hover) {
+    .rollover:has(.row:hover) .row:not(:hover) { opacity: 0.35; }
+    .row:hover { color: var(--invert-fg); }
+    .row:hover::before { opacity: 1; transform: none; }
+    .row:hover .row-line { color: color-mix(in srgb, var(--invert-fg) 70%, transparent); }
+    .row:hover .row-arrow { opacity: 1; transform: none; }
+  }
+  /* Same treatment for keyboard users */
+  .rollover:has(.row:focus-visible) .row:not(:focus-visible) { opacity: 0.35; }
+  .row:focus-visible { color: var(--invert-fg); outline: none; }
+  .row:focus-visible::before { opacity: 1; transform: none; }
+  .row:focus-visible .row-line { color: color-mix(in srgb, var(--invert-fg) 70%, transparent); }
+  .row:focus-visible .row-arrow { opacity: 1; transform: none; }
+
+  @media (max-width: 800px) {
+    .row { grid-template-columns: 1fr auto; }
+    .row-line { grid-column: 1; grid-row: 2; }
+    .row-arrow { opacity: 1; transform: none; grid-row: 1 / span 2; grid-column: 2; }
+  }
+</style>

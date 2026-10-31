@@ -1,0 +1,55 @@
+---
+// Numbered steps that expand and collapse (process section, FAQs) — after Nonstop's panels.
+interface Item { title: string; body: string; }
+interface Props { items: Item[]; numbered?: boolean; idPrefix: string; }
+const { items, numbered = true, idPrefix } = Astro.props;
+---
+<ol class="expand">
+  {items.map((it, i) => (
+    <li class="item" data-expand-item>
+      <h3>
+        <button type="button" class="trigger" data-expand aria-expanded="false" aria-controls={`${idPrefix}-${i}`}>
+          {numbered && <span class="num">{String(i + 1).padStart(2, '0')}</span>}
+          <span class="title">{it.title}</span>
+          <span class="icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      <div class="panel" id={`${idPrefix}-${i}`}>
+        <div class="panel-inner">{numbered && <span class="num spacer" aria-hidden="true">00</span>}<p>{it.body}</p></div>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .item { border-bottom: 1px solid var(--line); }
+  .item:first-child { border-top: 1px solid var(--line); }
+  .trigger {
+    width: 100%; display: grid; grid-template-columns: auto 1fr auto; gap: 1.25rem; align-items: baseline;
+    padding-block: 1.1rem; text-align: left; font-size: var(--step-1);
+  }
+  .num { font-size: var(--step--1); color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .trigger:hover .title { color: var(--fg); }
+  .title { transition: color var(--dur-fast) var(--ease-out); }
+
+  /* Plus that turns into a minus */
+  .icon { position: relative; width: 0.8rem; height: 0.8rem; align-self: center; }
+  .icon::before, .icon::after {
+    content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; margin-top: -0.75px;
+    background: currentColor; transition: transform var(--dur-med) var(--ease-out);
+  }
+  .icon::after { transform: rotate(90deg); }
+  .is-open .icon::after { transform: rotate(0deg); }
+
+  /* Height animation without measuring: grid rows 0fr → 1fr */
+  .panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-med) var(--ease-inout); }
+  .is-open .panel { grid-template-rows: 1fr; }
+  .panel-inner { overflow: hidden; display: grid; grid-template-columns: auto 1fr; column-gap: 1.25rem; min-height: 0; }
+  .spacer { visibility: hidden; }
+  .panel-inner p {
+    padding: 0 0 1.5rem; max-width: 60ch; color: var(--fg-muted);
+    opacity: 0; transform: translateY(-4px);
+    transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+  }
+  .is-open .panel-inner p { opacity: 1; transform: none; }
+</style>

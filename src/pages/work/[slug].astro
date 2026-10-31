@@ -1,0 +1,105 @@
+---
+// Campaign case-study template: brief → idea → execution across channels → results → next.
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Placeholder from '../../components/Placeholder.astro';
+
+export async function getStaticPaths() {
+  const all = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+  return all.map((p, i) => ({ params: { slug: p.id }, props: { project: p, next: all[(i + 1) % all.length] } }));
+}
+interface Props { project: CollectionEntry<'projects'>; next: CollectionEntry<'projects'>; }
+const { project, next } = Astro.props;
+const d = project.data;
+---
+<Base title={`${d.client}: ${d.title}`} description={d.summary}>
+  <article>
+    <header class="grid p-head" data-reveal>
+      <a href="/#work" class="label back"><span aria-hidden="true">←</span> All work</a>
+      <div class="content">
+        <p class="meta">{d.client}</p>
+        <h1 class="p-title">{d.title}</h1>
+      </div>
+    </header>
+
+    <div class="grid"><div class="full" data-reveal><Placeholder label="Hero film or key visual" ratio="16 / 9" /></div></div>
+
+    <dl class="grid facts" data-reveal>
+      <div><dt class="meta">Client</dt><dd>{d.client}</dd></div>
+      <div><dt class="meta">Year</dt><dd>{d.year}</dd></div>
+      <div><dt class="meta">Role</dt><dd>{d.role}</dd></div>
+      <div><dt class="meta">Channels</dt><dd>{d.channels.join(', ')}</dd></div>
+    </dl>
+
+    <section class="section grid" data-reveal>
+      <h2 class="label">The brief</h2>
+      <p class="content statement">{d.brief}</p>
+    </section>
+
+    <section class="section grid" data-reveal>
+      <h2 class="label">The idea</h2>
+      <p class="content statement">{d.idea}</p>
+    </section>
+
+    <section class="section" aria-labelledby="exec-h">
+      <div class="grid"><h2 id="exec-h" class="label">Execution</h2><p class="content meta">How it ran across {d.channels.length} channels</p></div>
+      <div class="grid gallery">
+        <div class="g-wide" data-reveal><Placeholder label="OOH / billboard" ratio="16 / 9" /></div>
+        <div class="g-half" data-reveal><Placeholder label="Social post" ratio="4 / 5" /></div>
+        <div class="g-half" data-reveal><Placeholder label="Social post" ratio="4 / 5" /></div>
+        <div class="g-third" data-reveal><Placeholder label="Story / reel" ratio="9 / 16" /></div>
+        <div class="g-two-thirds" data-reveal><Placeholder label="Film still or experiential" ratio="4 / 3" /></div>
+      </div>
+    </section>
+
+    {d.results.length > 0 && (
+      <section class="section grid" data-reveal>
+        <h2 class="label">Results</h2>
+        <ul class="content results">
+          {d.results.map((r) => <li><span class="r-val">{r.value}</span><span class="meta">{r.label}</span></li>)}
+        </ul>
+      </section>
+    )}
+  </article>
+
+  <nav class="section grid next" aria-label="Next project">
+    <p class="label">Next project</p>
+    <a class="content next-link" href={`/work/${next.id}/`}>
+      <span class="meta">{next.data.client}</span>
+      <span class="next-title">{next.data.title} <span class="arrow" aria-hidden="true">↗</span></span>
+      <Placeholder label={`${next.data.client} — key visual`} ratio="16 / 7" class="next-ph" />
+    </a>
+  </nav>
+</Base>
+
+<style>
+  .p-head { padding-block: clamp(2.5rem, 2rem + 4vw, 5rem) 2.5rem; align-items: start; }
+  .back { transition: color var(--dur-fast) var(--ease-out); }
+  .back:hover { color: var(--fg); }
+  .p-title { font-size: var(--step-3); margin-top: 0.5rem; max-width: 18ch; }
+  .full { grid-column: 1 / -1; }
+
+  .facts { margin-top: 2rem; row-gap: 1.5rem; }
+  .facts > div { grid-column: span 3; border-top: 1px solid var(--line); padding-top: 0.75rem; }
+  .facts dd { margin-top: 0.25rem; }
+  @media (max-width: 800px) { .facts > div { grid-column: span 6; } }
+
+  .gallery { margin-top: 2rem; row-gap: var(--gutter); }
+  .g-wide { grid-column: 1 / -1; }
+  .g-half { grid-column: span 6; }
+  .g-third { grid-column: span 4; }
+  .g-two-thirds { grid-column: span 8; align-self: end; }
+  @media (max-width: 800px) {
+    .g-half, .g-third, .g-two-thirds { grid-column: 1 / -1; }
+  }
+
+  .results { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--gutter); }
+  .results li { border-top: 1px solid var(--line); padding-top: 0.75rem; display: grid; gap: 0.25rem; }
+  .r-val { font-size: var(--step-3); line-height: 1; letter-spacing: -0.02em; }
+
+  .next { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: var(--section); }
+  .next-link { display: grid; gap: 0.4rem; }
+  .next-title { font-size: var(--step-2); }
+  .next-link :global(.next-ph) { margin-top: 1rem; transition: transform 900ms var(--ease-out); }
+  @media (hover: hover) { .next-link:hover :global(.next-ph) { transform: scale(0.985); } }
+</style>
