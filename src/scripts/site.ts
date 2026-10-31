@@ -11,6 +11,11 @@ if (!reduceMotion) {
 
 /* ---------- Theme toggle ---------- */
 const root = document.documentElement;
+// Storage can be blocked (private modes, sandboxed previews); the toggle still works for the visit.
+const store = {
+  get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } },
+  set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* ignore */ } },
+};
 const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
 const syncToggle = () => {
   if (!toggle) return;
@@ -21,12 +26,12 @@ const syncToggle = () => {
 syncToggle();
 toggle?.addEventListener('click', () => {
   root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-  localStorage.setItem('theme', root.dataset.theme);
+  store.set('theme', root.dataset.theme!);
   syncToggle();
 });
 // Follow device changes until the visitor makes an explicit choice.
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-  if (localStorage.getItem('theme')) return;
+  if (store.get('theme')) return;
   root.dataset.theme = e.matches ? 'dark' : 'light';
   syncToggle();
 });
