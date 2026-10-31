@@ -16,6 +16,13 @@ Prefer original high-res images supplied by the owner over images scraped from B
 
 Take patterns and principles from these, never copy their code, copy, or assets.
 
+### Decided
+- **Work type:** campaign-driven: ideas and marketing campaigns for brands. Project pages should tell
+  the story of a campaign (brief, idea, execution across channels, results), not just show a gallery.
+- **Homepage:** work near the top of the page.
+- **Theme:** both dark and light, with a toggle. Build every component with theme tokens from the start.
+- **Stack/editing:** Astro in this repo, hosted free on Vercel or Netlify; the owner asks Claude to make updates.
+
 ### Open decisions (ask the owner, don't assume)
 Framework/host, domain, fonts, colour palette, logo — see the running decision log in `docs/decisions.md` once it exists.
 
