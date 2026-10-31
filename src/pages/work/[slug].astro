@@ -2,6 +2,7 @@
 // Campaign case-study template: brief → idea → execution across channels → results → next.
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { Image } from 'astro:assets';
 import Placeholder from '../../components/Placeholder.astro';
 
 export async function getStaticPaths() {
@@ -17,12 +18,16 @@ const d = project.data;
     <header class="grid p-head" data-reveal>
       <a href="/#work" class="label back"><span aria-hidden="true">←</span> All work</a>
       <div class="content">
-        <p class="meta">{d.client}</p>
+        <p class="meta">{d.client}{d.product && ` · ${d.product}`}</p>
         <h1 class="p-title">{d.title}</h1>
       </div>
     </header>
 
-    <div class="grid"><div class="full" data-reveal><Placeholder label="Hero film or key visual" ratio="16 / 9" /></div></div>
+    <div class="grid"><div class="full hero" data-reveal>
+      {d.cover
+        ? <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[800, 1400, 2000]} sizes="(min-width: 1440px) 1376px, 100vw" loading="eager" fetchpriority="high" />
+        : <Placeholder label="Hero film or key visual" ratio="16 / 9" />}
+    </div></div>
 
     <dl class="grid facts" data-reveal>
       <div><dt class="meta">Client</dt><dd>{d.client}</dd></div>
@@ -43,13 +48,29 @@ const d = project.data;
 
     <section class="section" aria-labelledby="exec-h">
       <div class="grid"><h2 id="exec-h" class="label">Execution</h2><p class="content meta">How it ran across {d.channels.length} channels</p></div>
-      <div class="grid gallery">
-        <div class="g-wide" data-reveal><Placeholder label="OOH / billboard" ratio="16 / 9" /></div>
-        <div class="g-half" data-reveal><Placeholder label="Social post" ratio="4 / 5" /></div>
-        <div class="g-half" data-reveal><Placeholder label="Social post" ratio="4 / 5" /></div>
-        <div class="g-third" data-reveal><Placeholder label="Story / reel" ratio="9 / 16" /></div>
-        <div class="g-two-thirds" data-reveal><Placeholder label="Film still or experiential" ratio="4 / 3" /></div>
-      </div>
+      {d.gallery.length > 0 ? (
+        <div class="blocks">
+          {d.gallery.map((b) => b.type === 'split' ? (
+            <div class:list={['grid', 'split', b.imageSide === 'left' && 'img-left']} data-reveal>
+              <div class="split-text"><p>{b.text}</p></div>
+              <div class="split-media"><Image src={b.image} alt={b.alt} widths={[600, 1000, 1400]} sizes="(min-width: 800px) 50vw, 100vw" /></div>
+            </div>
+          ) : (
+            <figure class:list={['grid', 'img-block', b.size]} data-reveal>
+              <div class="img-wrap"><Image src={b.image} alt={b.alt} widths={[800, 1400, 2000]} sizes={b.size === 'half' ? '(min-width: 800px) 50vw, 100vw' : '100vw'} /></div>
+              {b.caption && <figcaption class="meta">{b.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      ) : (
+        <div class="grid gallery">
+          <div class="g-wide" data-reveal><Placeholder label="OOH / billboard" ratio="16 / 9" /></div>
+          <div class="g-half" data-reveal><Placeholder label="Social post" ratio="4 / 5" /></div>
+          <div class="g-half" data-reveal><Placeholder label="Social post" ratio="4 / 5" /></div>
+          <div class="g-third" data-reveal><Placeholder label="Story / reel" ratio="9 / 16" /></div>
+          <div class="g-two-thirds" data-reveal><Placeholder label="Film still or experiential" ratio="4 / 3" /></div>
+        </div>
+      )}
     </section>
 
     {d.results.length > 0 && (
@@ -67,7 +88,11 @@ const d = project.data;
     <a class="content next-link" href={`/work/${next.id}/`}>
       <span class="meta">{next.data.client}</span>
       <span class="next-title">{next.data.title} <span class="arrow" aria-hidden="true">↗</span></span>
-      <Placeholder label={`${next.data.client} — key visual`} ratio="16 / 7" class="next-ph" />
+      <div class="next-media">
+        {next.data.cover
+          ? <Image src={next.data.cover} alt="" widths={[800, 1400]} sizes="(min-width: 800px) 50vw, 100vw" />
+          : <Placeholder label={`${next.data.client} — key visual`} ratio="16 / 7" />}
+      </div>
     </a>
   </nav>
 </Base>
@@ -100,6 +125,30 @@ const d = project.data;
   .next { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: var(--section); }
   .next-link { display: grid; gap: 0.4rem; }
   .next-title { font-size: var(--step-2); }
-  .next-link :global(.next-ph) { margin-top: 1rem; transition: transform 900ms var(--ease-out); }
-  @media (hover: hover) { .next-link:hover :global(.next-ph) { transform: scale(0.985); } }
+  .next-media { margin-top: 1rem; border-radius: var(--radius); overflow: hidden; aspect-ratio: 16 / 7; }
+  .next-media :global(img), .next-media :global(.ph) { width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-out); }
+  @media (hover: hover) { .next-link:hover .next-media :global(img), .next-link:hover .next-media :global(.ph) { transform: scale(1.03); } }
+
+  /* Real images */
+  .hero :global(img), .img-wrap :global(img), .split-media :global(img) { width: 100%; height: auto; border-radius: var(--radius); }
+  .blocks { display: grid; gap: var(--gutter); margin-top: 2rem; }
+  .img-block .img-wrap, .img-block figcaption { grid-column: 1 / -1; }
+  .img-block.half .img-wrap { grid-column: span 6; }
+  .img-block figcaption { margin-top: 0.6rem; }
+
+  /* Split block: live text on a raised panel beside the image (replaces text baked into boards) */
+  .split { align-items: stretch; }
+  .split-text {
+    grid-column: 1 / span 6; display: flex; align-items: flex-end;
+    background: var(--bg-raised); border-radius: var(--radius);
+    padding: clamp(1.5rem, 1rem + 3vw, 4rem);
+  }
+  .split-text p { font-size: var(--step-1); line-height: 1.55; max-width: 38ch; }
+  .split-media { grid-column: 7 / -1; }
+  .split.img-left .split-media { grid-column: 1 / span 6; grid-row: 1; }
+  .split.img-left .split-text { grid-column: 7 / -1; grid-row: 1; }
+  @media (max-width: 800px) {
+    .split-text, .split-media, .split.img-left .split-text, .split.img-left .split-media, .img-block.half .img-wrap { grid-column: 1 / -1; grid-row: auto; }
+    .split-media { order: -1; }
+  }
 </style>
