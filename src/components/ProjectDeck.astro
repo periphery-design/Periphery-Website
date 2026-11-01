@@ -12,14 +12,20 @@ const { projects } = Astro.props;
   {projects.map((p, i) => (
     <li class="card" style={`--i: ${i}`}>
       <a href={`/work/${p.id}/`} class="card-link grid">
+        <!-- Image is decorative here: the link is named by the title below. Full alt text is on the project page. -->
         <div class="card-media">
           {p.data.cover
-            ? <Image src={p.data.cover} alt={p.data.coverAlt ?? ''} widths={[600, 1000, 1400]} sizes="(min-width: 800px) 50vw, 100vw" />
+            ? <Image src={p.data.cover} alt="" widths={[600, 1000, 1400]} sizes="(min-width: 800px) 50vw, 100vw" />
             : <Placeholder label={`${p.data.client} — key visual`} ratio="16 / 11" />}
         </div>
         <div class="card-text">
           <div class="card-head">
-            <h3 class="card-title">{p.data.title}</h3>
+            <!-- Rolling title (after Spiegel): two stacked copies in a one-line window; on hover the
+                 first slides up and out while the second slides up into place. -->
+            <h3 class="card-title roll">
+              <span class="roll-a">{p.data.title}</span>
+              <span class="roll-b" aria-hidden="true">{p.data.title}</span>
+            </h3>
             <span class="arrow" aria-hidden="true">↗</span>
           </div>
           <p class="meta">{p.data.client} · {p.data.year} · {p.data.sector}</p>
@@ -47,12 +53,18 @@ const { projects } = Astro.props;
   .card-title { font-size: var(--step-1); font-weight: var(--weight-sub); }
   .card-summary { margin-top: auto; max-width: 52ch; color: var(--fg-muted); }
 
-  /* Hover: slow image push-in, arrow nudge, title underline (minimal, after Collins) */
-  .card-title {
-    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
-    transition: background-size var(--dur-med) var(--ease-out);
+  /* Hover: rolling title (after Spiegel), slow image push-in, arrow nudge */
+  .roll {
+    --roll-ease: cubic-bezier(0.76, 0, 0.24, 1);
+    --roll-dur: 550ms;
+    display: grid; overflow: hidden;
+    /* A little room so descenders (g, y) aren't clipped by the window */
+    padding-block: 0.08em 0.14em; margin-block: -0.08em -0.14em;
   }
-  .card-link:hover .card-title, .card-link:focus-visible .card-title { background-size: 100% 1px; }
+  .roll > span { grid-area: 1 / 1; transition: transform var(--roll-dur) var(--roll-ease); }
+  .roll-b { transform: translateY(115%); }
+  .card-link:hover .roll-a, .card-link:focus-visible .roll-a { transform: translateY(-115%); }
+  .card-link:hover .roll-b, .card-link:focus-visible .roll-b { transform: none; }
   @media (hover: hover) {
     .card-link:hover .card-media :global(img), .card-link:hover .card-media :global(.ph) { transform: scale(1.03); }
   }
