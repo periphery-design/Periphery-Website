@@ -45,6 +45,8 @@ Host, domain, colour palette, logo — see the running decision log in `docs/dec
 Don't run more than one design-direction skill on the same request. If two seem to apply, ask.
 
 ## Working rules
+- Styling order: refine the home page first, then roll the agreed styles out globally. Type sizes and
+  leading live in tokens (`--step-*`, `--leading-sub`, `--leading-body`) so global changes happen in one place.
 - Accessibility: respect `prefers-reduced-motion`; hover-only interactions need a keyboard/touch equivalent.
 - Every hover effect needs a sensible mobile (touch) behaviour.
 - Commit to `main` only when the owner says so; otherwise use a branch.
