@@ -15,6 +15,7 @@ const projects = defineCollection({
         alt: z.string(),
         size: z.enum(['full', 'half']).default('full'),
         caption: z.string().optional(),
+        bg: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),  // panel colour behind the image (e.g. a transparent PNG/WebP)
       }),
       z.object({
         type: z.literal('split'),
@@ -51,6 +52,31 @@ const projects = defineCollection({
         }),
         smallTop: z.object({ image: image(), alt: z.string() }),
         smallBottom: z.object({ image: image(), alt: z.string() }),
+      }),
+      // principles: a row of short titled points (3 across on desktop, stacked on phones)
+      z.object({
+        type: z.literal('principles'),
+        items: z.array(z.object({ title: z.string(), text: z.string() })).min(1).max(4),
+      }),
+      // swatches: brand colours built in code, with their print and screen values
+      z.object({
+        type: z.literal('swatches'),
+        colours: z.array(z.object({
+          name: z.string(),
+          hex: z.string().regex(/^#[0-9a-fA-F]{6}$/),
+          pms: z.string().optional(),
+          cmyk: z.string().optional(),
+          rgb: z.string().optional(),
+        })).min(1).max(4),
+      }),
+      // trio: one main image (8 columns) beside two stacked images (4 columns). The pair sets the height;
+      // the main image is centred on a panel of colour `bg`, so flat-background cards line up seamlessly.
+      z.object({
+        type: z.literal('trio'),
+        main: z.object({ image: image(), alt: z.string() }),
+        top: z.object({ image: image(), alt: z.string() }),
+        bottom: z.object({ image: image(), alt: z.string() }),
+        bg: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
       }),
     ]);
 
