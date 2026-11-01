@@ -11,16 +11,14 @@ role: "Strategy, concept, art direction, design"  # DRAFT: confirm role
 channels: ["Out of home", "Events", "Social", "Web", "Print literature"]
 summary: "A campaign built the same way the technology works: two visual languages, scientific and human, layered into one system."  # DRAFT: condensed from the overview
 order: 1
-# TODO: swap the cover to the MULTIOMICS title card (Multomics_Project-14-01) once the file is uploaded,
-# then add billboard.jpg back as the first gallery image.
-cover: "../../assets/projects/biotechne-multiomics/billboard.jpg"
+cover: "../../assets/projects/biotechne-multiomics/multiomics-cover.jpg"
 theme: dark         # the work is shot on black: this page always displays dark
 accent: "#7a1fd6"   # campaign purple, brightened so the thin carousel bars read over dark images
 carousel:           # homepage card slideshow, in order
+  - "../../assets/projects/biotechne-multiomics/multiomics-cover.jpg"
   - "../../assets/projects/biotechne-multiomics/billboard.jpg"
   - "../../assets/projects/biotechne-multiomics/stage-screen.jpg"
-  - "../../assets/projects/biotechne-multiomics/mobile-site.jpg"
-coverAlt: "Wide digital billboard in a dim corridor: a close-up of a scientist in safety glasses, fluorescent cell imagery reflected in the lenses, with the line “See Everything. On one slide.” A woman walks past in silhouette."
+coverAlt: "Title card on black: the Bio-Techne Spatial logo, the line “See more with RNAscope” and the word MULTIOMICS in large silver capitals, above a fan of six glass slides, each glowing with a different fluorescent layer."
 
 overview:
   - "Spatial biology is a category where every brand is producing the same stunning fluorescence imagery. The science is extraordinary. The creative has become invisible."
@@ -35,6 +33,10 @@ insight:
     - "The creative opportunity was not to make better versions of the same imagery. It was to build a system around a truth the category had overlooked entirely. The product collapses multiple modalities into one picture. The campaign should do the same."
 
 gallery:
+  - type: image
+    image: "../../assets/projects/biotechne-multiomics/billboard.jpg"
+    alt: "Wide digital billboard in a dim corridor: a close-up of a scientist in safety glasses, fluorescent cell imagery reflected in the lenses, with the line “See Everything. On one slide.” A woman walks past in silhouette."
+  # bento-tall.jpg (the vertical slide stack) is saved and waits for the other three bento tiles.
   # TODO: "The glass slide system" split goes here once its image is uploaded:
   #   heading: The glass slide system
   #   text: Each slide carries one layer of the multiomic story. RNA alone. Protein alone. Morphology alone.
