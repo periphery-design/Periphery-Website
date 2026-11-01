@@ -43,16 +43,8 @@ gallery:
       alt: "Six glass slides stacked in mid-air on black, each glowing with one fluorescent layer: blue and magenta cells, yellow, white, orange, magenta and red."
     tall:
       image: "../../assets/projects/biotechne-multiomics/bento-tall.jpg"
-      # PROTOTYPE animation: six strips cut from the tall image (canvas 2000px tall). Swap for the
-      # owner's individual slide PNGs when exported (same fields: top/height in canvas px).
-      canvas: 2000
-      layers:
-        - { image: "../../assets/projects/biotechne-multiomics/stack/slide-1.jpg", top: 105, height: 400 }
-        - { image: "../../assets/projects/biotechne-multiomics/stack/slide-2.jpg", top: 505, height: 306 }
-        - { image: "../../assets/projects/biotechne-multiomics/stack/slide-3.jpg", top: 811, height: 184 }
-        - { image: "../../assets/projects/biotechne-multiomics/stack/slide-4.jpg", top: 995, height: 190 }
-        - { image: "../../assets/projects/biotechne-multiomics/stack/slide-5.jpg", top: 1185, height: 305 }
-        - { image: "../../assets/projects/biotechne-multiomics/stack/slide-6.jpg", top: 1490, height: 405 }
+      # Slide-stack animation is switched off for now. To turn it back on, restore canvas + layers
+      # (see git history, commit 'Prototype: animated glass slide stack'); cuts live in stack/.
       alt: "The same six fluorescent slide layers seen face-on in a tall vertical column."
     smallTop:
       image: "../../assets/projects/biotechne-multiomics/bento-small-top.jpg"

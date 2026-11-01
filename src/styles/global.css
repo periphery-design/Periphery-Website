@@ -33,6 +33,7 @@
   /* Space */
   --gutter: clamp(1rem, 0.6rem + 1.6vw, 2rem);
   --section: clamp(5rem, 3rem + 8vw, 10rem);
+  --flow: clamp(1.75rem, 1.25rem + 1.2vw, 2.5rem);  /* one gap for case-study rhythm: text ↔ image, image ↔ image */
   --header-h: 3.5rem;
 
   /* Shape */
