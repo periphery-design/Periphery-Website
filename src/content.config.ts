@@ -42,7 +42,13 @@ const projects = defineCollection({
         heading: z.string().optional(),
         text: z.string().optional(),
         large: z.object({ image: image(), alt: z.string() }),
-        tall: z.object({ image: image(), alt: z.string() }),
+        tall: z.object({
+          image: image(), alt: z.string(),
+          // Optional animated version: each slide as its own layer, positioned in the tall image's
+          // pixel space (canvas height). Slides start tucked under the first and expand downward.
+          layers: z.array(z.object({ image: image(), top: z.number(), height: z.number() })).optional(),
+          canvas: z.number().optional(),
+        }),
         smallTop: z.object({ image: image(), alt: z.string() }),
         smallBottom: z.object({ image: image(), alt: z.string() }),
       }),

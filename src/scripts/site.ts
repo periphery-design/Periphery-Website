@@ -71,3 +71,13 @@ document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((el) => {
   document.addEventListener('visibilitychange', sync);
   show(0);
 });
+
+/* ---------- Animated slide stacks: open when 40% visible, close again once fully out of view so it can replay ---------- */
+document.querySelectorAll<HTMLElement>('[data-stack]').forEach((el) => {
+  new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.intersectionRatio >= 0.4) el.classList.add('is-open');
+      else if (!e.isIntersecting) el.classList.remove('is-open');
+    }
+  }, { threshold: [0, 0.4] }).observe(el);
+});

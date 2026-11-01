@@ -93,7 +93,19 @@ const d = project.data;
               <div class="grid" data-reveal>
                 <div class="bento">
                   <div class="tile t-large"><Image src={b.large.image} alt={b.large.alt} widths={[600, 1000, 1400, 1800]} sizes="(min-width: 1000px) 48vw, 100vw" /></div>
-                  <div class="tile t-tall"><Image src={b.tall.image} alt={b.tall.alt} widths={[400, 700, 900]} sizes="(min-width: 1000px) 24vw, 50vw" /></div>
+                  {b.tall.layers && b.tall.canvas ? (
+                    /* Animated stack: the static image stays for phones / reduced motion / no-JS; the layers sit over it.
+                       --top / --h place each slide (as % of the canvas); --off is how far it travels from the first slide. */
+                    <div class="tile t-tall stack" data-stack role="img" aria-label={b.tall.alt}>
+                      <Image class="stack-still" src={b.tall.image} alt="" widths={[400, 700, 900]} sizes="(min-width: 1000px) 24vw, 50vw" />
+                      {b.tall.layers.map((l, i, all) => (
+                        <Image class={i === 0 ? 'layer layer-first' : 'layer'} src={l.image} alt="" widths={[400, 833]} sizes="(min-width: 1000px) 24vw, 50vw"
+                          style={`--i:${i}; --z:${all.length - i}; --top:${(l.top / b.tall.canvas!) * 100}; --h:${(l.height / b.tall.canvas!) * 100}; --off:${((l.top - all[0].top) / b.tall.canvas!) * 100}`} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div class="tile t-tall"><Image src={b.tall.image} alt={b.tall.alt} widths={[400, 700, 900]} sizes="(min-width: 1000px) 24vw, 50vw" /></div>
+                  )}
                   <div class="tile t-top"><Image src={b.smallTop.image} alt={b.smallTop.alt} widths={[400, 700, 900]} sizes="(min-width: 1000px) 24vw, 50vw" /></div>
                   <div class="tile t-bottom"><Image src={b.smallBottom.image} alt={b.smallBottom.alt} widths={[400, 700, 900]} sizes="(min-width: 1000px) 24vw, 50vw" /></div>
                 </div>
@@ -230,6 +242,29 @@ const d = project.data;
   .t-tall { grid-row: 1 / 3; grid-column: 2; }
   .t-top { grid-column: 3; grid-row: 1; }
   .t-bottom { grid-column: 3; grid-row: 2; }
+  /* ---------- Animated slide stack (prototype) ----------
+     The tile is a size container, so 1cqh = 1% of its height and every layer can be placed and moved
+     in the image's own coordinates. Collapsed: every slide sits at the first slide's position, under it.
+     .is-open: each slide travels down to its place in turn and fades up. */
+  .stack { container-type: size; background: #070707; }
+  .stack :global(.layer) {
+    position: absolute; left: 0; width: 100%; inset-block: auto; object-fit: fill;
+    top: calc(var(--top) * 1%); height: calc(var(--h) * 1%); z-index: var(--z);
+    transform: translateY(calc(var(--off) * -1cqh)); opacity: 0;
+    transition: transform 1100ms cubic-bezier(0.22, 1, 0.36, 1), opacity 700ms ease-out;
+    transition-delay: calc(var(--i) * 140ms);
+  }
+  .stack :global(.layer-first) { opacity: 1; }
+  .stack:global(.is-open) :global(.layer) { transform: none; opacity: 1; }
+  .stack :global(.stack-still) { opacity: 0; }          /* hidden while the layers are in charge */
+  /* No JS, reduced motion, or phones (where the tile is cropped): show the finished still image */
+  :global(html:not(.js)) .stack :global(.layer) { display: none; }
+  :global(html:not(.js)) .stack :global(.stack-still) { opacity: 1; }
+  @media (prefers-reduced-motion: reduce), (max-width: 600px) {
+    .stack :global(.layer) { display: none; }
+    .stack :global(.stack-still) { opacity: 1; }
+  }
+
   /* Tablet: large tile full width, then tall beside the stacked pair */
   @media (max-width: 1000px) {
     .bento { grid-template-columns: 1fr 1fr; grid-template-rows: auto 3fr 2fr; }
