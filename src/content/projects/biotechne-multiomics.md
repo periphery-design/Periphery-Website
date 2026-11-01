@@ -14,6 +14,7 @@ order: 1
 # TODO: swap the cover to the MULTIOMICS title card (Multomics_Project-14-01) once the file is uploaded,
 # then add billboard.jpg back as the first gallery image.
 cover: "../../assets/projects/biotechne-multiomics/billboard.jpg"
+theme: dark         # the work is shot on black: this page always displays dark
 accent: "#7a1fd6"   # campaign purple, brightened so the thin carousel bars read over dark images
 carousel:           # homepage card slideshow, in order
   - "../../assets/projects/biotechne-multiomics/billboard.jpg"

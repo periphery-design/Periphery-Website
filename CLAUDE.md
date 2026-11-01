@@ -27,6 +27,8 @@ Take patterns and principles from these, never copy their code, copy, or assets.
   Bold = subheadings, Regular = nav and copy. Use the `--weight-headline/sub/body` tokens, never raw numbers.
 - **Project accent colour:** each project can set `accent` (hex) in its content file; used for the
   homepage card carousel bars (Bio-Techne = #7a1fd6). `carousel` lists up to 3 images for that card.
+- **Per-project theme lock:** `theme: dark` in a project file forces that page dark and hides the toggle
+  (visitor's saved choice untouched). Bio-Techne is locked dark because the work is shot on black.
 - **Stack/editing:** Astro in this repo, hosted free on Vercel or Netlify; the owner asks Claude to make updates.
 
 ### Open decisions (ask the owner, don't assume)

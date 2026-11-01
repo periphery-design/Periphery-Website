@@ -43,6 +43,7 @@ const projects = defineCollection({
       order: z.number(),            // position on the homepage
       cover: image().optional(),    // homepage card + project hero
       coverAlt: z.string().optional(),
+      theme: z.enum(['dark', 'light']).optional(),  // lock the project page to one theme (toggle hidden there)
       accent: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),  // project colour, e.g. the carousel bars
       carousel: z.array(image()).max(3).default([]),             // homepage card slideshow (up to 3; cover is used if empty)
       overview: z.array(z.string()).default([]),   // opening paragraphs under the hero

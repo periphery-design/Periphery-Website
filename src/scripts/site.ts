@@ -31,7 +31,7 @@ toggle?.addEventListener('click', () => {
 });
 // Follow device changes until the visitor makes an explicit choice.
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-  if (store.get('theme')) return;
+  if (store.get('theme') || root.dataset.forceTheme) return;
   root.dataset.theme = e.matches ? 'dark' : 'light';
   syncToggle();
 });

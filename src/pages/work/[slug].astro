@@ -13,7 +13,7 @@ interface Props { project: CollectionEntry<'projects'>; next: CollectionEntry<'p
 const { project, next } = Astro.props;
 const d = project.data;
 ---
-<Base title={`${d.client}: ${d.title}`} description={d.summary}>
+<Base title={`${d.client}: ${d.title}`} description={d.summary} forceTheme={d.theme}>
   <article>
     <header class="grid p-head" data-reveal>
       <a href="/#work" class="label back"><span aria-hidden="true">←</span> All work</a>

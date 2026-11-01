@@ -1,5 +1,6 @@
 ---
 const path = Astro.url.pathname;
+const { themeLocked = false } = Astro.props as { themeLocked?: boolean };
 const links = [
   { href: '/work/', label: 'Work' },
   { href: '/about', label: 'About' },
@@ -18,11 +19,11 @@ const links = [
         <li><a href={l.href} aria-current={path.startsWith(l.href.replace(/\/$/, '')) ? 'page' : undefined}>{l.label}</a></li>
       ))}
     </ul>
-    <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false">
+    {!themeLocked && <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false">
       <span class="visually-hidden">Dark mode</span>
       <span class="toggle-track" aria-hidden="true"><span class="toggle-dot"></span></span>
       <span data-theme-label aria-hidden="true">Light</span>
-    </button>
+    </button>}
   </nav>
 </header>
 

@@ -4,18 +4,18 @@ import syneUrl from '../assets/fonts/syne-variable.woff2?url';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-interface Props { title?: string; description?: string; }
-const { title, description = 'Periphery Design — campaigns and ideas for brands.' } = Astro.props;
+interface Props { title?: string; description?: string; forceTheme?: 'dark' | 'light'; }
+const { title, description = 'Periphery Design — campaigns and ideas for brands.', forceTheme } = Astro.props;
 const fullTitle = title ? `${title} — Periphery Design` : 'Periphery Design';
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-force-theme={forceTheme}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content={forceTheme ?? 'light dark'} />
     <link rel="preload" href={syneUrl} as="font" type="font/woff2" crossorigin />
     <!-- Theme before first paint: saved choice > device preference > light. -->
     <script is:inline>
@@ -23,14 +23,16 @@ const fullTitle = title ? `${title} — Periphery Design` : 'Periphery Design';
         let saved = null;
         try { saved = localStorage.getItem('theme'); } catch (e) {}
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = saved || (prefersDark ? 'dark' : 'light');
+        // A page can lock its theme (e.g. a project shot on black). The visitor's saved choice is untouched.
+        const forced = document.documentElement.dataset.forceTheme;
+        document.documentElement.dataset.theme = forced || saved || (prefersDark ? 'dark' : 'light');
         document.documentElement.classList.add('js');
       })();
     </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <Header />
+    <Header themeLocked={!!forceTheme} />
     <main id="main">
       <slot />
     </main>
