@@ -29,6 +29,12 @@ const projects = defineCollection({
         type: z.literal('grid'),
         images: z.array(z.object({ image: image(), alt: z.string() })),
       }),
+      // text: a text band on its own, placed anywhere in the image sequence (label on the left)
+      z.object({
+        type: z.literal('text'),
+        heading: z.string().optional(),
+        paragraphs: z.array(z.string()),
+      }),
       // bento: four tiles — large (5:6), tall (5:12), and two stacked small (5:7 over 15:14) — with an
       // optional text band above. Rearranges for tablet and phone.
       z.object({

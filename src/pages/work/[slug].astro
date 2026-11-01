@@ -37,9 +37,11 @@ const d = project.data;
     </dl>
 
     {d.overview.length > 0 && (
-      <section class="section grid" data-reveal>
-        <h2 class="label">Overview</h2>
-        <div class="content prose lead">{d.overview.map((t) => <p>{t}</p>)}</div>
+      <section class="section" aria-labelledby="ov-h">
+        <div class="grid band band-first" data-reveal>
+          <h2 id="ov-h" class="band-h label">Overview</h2>
+          <div class="band-text prose">{d.overview.map((t) => <p>{t}</p>)}</div>
+        </div>
       </section>
     )}
 
@@ -68,7 +70,9 @@ const d = project.data;
     )}
 
     <section class="section" aria-labelledby="exec-h">
-      <div class="grid"><h2 id="exec-h" class="label">Execution</h2><p class="content meta">How it ran across {d.channels.length} channels</p></div>
+      {d.gallery.length === 0
+        ? <div class="grid"><h2 id="exec-h" class="label">Execution</h2><p class="content meta">How it ran across {d.channels.length} channels</p></div>
+        : <h2 id="exec-h" class="visually-hidden">The work</h2>}
       {d.gallery.length > 0 ? (
         <div class="blocks">
           {d.gallery.map((b) => b.type === 'split' ? (
@@ -78,6 +82,11 @@ const d = project.data;
                 <p class="band-text">{b.text}</p>
               </div>
               <div class="grid" data-reveal><div class="frame"><Image src={b.image} alt={b.alt} widths={[800, 1400, 2000, 2800, 3200]} sizes="96vw" /></div></div>
+            </div>
+          ) : b.type === 'text' ? (
+            <div class="grid band" data-reveal>
+              {b.heading ? <h2 class="band-h label">{b.heading}</h2> : <span class="band-h" aria-hidden="true"></span>}
+              <div class="band-text prose">{b.paragraphs.map((t) => <p>{t}</p>)}</div>
             </div>
           ) : b.type === 'bento' ? (
             <div class="story">
@@ -198,7 +207,7 @@ const d = project.data;
   .band-h { grid-column: 1 / span 5; font-size: var(--step-1); font-weight: var(--weight-sub); line-height: var(--leading-sub); }
   .band-h.label { font-size: var(--step--1); font-weight: var(--weight-body); }
   .band-text { grid-column: 6 / -1; font-size: var(--step-1); line-height: var(--leading-body); max-width: 62ch; }
-  .insight .band { padding-top: 0; }
+  .insight .band, .band-first { padding-top: 0; }
   .band-text.prose { max-width: 62ch; }
   @media (max-width: 800px) { .band-h, .band-text { grid-column: 1 / -1; } }
   .img-block .img-wrap, .img-block figcaption { grid-column: 1 / -1; }
