@@ -5,7 +5,7 @@
 title: "See more with RNAscope."   # from the cover line; was "See everything. On one slide."
 client: "Bio-Techne Spatial"
 product: "RNAscope Multiomic LS"
-year: "TBC"  # DRAFT: confirm the year
+year: 2025
 sector: "Life sciences"
 role: "Strategy, concept, art direction, design"  # DRAFT: confirm role
 channels: ["Out of home", "Events", "Social", "Web", "Print literature"]
@@ -87,6 +87,10 @@ gallery:
     alt: "Grid of printed brochures on a purple surface, each with a researcher portrait and fluorescent imagery, titled “The Leader in RNA in situ Hybridization”, “Uncover Functional Immune States in Cancer” and “The Whole Picture. The First Time. Multiomics LS Assay”."
     imageSide: left
     text: "Custom photography built from the science out. Each image pairs a researcher with the specific spatial data their work depends on, fluorescent tissue imagery that is not decorative but biologically specific. The result is a campaign where the human layer and the science layer are genuinely inseparable, in the photography, in the literature, and across every format the system touches."
+
+  - type: image
+    image: "../../assets/projects/biotechne-multiomics/brochure-open.jpg"
+    alt: "An open brochure on a dark surface: the left page, on black, shows fluorescent brain tissue and the headline “Integrating RNA and Protein Detection on COMET”; the right page lays out product details and a stained brain section."
 
 note: "This campaign was developed during a period of significant brand transition at Bio-Techne, where the consolidation of two acquired brands shifted the strategic direction before the work could launch. What you are seeing is the full campaign concept developed and executed independently, from brief to final mockups."
 results: []
