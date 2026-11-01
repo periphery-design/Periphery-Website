@@ -333,9 +333,8 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
     padding: clamp(1rem, 0.7rem + 1vw, 1.5rem); display: flex; flex-direction: column; justify-content: space-between;
   }
   .sw-name { font-size: calc(var(--step-1) * 0.8); font-weight: var(--weight-sub); line-height: var(--leading-sub); }
-  .sw-values { display: grid; gap: 0.15rem; font-size: var(--step--1); font-variant-numeric: tabular-nums; }
+  .sw-values { display: grid; gap: 0.15rem; font-size: var(--step--1); }
   .sw-values div { display: grid; grid-template-columns: 3.5em 1fr; }
-  .sw-values dt { opacity: 0.7; }
   @media (max-width: 800px) { .swatch { grid-column: 1 / -1; aspect-ratio: auto; min-height: 9rem; gap: 2rem; } }
 
   /* Trio: main card (8 cols) beside a stacked pair (4 cols). The pair's natural heights set the row;
