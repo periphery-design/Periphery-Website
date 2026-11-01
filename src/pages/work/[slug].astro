@@ -155,7 +155,7 @@ const d = project.data;
 
   .next { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: var(--section); }
   .next-link { display: grid; gap: 0.4rem; }
-  .next-title { font-size: var(--step-2); }
+  .next-title { font-size: var(--step-2); font-weight: var(--weight-sub); line-height: var(--leading-sub); }
   .next-media { margin-top: 1rem; border-radius: var(--radius); overflow: hidden; aspect-ratio: 16 / 7; }
   .next-media :global(img), .next-media :global(.ph) { width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-out); }
   @media (hover: hover) { .next-link:hover .next-media :global(img), .next-link:hover .next-media :global(.ph) { transform: scale(1.03); } }
@@ -169,16 +169,16 @@ const d = project.data;
 
   /* Overview + insight */
   .prose { display: grid; gap: 1.1em; max-width: 58ch; }
-  .lead { font-size: var(--step-1); line-height: 1.5; }
+  .lead { font-size: var(--step-1); line-height: var(--leading-body); }
   .insight { align-items: center; row-gap: 2rem; }
   .insight-text { grid-column: 1 / span 5; display: grid; gap: 1.5rem; align-content: center; }
-  .insight-text .prose { font-size: var(--step-1); line-height: 1.5; }
+  .insight-text .prose { font-size: var(--step-1); line-height: var(--leading-body); }
   .insight-media { grid-column: 6 / -1; }
   .insight-media :global(img) { width: 100%; height: auto; border-radius: var(--radius); }
   .img-grid { row-gap: var(--gutter); }
   .img-grid .img-wrap { grid-column: span 6; }
   .img-grid :global(img) { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 9; border-radius: var(--radius); }
-  .split-h { font-size: var(--step-1); font-weight: var(--weight-sub); margin-bottom: 1rem; }
+  .split-h { font-size: var(--step-1); font-weight: var(--weight-sub); line-height: var(--leading-sub); margin-bottom: 1rem; }
   .note { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: var(--section); }
   .note p { color: var(--fg-muted); max-width: 64ch; }
   @media (max-width: 800px) {
@@ -192,7 +192,7 @@ const d = project.data;
     background: var(--bg-raised); border-radius: var(--radius);
     padding: clamp(1.5rem, 1rem + 3vw, 4rem);
   }
-  .split-text p { font-size: var(--step-1); line-height: 1.55; max-width: 38ch; }
+  .split-text p { font-size: var(--step-1); line-height: var(--leading-body); max-width: 38ch; }
   .split-media { grid-column: 7 / -1; }
   .split.img-left .split-media { grid-column: 1 / span 6; grid-row: 1; }
   .split.img-left .split-text { grid-column: 7 / -1; grid-row: 1; }

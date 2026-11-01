@@ -59,11 +59,11 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
   .hero-inner { display: grid; justify-items: center; gap: clamp(1.25rem, 1rem + 1vw, 2rem); }
   .hero-h {
     font-family: var(--font-display);
-    font-size: clamp(2.1rem, 0.9rem + 6.6vw, 7.5rem);
+    font-size: clamp(1.05rem, 0.45rem + 3.3vw, 3.75rem); /* 50% of the previous size, while the home page is refined */
     line-height: 1; letter-spacing: -0.03em; font-weight: var(--weight-headline);
     max-width: 14ch;
   }
-  .hero-sub { font-size: var(--step-1); font-weight: var(--weight-sub); color: var(--fg-muted); max-width: 40ch; line-height: 1.45; }
+  .hero-sub { font-size: clamp(0.5625rem, 0.525rem + 0.2vw, 0.6875rem); /* 50% of --step-1 */ font-weight: var(--weight-sub); color: var(--fg-muted); max-width: 40ch; line-height: var(--leading-sub); }
 
   /* Entrance: words rise in one after another, then the subheading */
   .w { display: inline-block; margin-inline: 0.12em; }
