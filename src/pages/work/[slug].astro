@@ -29,7 +29,7 @@ const d = project.data;
         <h1 id="p-title" class="p-title">{d.title}</h1>
         {d.overview.length > 0 && <div class="prose">{d.overview.map((t) => <p>{t}</p>)}</div>}
       </div>
-      {d.overview.length > 0 && <h2 class="band-h intro-h">Overview</h2>}
+      {d.overview.length > 0 && <h2 class="band-h intro-h">{d.overviewHeading ?? 'Overview'}</h2>}
     </section>
 
     <dl class="grid facts" data-reveal>
