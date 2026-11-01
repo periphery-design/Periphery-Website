@@ -15,19 +15,22 @@ const d = project.data;
 ---
 <Base title={`${d.client}: ${d.title}`} description={d.summary} forceTheme={d.theme}>
   <article>
-    <header class="grid p-head" data-reveal>
-      <a href="/#work" class="label back"><span aria-hidden="true">←</span> All work</a>
-      <div class="content">
-        <p class="meta">{d.client}{d.product && ` · ${d.product}`}</p>
-        <h1 class="p-title">{d.title}</h1>
-      </div>
-    </header>
-
-    <div class="grid"><div class="full hero" data-reveal>
+    <div class="grid hero-wrap"><div class="full hero" data-reveal>
       {d.cover
         ? <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[800, 1400, 2000, 2800, 3200]} sizes="96vw" loading="eager" fetchpriority="high" />
         : <Placeholder label="Hero film or key visual" ratio="16 / 9" />}
     </div></div>
+
+
+    <!-- Intro: project title in ExtraBold over the overview text. The "Overview" heading sits in the left
+         column but comes after the h1 in the source so the heading order stays h1 → h2. -->
+    <section class="grid band band-intro" aria-labelledby="p-title" data-reveal>
+      <div class="band-text">
+        <h1 id="p-title" class="p-title">{d.title}</h1>
+        {d.overview.length > 0 && <div class="prose">{d.overview.map((t) => <p>{t}</p>)}</div>}
+      </div>
+      {d.overview.length > 0 && <h2 class="band-h intro-h">Overview</h2>}
+    </section>
 
     <dl class="grid facts" data-reveal>
       <div><dt class="meta">Client</dt><dd>{d.client}</dd></div>
@@ -36,19 +39,10 @@ const d = project.data;
       <div><dt class="meta">Channels</dt><dd>{d.channels.join(', ')}</dd></div>
     </dl>
 
-    {d.overview.length > 0 && (
-      <section class="section" aria-labelledby="ov-h">
-        <div class="grid band band-first" data-reveal>
-          <h2 id="ov-h" class="band-h label">Overview</h2>
-          <div class="band-text prose">{d.overview.map((t) => <p>{t}</p>)}</div>
-        </div>
-      </section>
-    )}
-
     {d.insight && (
       <section class="section insight" aria-labelledby="ins-h">
         <div class="grid band" data-reveal>
-          <h2 id="ins-h" class="band-h label">The insight</h2>
+          <h2 id="ins-h" class="band-h">The insight</h2>
           <div class="band-text prose">{d.insight.paragraphs.map((t) => <p>{t}</p>)}</div>
         </div>
         {d.insight.image && <div class="grid" data-reveal><div class="frame"><Image src={d.insight.image} alt={d.insight.alt ?? ''} widths={[800, 1400, 2000, 2800, 3200]} sizes="96vw" /></div></div>}
@@ -69,7 +63,7 @@ const d = project.data;
       </section>
     )}
 
-    <section class="section" aria-labelledby="exec-h">
+    <section class:list={['section', d.gallery.length > 0 && 'work-sec']} aria-labelledby="exec-h">
       {d.gallery.length === 0
         ? <div class="grid"><h2 id="exec-h" class="label">Execution</h2><p class="content meta">How it ran across {d.channels.length} channels</p></div>
         : <h2 id="exec-h" class="visually-hidden">The work</h2>}
@@ -85,7 +79,7 @@ const d = project.data;
             </div>
           ) : b.type === 'text' ? (
             <div class="grid band" data-reveal>
-              {b.heading ? <h2 class="band-h label">{b.heading}</h2> : <span class="band-h" aria-hidden="true"></span>}
+              {b.heading ? <h2 class="band-h">{b.heading}</h2> : <span class="band-h" aria-hidden="true"></span>}
               <div class="band-text prose">{b.paragraphs.map((t) => <p>{t}</p>)}</div>
             </div>
           ) : b.type === 'bento' ? (
@@ -158,13 +152,14 @@ const d = project.data;
 </Base>
 
 <style>
-  .p-head { padding-block: clamp(2.5rem, 2rem + 4vw, 5rem) 2.5rem; align-items: start; }
-  .back { transition: color var(--dur-fast) var(--ease-out); }
-  .back:hover { color: var(--fg); }
-  .p-title { font-size: var(--step-3); font-weight: var(--weight-headline); margin-top: 0.5rem; max-width: 18ch; }
+  .hero-wrap { padding-top: clamp(0.75rem, 0.5rem + 0.8vw, 1.5rem); }
+  /* Intro band: ExtraBold title over the overview text, "Overview" heading in the left column */
+  .band-intro { padding-top: clamp(2rem, 1.5rem + 2vw, 3.5rem); }
+  .intro-h { grid-row: 1; }
+  .p-title { font-size: var(--step-3); font-weight: var(--weight-headline); line-height: 1.02; letter-spacing: -0.02em; margin-bottom: clamp(1rem, 0.75rem + 1vw, 1.75rem); }
   .full { grid-column: 1 / -1; }
 
-  .facts { margin-top: 2rem; row-gap: 1.5rem; }
+  .facts { margin-top: clamp(1rem, 0.75rem + 1vw, 2rem); row-gap: 1.5rem; }
   .facts > div { grid-column: span 3; border-top: 1px solid var(--line); padding-top: 0.75rem; }
   .facts dd { margin-top: 0.25rem; }
   @media (max-width: 800px) { .facts > div { grid-column: span 6; } }
@@ -200,12 +195,14 @@ const d = project.data;
   }
   .frame :global(img) { width: 100%; height: auto; max-height: 90svh; object-fit: contain; border-radius: 0; }
   .blocks { display: grid; gap: var(--gutter); margin-top: 2rem; }
+  /* Real projects: the story starts close under the facts row, matching the tighter text/image rhythm */
+  .work-sec { padding-top: clamp(1.5rem, 1rem + 1.5vw, 2.5rem); }
+  .work-sec .blocks { margin-top: 0; }
 
   /* Text band: the story text on its own between images. Heading on the left, text across ~60%
      (7 of 12 columns) on the right, so paragraphs run wide and short. */
-  .band { padding-block: clamp(2.5rem, 2rem + 3vw, 5rem); align-items: start; row-gap: 0.75rem; }
+  .band { padding-block: clamp(1.25rem, 1rem + 1.2vw, 2.25rem); align-items: start; row-gap: 0.75rem; }
   .band-h { grid-column: 1 / span 5; font-size: var(--step-1); font-weight: var(--weight-sub); line-height: var(--leading-sub); }
-  .band-h.label { font-size: var(--step--1); font-weight: var(--weight-body); }
   .band-text { grid-column: 6 / -1; font-size: var(--step-1); line-height: var(--leading-body); max-width: 62ch; }
   .insight .band, .band-first { padding-top: 0; }
   .band-text.prose { max-width: 62ch; }

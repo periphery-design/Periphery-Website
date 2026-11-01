@@ -2,7 +2,7 @@
 # Bio-Techne Spatial — RNAscope Multiomic LS campaign.
 # All body copy below is transcribed word for word from the owner's presentation boards.
 # Lines marked DRAFT still need the owner's check.
-title: "See everything. On one slide."
+title: "See more with RNAscope."   # from the cover line; was "See everything. On one slide."
 client: "Bio-Techne Spatial"
 product: "RNAscope Multiomic LS"
 year: "TBC"  # DRAFT: confirm the year
