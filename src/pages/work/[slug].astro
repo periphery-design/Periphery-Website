@@ -156,7 +156,7 @@ const d = project.data;
   /* Intro band: ExtraBold title over the overview text, "Overview" heading in the left column */
   .band-intro { padding-top: clamp(2rem, 1.5rem + 2vw, 3.5rem); }
   .intro-h { grid-row: 1; }
-  .p-title { font-size: var(--step-3); font-weight: var(--weight-headline); line-height: 1.02; letter-spacing: -0.02em; margin-bottom: clamp(1rem, 0.75rem + 1vw, 1.75rem); }
+  .p-title { font-size: calc(var(--step-3) * 0.8); font-weight: var(--weight-headline); line-height: 1.02; letter-spacing: -0.02em; margin-bottom: clamp(1rem, 0.75rem + 1vw, 1.75rem); }
   .full { grid-column: 1 / -1; }
 
   .facts { margin-top: clamp(1rem, 0.75rem + 1vw, 2rem); row-gap: 1.5rem; }
@@ -202,8 +202,9 @@ const d = project.data;
   /* Text band: the story text on its own between images. Heading on the left, text across ~60%
      (7 of 12 columns) on the right, so paragraphs run wide and short. */
   .band { padding-block: clamp(1.25rem, 1rem + 1.2vw, 2.25rem); align-items: start; row-gap: 0.75rem; }
-  .band-h { grid-column: 1 / span 5; font-size: var(--step-1); font-weight: var(--weight-sub); line-height: var(--leading-sub); }
-  .band-text { grid-column: 6 / -1; font-size: var(--step-1); line-height: var(--leading-body); max-width: 62ch; }
+  .band-h { grid-column: 1 / span 6; font-size: var(--step-1); font-weight: var(--weight-sub); line-height: var(--leading-sub); }
+  /* Copy starts at column 7, the same line as 'Role' in the facts row; 80% of the previous size */
+  .band-text { grid-column: 7 / -1; font-size: calc(var(--step-1) * 0.8); line-height: var(--leading-body); max-width: 62ch; }
   .insight .band, .band-first { padding-top: 0; }
   .band-text.prose { max-width: 62ch; }
   @media (max-width: 800px) { .band-h, .band-text { grid-column: 1 / -1; } }
