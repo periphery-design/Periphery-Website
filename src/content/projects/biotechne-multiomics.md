@@ -17,7 +17,7 @@ accent: "#7a1fd6"   # campaign purple, brightened so the thin carousel bars read
 carousel:           # homepage card slideshow, in order
   - "../../assets/projects/biotechne-multiomics/multiomics-cover.jpg"
   - "../../assets/projects/biotechne-multiomics/billboard.jpg"
-  - "../../assets/projects/biotechne-multiomics/stage-screen.jpg"
+  - "../../assets/projects/biotechne-multiomics/mobile-site.jpg"
 coverAlt: "Title card on black: the Bio-Techne Spatial logo, the line “See more with RNAscope” and the word MULTIOMICS in large silver capitals, above a fan of six glass slides, each glowing with a different fluorescent layer."
 
 # Overview and insight rewritten to stop them repeating each other (DRAFT, owner to approve).
