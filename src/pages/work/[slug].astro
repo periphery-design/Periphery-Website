@@ -49,7 +49,7 @@ const d = project.data;
           <h2 id="ins-h" class="band-h label">The insight</h2>
           <div class="band-text prose">{d.insight.paragraphs.map((t) => <p>{t}</p>)}</div>
         </div>
-        <div class="grid" data-reveal><div class="frame"><Image src={d.insight.image} alt={d.insight.alt} widths={[800, 1400, 2000, 2800, 3200]} sizes="96vw" /></div></div>
+        {d.insight.image && <div class="grid" data-reveal><div class="frame"><Image src={d.insight.image} alt={d.insight.alt ?? ''} widths={[800, 1400, 2000, 2800, 3200]} sizes="96vw" /></div></div>}
       </section>
     )}
 
@@ -78,6 +78,23 @@ const d = project.data;
                 <p class="band-text">{b.text}</p>
               </div>
               <div class="grid" data-reveal><div class="frame"><Image src={b.image} alt={b.alt} widths={[800, 1400, 2000, 2800, 3200]} sizes="96vw" /></div></div>
+            </div>
+          ) : b.type === 'bento' ? (
+            <div class="story">
+              {(b.heading || b.text) && (
+                <div class="grid band" data-reveal>
+                  {b.heading ? <h3 class="band-h">{b.heading}</h3> : <span class="band-h" aria-hidden="true"></span>}
+                  {b.text && <p class="band-text">{b.text}</p>}
+                </div>
+              )}
+              <div class="grid" data-reveal>
+                <div class="bento">
+                  <div class="tile t-large"><Image src={b.large.image} alt={b.large.alt} widths={[600, 1000, 1400, 1800]} sizes="(min-width: 1000px) 48vw, 100vw" /></div>
+                  <div class="tile t-tall"><Image src={b.tall.image} alt={b.tall.alt} widths={[400, 700, 900]} sizes="(min-width: 1000px) 24vw, 50vw" /></div>
+                  <div class="tile t-top"><Image src={b.smallTop.image} alt={b.smallTop.alt} widths={[400, 700, 900]} sizes="(min-width: 1000px) 24vw, 50vw" /></div>
+                  <div class="tile t-bottom"><Image src={b.smallBottom.image} alt={b.smallBottom.alt} widths={[400, 700, 900]} sizes="(min-width: 1000px) 24vw, 50vw" /></div>
+                </div>
+              </div>
             </div>
           ) : b.type === 'grid' ? (
             <div class="grid img-grid" data-reveal>
@@ -192,6 +209,37 @@ const d = project.data;
   .prose { display: grid; gap: 1.1em; max-width: 58ch; }
   .lead { font-size: var(--step-1); line-height: var(--leading-body); }
   .img-grid { row-gap: var(--gutter); }
+
+  /* Bento: large | tall | two stacked small. Tile shapes match the export sizes (5:6, 5:12, 5:7, 15:14).
+     Columns are weighted 2 : 1 : 1 and the large tile's 5:6 shape sets the height; the small tiles split it 3 : 2. */
+  .bento {
+    grid-column: 1 / -1; display: grid; gap: var(--gutter);
+    grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 3fr 2fr;
+  }
+  .tile { position: relative; overflow: hidden; border-radius: var(--radius); background: #000; }
+  /* Images are taken out of the flow so only the tile shapes decide the layout (edges line up exactly) */
+  .tile :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .t-large { grid-row: 1 / 3; aspect-ratio: 5 / 6; }
+  .t-tall { grid-row: 1 / 3; grid-column: 2; }
+  .t-top { grid-column: 3; grid-row: 1; }
+  .t-bottom { grid-column: 3; grid-row: 2; }
+  /* Tablet: large tile full width, then tall beside the stacked pair */
+  @media (max-width: 1000px) {
+    .bento { grid-template-columns: 1fr 1fr; grid-template-rows: auto 3fr 2fr; }
+    .t-large { grid-column: 1 / -1; grid-row: 1; aspect-ratio: 5 / 4; }
+    .t-tall { grid-column: 1; grid-row: 2 / 4; }
+    .t-top { grid-column: 2; grid-row: 2; aspect-ratio: 5 / 7; }
+    .t-bottom { grid-column: 2; grid-row: 3; aspect-ratio: 15 / 14; }
+  }
+  /* Phone: one tile per row; the tall tile is trimmed so it isn't several screens long */
+  @media (max-width: 600px) {
+    .bento { grid-template-columns: 1fr; grid-template-rows: none; }
+    .t-large, .t-tall, .t-top, .t-bottom { grid-column: 1; grid-row: auto; }
+    .t-large { aspect-ratio: 5 / 6; }
+    .t-tall { aspect-ratio: 4 / 5; }
+    .t-top { aspect-ratio: 5 / 7; }
+    .t-bottom { aspect-ratio: 15 / 14; }
+  }
   .img-grid .img-wrap { grid-column: span 6; }
   .img-grid :global(img) { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 9; border-radius: var(--radius); }
   .note { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: var(--section); }

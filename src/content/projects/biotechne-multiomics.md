@@ -25,9 +25,7 @@ overview:
   - "RNAscope Multiomic LS is the first assay to detect RNA and protein simultaneously in the same tissue section, collapsing a compromise researchers have worked around for years. For the first time, they can see everything. On one slide."
   - "The campaign is built the same way the technology works. Two visual languages, scientific and human, layered into a system that mirrors the product and stands apart from everything else in the category."
 
-insight:
-  image: "../../assets/projects/biotechne-multiomics/tissue-slide.jpg"
-  alt: "A single glass microscope slide tilted in darkness, glowing with blue, magenta, yellow and white fluorescent cells."
+insight:            # text only: the tilted slide now lives in the bento below
   paragraphs:
     - "Every spatial biology campaign in the market is built around the same visual language. Fluorescence imagery on a dark background. The science is real and it is stunning. But when every brand shows it, no brand owns it."
     - "The creative opportunity was not to make better versions of the same imagery. It was to build a system around a truth the category had overlooked entirely. The product collapses multiple modalities into one picture. The campaign should do the same."
@@ -36,12 +34,21 @@ gallery:
   - type: image
     image: "../../assets/projects/biotechne-multiomics/billboard.jpg"
     alt: "Wide digital billboard in a dim corridor: a close-up of a scientist in safety glasses, fluorescent cell imagery reflected in the lenses, with the line “See Everything. On one slide.” A woman walks past in silhouette."
-  # bento-tall.jpg (the vertical slide stack) is saved and waits for the other three bento tiles.
-  # TODO: "The glass slide system" split goes here once its image is uploaded:
-  #   heading: The glass slide system
-  #   text: Each slide carries one layer of the multiomic story. RNA alone. Protein alone. Morphology alone.
-  #         Three partial truths arranged beside one composite image that holds all of them simultaneously.
-  #         The layout communicates the value proposition before the headline does.
+  - type: bento
+    heading: "The glass slide system"
+    text: "Each slide carries one layer of the multiomic story. RNA alone. Protein alone. Morphology alone. Three partial truths arranged beside one composite image that holds all of them simultaneously. The layout communicates the value proposition before the headline does."
+    large:
+      image: "../../assets/projects/biotechne-multiomics/bento-large.jpg"
+      alt: "Six glass slides stacked in mid-air on black, each glowing with one fluorescent layer: blue and magenta cells, yellow, white, orange, magenta and red."
+    tall:
+      image: "../../assets/projects/biotechne-multiomics/bento-tall.jpg"
+      alt: "The same six fluorescent slide layers seen face-on in a tall vertical column."
+    smallTop:
+      image: "../../assets/projects/biotechne-multiomics/bento-small-top.jpg"
+      alt: "Close, angled view of the slide stack, the top slide crowded with blue, magenta, yellow and white cells."
+    smallBottom:
+      image: "../../assets/projects/biotechne-multiomics/bento-small-bottom.jpg"
+      alt: "A single glass slide balanced on its corner, glowing with blue and magenta fluorescent cells over a dark purple floor."
   - type: image
     image: "../../assets/projects/biotechne-multiomics/social-triptych.jpg"
     alt: "Three Instagram posts from Bio-Techne Spatial reading “Same Slide.”, “Same Section.” and “Same Moment.” over a researcher at a monitor, a glowing tissue slide, and a stack of fluorescent slide layers."

@@ -29,6 +29,17 @@ const projects = defineCollection({
         type: z.literal('grid'),
         images: z.array(z.object({ image: image(), alt: z.string() })),
       }),
+      // bento: four tiles — large (5:6), tall (5:12), and two stacked small (5:7 over 15:14) — with an
+      // optional text band above. Rearranges for tablet and phone.
+      z.object({
+        type: z.literal('bento'),
+        heading: z.string().optional(),
+        text: z.string().optional(),
+        large: z.object({ image: image(), alt: z.string() }),
+        tall: z.object({ image: image(), alt: z.string() }),
+        smallTop: z.object({ image: image(), alt: z.string() }),
+        smallBottom: z.object({ image: image(), alt: z.string() }),
+      }),
     ]);
 
     return z.object({
@@ -49,8 +60,8 @@ const projects = defineCollection({
       overview: z.array(z.string()).default([]),   // opening paragraphs under the hero
       insight: z.object({                          // strategy text beside an image
         paragraphs: z.array(z.string()),
-        image: image(),
-        alt: z.string(),
+        image: image().optional(),
+        alt: z.string().optional(),
       }).optional(),
       brief: z.string().optional(),
       idea: z.string().optional(),
