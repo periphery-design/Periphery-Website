@@ -25,7 +25,7 @@ const d = project.data;
 
     <div class="grid"><div class="full hero" data-reveal>
       {d.cover
-        ? <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[800, 1400, 2000]} sizes="(min-width: 1440px) 1376px, 100vw" loading="eager" fetchpriority="high" />
+        ? <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[800, 1400, 2000, 2800, 3200]} sizes="96vw" loading="eager" fetchpriority="high" />
         : <Placeholder label="Hero film or key visual" ratio="16 / 9" />}
     </div></div>
 
@@ -49,7 +49,7 @@ const d = project.data;
           <h2 id="ins-h" class="label">The insight</h2>
           <div class="prose">{d.insight.paragraphs.map((t) => <p>{t}</p>)}</div>
         </div>
-        <div class="insight-media"><Image src={d.insight.image} alt={d.insight.alt} widths={[600, 1000, 1400]} sizes="(min-width: 800px) 58vw, 100vw" /></div>
+        <div class="insight-media"><Image src={d.insight.image} alt={d.insight.alt} widths={[600, 900, 1200, 1600]} sizes="(min-width: 800px) 42vw, 100vw" /></div>
       </section>
     )}
 
@@ -74,15 +74,15 @@ const d = project.data;
           {d.gallery.map((b) => b.type === 'split' ? (
             <div class:list={['grid', 'split', b.imageSide === 'left' && 'img-left']} data-reveal>
               <div class="split-text"><div>{b.heading && <h3 class="split-h">{b.heading}</h3>}<p>{b.text}</p></div></div>
-              <div class="split-media"><Image src={b.image} alt={b.alt} widths={[600, 1000, 1400]} sizes="(min-width: 800px) 50vw, 100vw" /></div>
+              <div class="split-media"><Image src={b.image} alt={b.alt} widths={[600, 900, 1200, 1600]} sizes="(min-width: 800px) 42vw, 100vw" /></div>
             </div>
           ) : b.type === 'grid' ? (
             <div class="grid img-grid" data-reveal>
-              {b.images.map((g) => <div class="img-wrap"><Image src={g.image} alt={g.alt} widths={[500, 900, 1300]} sizes="(min-width: 800px) 50vw, 100vw" /></div>)}
+              {b.images.map((g) => <div class="img-wrap"><Image src={g.image} alt={g.alt} widths={[600, 1000, 1400, 2000]} sizes="(min-width: 800px) 50vw, 100vw" /></div>)}
             </div>
           ) : (
             <figure class:list={['grid', 'img-block', b.size]} data-reveal>
-              <div class="img-wrap"><Image src={b.image} alt={b.alt} widths={[800, 1400, 2000]} sizes={b.size === 'half' ? '(min-width: 800px) 50vw, 100vw' : '100vw'} /></div>
+              <div class="img-wrap"><Image src={b.image} alt={b.alt} widths={[800, 1400, 2000, 2800, 3200]} sizes={b.size === 'half' ? '(min-width: 800px) 50vw, 100vw' : '100vw'} /></div>
               {b.caption && <figcaption class="meta">{b.caption}</figcaption>}
             </figure>
           ))}
@@ -171,10 +171,10 @@ const d = project.data;
   .prose { display: grid; gap: 1.1em; max-width: 58ch; }
   .lead { font-size: var(--step-1); line-height: var(--leading-body); }
   .insight { align-items: center; row-gap: 2rem; }
-  .insight-text { grid-column: 1 / span 5; display: grid; gap: 1.5rem; align-content: center; }
-  .insight-text .prose { font-size: var(--step-1); line-height: var(--leading-body); }
-  .insight-media { grid-column: 6 / -1; }
-  .insight-media :global(img) { width: 100%; height: auto; border-radius: var(--radius); }
+  .insight-text { grid-column: 1 / span 7; display: grid; gap: 1.5rem; align-content: center; }
+  .insight-text .prose { font-size: var(--step-1); line-height: var(--leading-body); max-width: 62ch; }
+  .insight-media { grid-column: 8 / -1; }
+  .insight-media :global(img) { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
   .img-grid { row-gap: var(--gutter); }
   .img-grid .img-wrap { grid-column: span 6; }
   .img-grid :global(img) { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 9; border-radius: var(--radius); }
@@ -187,15 +187,17 @@ const d = project.data;
 
   /* Split block: live text on a raised panel beside the image (replaces text baked into boards) */
   .split { align-items: stretch; }
+  /* Text ~60% (7 of 12 columns), image ~40% (5 columns) at a fixed 4:3 so every split is the same height */
   .split-text {
-    grid-column: 1 / span 6; display: flex; align-items: flex-end;
+    grid-column: 1 / span 7; display: flex; align-items: flex-end;
     background: var(--bg-raised); border-radius: var(--radius);
-    padding: clamp(1.5rem, 1rem + 3vw, 4rem);
+    padding: clamp(1.5rem, 1rem + 2.2vw, 3.25rem);
   }
-  .split-text p { font-size: var(--step-1); line-height: var(--leading-body); max-width: 38ch; }
-  .split-media { grid-column: 7 / -1; }
-  .split.img-left .split-media { grid-column: 1 / span 6; grid-row: 1; }
-  .split.img-left .split-text { grid-column: 7 / -1; grid-row: 1; }
+  .split-text p { font-size: var(--step-1); line-height: var(--leading-body); max-width: 62ch; }
+  .split-media { grid-column: 8 / -1; }
+  .split-media :global(img) { aspect-ratio: 4 / 3; object-fit: cover; }
+  .split.img-left .split-media { grid-column: 1 / span 5; grid-row: 1; }
+  .split.img-left .split-text { grid-column: 6 / -1; grid-row: 1; }
   @media (max-width: 800px) {
     .split-text, .split-media, .split.img-left .split-text, .split.img-left .split-media, .img-block.half .img-wrap { grid-column: 1 / -1; grid-row: auto; }
     .split-media { order: -1; }
