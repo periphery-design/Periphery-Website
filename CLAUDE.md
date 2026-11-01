@@ -25,6 +25,8 @@ Take patterns and principles from these, never copy their code, copy, or assets.
 - **Theme:** both dark and light, with a toggle. Build every component with theme tokens from the start.
 - **Typeface:** Syne (variable, self-hosted in `src/assets/fonts/`, SIL OFL). ExtraBold = headline,
   Bold = subheadings, Regular = nav and copy. Use the `--weight-headline/sub/body` tokens, never raw numbers.
+- **Project accent colour:** each project can set `accent` (hex) in its content file; used for the
+  homepage card carousel bars (Bio-Techne = #7a1fd6). `carousel` lists up to 3 images for that card.
 - **Stack/editing:** Astro in this repo, hosted free on Vercel or Netlify; the owner asks Claude to make updates.
 
 ### Open decisions (ask the owner, don't assume)

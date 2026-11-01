@@ -14,6 +14,11 @@ order: 1
 # TODO: swap the cover to the MULTIOMICS title card (Multomics_Project-14-01) once the file is uploaded,
 # then add billboard.jpg back as the first gallery image.
 cover: "../../assets/projects/biotechne-multiomics/billboard.jpg"
+accent: "#7a1fd6"   # campaign purple, brightened so the thin carousel bars read over dark images
+carousel:           # homepage card slideshow, in order
+  - "../../assets/projects/biotechne-multiomics/billboard.jpg"
+  - "../../assets/projects/biotechne-multiomics/stage-screen.jpg"
+  - "../../assets/projects/biotechne-multiomics/mobile-site.jpg"
 coverAlt: "Wide digital billboard in a dim corridor: a close-up of a scientist in safety glasses, fluorescent cell imagery reflected in the lenses, with the line “See Everything. On one slide.” A woman walks past in silhouette."
 
 overview:

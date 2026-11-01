@@ -50,3 +50,24 @@ document.querySelectorAll<HTMLButtonElement>('[data-expand]').forEach((btn) => {
     btn.closest('[data-expand-item]')?.classList.toggle('is-open', !open);
   });
 });
+
+/* ---------- Card carousels: advance when the active bar finishes "loading" ---------- */
+document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((el) => {
+  const slides = [...el.querySelectorAll<HTMLElement>('[data-slide]')];
+  const bars = [...el.querySelectorAll<HTMLElement>('.bar')];
+  if (slides.length < 2 || bars.length !== slides.length || reduceMotion) return;
+  let i = 0;
+  const show = (n: number) => {
+    if (n === 0) bars.forEach((b) => b.classList.remove('is-done'));  // new loop: empty all bars
+    slides.forEach((s, k) => s.classList.toggle('is-active', k === n));
+    bars.forEach((b, k) => { b.classList.toggle('is-active', k === n); if (k < n) b.classList.add('is-done'); });
+    i = n;
+  };
+  bars.forEach((b) => b.addEventListener('animationend', () => show((i + 1) % slides.length)));
+  // Only run while the card is on screen and the tab is visible
+  let onScreen = false;
+  const sync = () => el.classList.toggle('is-paused', !onScreen || document.hidden);
+  new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; sync(); }, { threshold: 0.25 }).observe(el);
+  document.addEventListener('visibilitychange', sync);
+  show(0);
+});

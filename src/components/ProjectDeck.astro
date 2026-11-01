@@ -12,11 +12,22 @@ const { projects } = Astro.props;
   {projects.map((p, i) => (
     <li class="card" style={`--i: ${i}`}>
       <a href={`/work/${p.id}/`} class="card-link grid">
-        <!-- Image is decorative here: the link is named by the title below. Full alt text is on the project page. -->
-        <div class="card-media">
-          {p.data.cover
-            ? <Image src={p.data.cover} alt="" widths={[600, 1000, 1400]} sizes="(min-width: 800px) 50vw, 100vw" />
-            : <Placeholder label={`${p.data.client} — key visual`} ratio="16 / 11" />}
+        <!-- Images are decorative here: the link is named by the title. Full alt text is on the project page.
+             Carousel: up to 3 images cross-fade in turn; the bars along the bottom fill like a loading bar in
+             the project's accent colour, then the next image comes in. Placeholder projects show 3 grey slides. -->
+        <div class="card-media" data-carousel style={`--accent: ${p.data.accent ?? 'var(--fg)'}`}>
+          {(p.data.carousel.length ? p.data.carousel : p.data.cover ? [p.data.cover] : [null, null, null]).map((img, n, all) => (
+            <div class:list={['slide', n === 0 && 'is-active']} data-slide>
+              {img
+                ? <Image src={img} alt="" widths={[600, 1000, 1400]} sizes="(min-width: 800px) 50vw, 100vw" loading={n === 0 ? 'eager' : 'lazy'} />
+                : <Placeholder label={`${p.data.client} — image ${n + 1}`} ratio="16 / 11" />}
+            </div>
+          ))}
+          {(p.data.carousel.length > 1 || !p.data.cover) && (
+            <div class="bars" aria-hidden="true">
+              {(p.data.carousel.length ? p.data.carousel : [0, 1, 2]).map(() => <span class="bar"><span class="fill"></span></span>)}
+            </div>
+          )}
         </div>
         <div class="card-text">
           <div class="card-head">
@@ -45,9 +56,34 @@ const { projects } = Astro.props;
     border-top: 1px solid var(--line);
   }
   .card-link { padding-block: 0.9rem 2.5rem; row-gap: 1rem; }
-  .card-media { grid-column: 1 / span 6; overflow: hidden; border-radius: var(--radius); }
-  .card-media { aspect-ratio: 16 / 11; }
+  .card-media { grid-column: 1 / span 6; position: relative; overflow: hidden; border-radius: var(--radius); aspect-ratio: 16 / 11; isolation: isolate; }
   .card-media :global(img), .card-media :global(.ph) { width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-out); }
+
+  /* ---------- Carousel ---------- */
+  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 700ms var(--ease-inout); }
+  .slide.is-active { opacity: 1; z-index: 1; }
+  .bars {
+    --dwell: 4.5s;   /* how long each image stays up */
+    position: absolute; z-index: 2; left: 0.9rem; right: 0.9rem; bottom: 0.9rem;
+    display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 0.4rem;
+  }
+  .bar {
+    height: 3px; border-radius: var(--radius-pill); overflow: hidden;
+    background: rgb(255 255 255 / 0.32);
+    box-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.12);
+  }
+  .fill { display: block; height: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; }
+  .bar.is-done .fill { transform: scaleX(1); }
+  .bar.is-active .fill { animation: load var(--dwell) linear forwards; }
+  @keyframes load { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  /* Hold still while someone is looking (hover/focus), when off screen, or when the tab is hidden */
+  .card-link:hover .bar.is-active .fill,
+  .card-link:focus-visible .bar.is-active .fill,
+  [data-carousel].is-paused .bar.is-active .fill { animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce) {
+    .bar.is-active .fill { animation: none; transform: scaleX(1); }
+    .slide { transition: none; }
+  }
   .card-text { grid-column: 7 / -1; display: flex; flex-direction: column; gap: 0.35rem; }
   .card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
   .card-title { font-size: var(--step-1); font-weight: var(--weight-sub); }
