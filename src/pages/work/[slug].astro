@@ -44,12 +44,12 @@ const d = project.data;
     )}
 
     {d.insight && (
-      <section class="section grid insight" data-reveal aria-labelledby="ins-h">
-        <div class="insight-text">
-          <h2 id="ins-h" class="label">The insight</h2>
-          <div class="prose">{d.insight.paragraphs.map((t) => <p>{t}</p>)}</div>
+      <section class="section insight" aria-labelledby="ins-h">
+        <div class="grid band" data-reveal>
+          <h2 id="ins-h" class="band-h label">The insight</h2>
+          <div class="band-text prose">{d.insight.paragraphs.map((t) => <p>{t}</p>)}</div>
         </div>
-        <div class="insight-media"><Image src={d.insight.image} alt={d.insight.alt} widths={[600, 900, 1200, 1600]} sizes="(min-width: 800px) 42vw, 100vw" /></div>
+        <div class="grid" data-reveal><div class="frame"><Image src={d.insight.image} alt={d.insight.alt} widths={[800, 1400, 2000, 2800, 3200]} sizes="96vw" /></div></div>
       </section>
     )}
 
@@ -72,9 +72,12 @@ const d = project.data;
       {d.gallery.length > 0 ? (
         <div class="blocks">
           {d.gallery.map((b) => b.type === 'split' ? (
-            <div class:list={['grid', 'split', b.imageSide === 'left' && 'img-left']} data-reveal>
-              <div class="split-text"><div>{b.heading && <h3 class="split-h">{b.heading}</h3>}<p>{b.text}</p></div></div>
-              <div class="split-media"><Image src={b.image} alt={b.alt} widths={[600, 900, 1200, 1600]} sizes="(min-width: 800px) 42vw, 100vw" /></div>
+            <div class="story">
+              <div class="grid band" data-reveal>
+                {b.heading ? <h3 class="band-h">{b.heading}</h3> : <span class="band-h" aria-hidden="true"></span>}
+                <p class="band-text">{b.text}</p>
+              </div>
+              <div class="grid" data-reveal><div class="frame"><Image src={b.image} alt={b.alt} widths={[800, 1400, 2000, 2800, 3200]} sizes="96vw" /></div></div>
             </div>
           ) : b.type === 'grid' ? (
             <div class="grid img-grid" data-reveal>
@@ -82,7 +85,7 @@ const d = project.data;
             </div>
           ) : (
             <figure class:list={['grid', 'img-block', b.size]} data-reveal>
-              <div class="img-wrap"><Image src={b.image} alt={b.alt} widths={[800, 1400, 2000, 2800, 3200]} sizes={b.size === 'half' ? '(min-width: 800px) 50vw, 100vw' : '100vw'} /></div>
+              <div class:list={['img-wrap', b.size !== 'half' && 'frame']}><Image src={b.image} alt={b.alt} widths={[800, 1400, 2000, 2800, 3200]} sizes={b.size === 'half' ? '(min-width: 800px) 50vw, 100vw' : '96vw'} /></div>
               {b.caption && <figcaption class="meta">{b.caption}</figcaption>}
             </figure>
           ))}
@@ -161,8 +164,26 @@ const d = project.data;
   @media (hover: hover) { .next-link:hover .next-media :global(img), .next-link:hover .next-media :global(.ph) { transform: scale(1.03); } }
 
   /* Real images */
-  .hero :global(img), .img-wrap :global(img), .split-media :global(img) { width: 100%; height: auto; border-radius: var(--radius); }
+  .hero :global(img), .img-wrap :global(img) { width: 100%; height: auto; border-radius: var(--radius); }
+
+  /* Full-width image frame. 16:9 exports fill it edge to edge; anything taller is capped at the screen
+     height and centred on a raised panel, so a portrait image never towers over the page. */
+  .frame {
+    grid-column: 1 / -1; display: flex; justify-content: center;
+    background: var(--bg-raised); border-radius: var(--radius); overflow: hidden;
+  }
+  .frame :global(img) { width: 100%; height: auto; max-height: 90svh; object-fit: contain; border-radius: 0; }
   .blocks { display: grid; gap: var(--gutter); margin-top: 2rem; }
+
+  /* Text band: the story text on its own between images. Heading on the left, text across ~60%
+     (7 of 12 columns) on the right, so paragraphs run wide and short. */
+  .band { padding-block: clamp(2.5rem, 2rem + 3vw, 5rem); align-items: start; row-gap: 0.75rem; }
+  .band-h { grid-column: 1 / span 5; font-size: var(--step-1); font-weight: var(--weight-sub); line-height: var(--leading-sub); }
+  .band-h.label { font-size: var(--step--1); font-weight: var(--weight-body); }
+  .band-text { grid-column: 6 / -1; font-size: var(--step-1); line-height: var(--leading-body); max-width: 62ch; }
+  .insight .band { padding-top: 0; }
+  .band-text.prose { max-width: 62ch; }
+  @media (max-width: 800px) { .band-h, .band-text { grid-column: 1 / -1; } }
   .img-block .img-wrap, .img-block figcaption { grid-column: 1 / -1; }
   .img-block.half .img-wrap { grid-column: span 6; }
   .img-block figcaption { margin-top: 0.6rem; }
@@ -170,36 +191,13 @@ const d = project.data;
   /* Overview + insight */
   .prose { display: grid; gap: 1.1em; max-width: 58ch; }
   .lead { font-size: var(--step-1); line-height: var(--leading-body); }
-  .insight { align-items: center; row-gap: 2rem; }
-  .insight-text { grid-column: 1 / span 7; display: grid; gap: 1.5rem; align-content: center; }
-  .insight-text .prose { font-size: var(--step-1); line-height: var(--leading-body); max-width: 62ch; }
-  .insight-media { grid-column: 8 / -1; }
-  .insight-media :global(img) { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
   .img-grid { row-gap: var(--gutter); }
   .img-grid .img-wrap { grid-column: span 6; }
   .img-grid :global(img) { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 9; border-radius: var(--radius); }
-  .split-h { font-size: var(--step-1); font-weight: var(--weight-sub); line-height: var(--leading-sub); margin-bottom: 1rem; }
   .note { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: var(--section); }
   .note p { color: var(--fg-muted); max-width: 64ch; }
   @media (max-width: 800px) {
-    .insight-text, .insight-media, .img-grid .img-wrap { grid-column: 1 / -1; }
+    .img-grid .img-wrap, .img-block.half .img-wrap { grid-column: 1 / -1; }
   }
 
-  /* Split block: live text on a raised panel beside the image (replaces text baked into boards) */
-  .split { align-items: stretch; }
-  /* Text ~60% (7 of 12 columns), image ~40% (5 columns) at a fixed 4:3 so every split is the same height */
-  .split-text {
-    grid-column: 1 / span 7; display: flex; align-items: flex-end;
-    background: var(--bg-raised); border-radius: var(--radius);
-    padding: clamp(1.5rem, 1rem + 2.2vw, 3.25rem);
-  }
-  .split-text p { font-size: var(--step-1); line-height: var(--leading-body); max-width: 62ch; }
-  .split-media { grid-column: 8 / -1; }
-  .split-media :global(img) { aspect-ratio: 4 / 3; object-fit: cover; }
-  .split.img-left .split-media { grid-column: 1 / span 5; grid-row: 1; }
-  .split.img-left .split-text { grid-column: 6 / -1; grid-row: 1; }
-  @media (max-width: 800px) {
-    .split-text, .split-media, .split.img-left .split-text, .split.img-left .split-media, .img-block.half .img-wrap { grid-column: 1 / -1; grid-row: auto; }
-    .split-media { order: -1; }
-  }
 </style>
