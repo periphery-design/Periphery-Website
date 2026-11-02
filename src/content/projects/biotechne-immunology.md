@@ -7,7 +7,7 @@ product: "Immunology"           # DRAFT: confirm product / line name
 year: "TBC"                     # DRAFT
 sector: "Life sciences"
 role: "Strategy, concept, art direction, design"   # DRAFT: confirm role
-channels: ["Social", "Print literature"]   # DRAFT: from the images so far (LinkedIn, flyer, brochure)
+channels: ["Social", "Web", "Email", "Print literature"]   # DRAFT: from the images so far
 summary: "Redefining scientific terms with the honest humour of lab life, to make a market leader the brand that truly gets immunologists."   # DRAFT: condensed from the board
 order: 2
 accent: "#0034B7"               # BT Blue (PMS 293 C), the campaign's primary colour. DRAFT: owner to confirm
@@ -78,5 +78,12 @@ gallery:
   - type: image
     image: "../../assets/projects/biotechne-immunology/phones.jpg"
     alt: "Four phones floating at angles, each showing an R&D Systems LinkedIn carousel: the “Immunology Redefined” title card and scientists’ own handwritten definitions, such as “the body’s powerful yet not flawless superhero squad fighting villains and maintaining peace”, signed with their initials and country."
+  - type: grid
+    ratio: "4 / 3"
+    images:
+      - image: "../../assets/projects/biotechne-immunology/website-4x3.jpg"
+        alt: "A desktop monitor showing the R&D Systems immunology web page: the dictionary definition with “the immune system” struck through and “the underlying cause of every disease you’ve ever heard of.” handwritten beside it, above the sections “Redefine Immunology Research” and “How Do You Define Immunology?” with a Submit Your Definition button."
+      - image: "../../assets/projects/biotechne-immunology/email-4x3.jpg"
+        alt: "A tablet showing an R&D Systems email: “Immunology Solutions” with hand-drawn cells and a Learn More button, a dictionary-definition banner reading “Redefining research with consistent reagents”, and illustrated cards for Immuno-oncology and Cell Therapy."
   # More images go here as they arrive.
 ---
