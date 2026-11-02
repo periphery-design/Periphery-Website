@@ -15,8 +15,8 @@ Prefer original high-res images supplied by the owner over images scraped from B
 - **wearecollins.com** — clean simplicity, rounded corners on images/cards, minimal hover animations,
   typography, rollover animation on the list of programs/services.
 - **spiegeldesign.co** — clean typography, work shown high on the page, "capabilities" rollover, process section.
-- **generalcondition.com** — capabilities hover-reveal: big centred names that roll on hover, image card trailing the cursor
-  (built as `CapabilityReveal` on the home page; About keeps the Spiegel-style panel).
+- **generalcondition.com** — capabilities hover-reveal: image card trailing the cursor over the names, names roll on hover
+  (added to the Spiegel-style `CapabilityPanel` via its `reveal` prop on the home page).
 
 Take patterns and principles from these, never copy their code, copy, or assets.
 
