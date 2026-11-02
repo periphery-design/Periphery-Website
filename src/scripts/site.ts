@@ -131,3 +131,42 @@ document.querySelectorAll<HTMLElement>('[data-cap-reveal]').forEach((el) => {
   el.addEventListener('mouseleave', () => { if (!el.contains(document.activeElement)) clear(); });
   el.addEventListener('focusout', (e) => { if (!el.contains(e.relatedTarget as Node)) clear(); });
 });
+
+/* ---------- Synced frame sequences (case studies) ----------
+   One clock drives every side of the block, so both animations cut on the same tick. Starts once every
+   frame has loaded (no blank frames), runs only while on screen and the tab is visible, has a Pause
+   button (auto-moving content), and stays on the first frame for reduced motion. */
+document.querySelectorAll<HTMLElement>('[data-seq]').forEach((el) => {
+  if (reduceMotion) return;
+  const sides = [...el.querySelectorAll<HTMLElement>('.seq-frames')].map((s) => [...s.querySelectorAll<HTMLImageElement>('.seq-frame')]);
+  const n = sides[0]?.length ?? 0;
+  if (n < 2 || sides.some((s) => s.length !== n)) return;
+  const interval = Number(el.dataset.seq) || 1000;
+  const toggle = el.querySelector<HTMLButtonElement>('[data-seq-toggle]');
+  let i = 0, timer = 0, ready = false, onScreen = false, paused = false;
+  const show = (k: number) => sides.forEach((s) => s.forEach((img, j) => img.classList.toggle('is-on', j === k)));
+  const sync = () => {
+    const run = ready && onScreen && !paused && !document.hidden;
+    if (run && !timer) timer = window.setInterval(() => { i = (i + 1) % n; show(i); }, interval);
+    if (!run && timer) { clearInterval(timer); timer = 0; }
+  };
+  // Load every frame when the block gets close, then start
+  new IntersectionObserver(([e]) => {
+    onScreen = e.isIntersecting;
+    if (onScreen && !ready) {
+      sides.flat().forEach((img) => { img.loading = 'eager'; });
+      Promise.all(sides.flat().map((img) => img.decode().catch(() => {}))).then(() => { ready = true; sync(); });
+    }
+    sync();
+  }, { rootMargin: '200px 0px' }).observe(el);
+  document.addEventListener('visibilitychange', sync);
+  if (toggle) {
+    toggle.hidden = false;
+    toggle.addEventListener('click', () => {
+      paused = !paused;
+      toggle.setAttribute('aria-pressed', String(paused));
+      toggle.textContent = paused ? 'Play' : 'Pause';
+      sync();
+    });
+  }
+});

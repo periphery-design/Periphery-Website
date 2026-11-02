@@ -79,6 +79,15 @@ const projects = defineCollection({
         bottom: z.object({ image: image(), alt: z.string() }),
         bg: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
       }),
+      // sequence: two frame-by-frame animations side by side, driven by one clock so they change on the same
+      // tick (two GIFs drift). Both sides need the same number of frames. Pauses off-screen; static for reduced motion.
+      z.object({
+        type: z.literal('sequence'),
+        interval: z.number().default(1000),          // ms per frame
+        ratio: z.string().regex(/^\d+ \/ \d+$/).default('4 / 3'),
+        left: z.object({ frames: z.array(image()).min(2), alt: z.string(), label: z.string().optional() }),
+        right: z.object({ frames: z.array(image()).min(2), alt: z.string(), label: z.string().optional() }),
+      }).refine((b) => b.left.frames.length === b.right.frames.length, { message: 'sequence: left and right need the same number of frames' }),
     ]);
 
     return z.object({

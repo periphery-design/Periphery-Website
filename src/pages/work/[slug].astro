@@ -145,6 +145,20 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
                 <Image src={b.bottom.image} alt={b.bottom.alt} widths={[500, 800, 1200]} sizes="(min-width: 800px) 33vw, 100vw" />
               </div>
             </div>
+          ) : b.type === 'sequence' ? (
+            <div class="grid seq" data-reveal data-seq={b.interval} style={`--seq-ratio: ${b.ratio}`}>
+              {[b.left, b.right].map((side) => (
+                <figure class="seq-side">
+                  <div class="seq-frames" role="img" aria-label={side.alt}>
+                    {side.frames.map((f, i) => (
+                      <Image class:list={['seq-frame', i === 0 && 'is-on']} src={f} alt="" widths={[700, 1000, 1440]} sizes="(min-width: 800px) 48vw, 100vw" loading="lazy" />
+                    ))}
+                  </div>
+                  {side.label && <figcaption class="meta seq-label">{side.label}</figcaption>}
+                </figure>
+              ))}
+              <button type="button" class="pill ghost seq-toggle" data-seq-toggle aria-pressed="false" hidden>Pause</button>
+            </div>
           ) : b.type === 'grid' ? (
             <div class="grid img-grid" data-reveal style={b.ratio ? `--grid-ratio: ${b.ratio}` : undefined}>
               {b.images.map((g) => <div class="img-wrap"><Image src={g.image} alt={g.alt} widths={[600, 1000, 1400, 2000]} sizes="(min-width: 800px) 50vw, 100vw" /></div>)}
@@ -351,6 +365,16 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
     .trio-main { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
     .trio-side { grid-column: 1 / -1; }
   }
+
+  /* Sequence: two synced frame animations side by side. Frames are stacked; only .is-on shows (hard cut, like a GIF). */
+  .seq { row-gap: var(--gutter); }
+  .seq-side { grid-column: span 6; }
+  .seq-frames { position: relative; aspect-ratio: var(--seq-ratio, 4 / 3); border-radius: var(--radius); overflow: hidden; background: #fff; }
+  .seq-frames :global(.seq-frame) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+  .seq-frames :global(.seq-frame.is-on) { opacity: 1; }
+  .seq-label { margin-top: 0.6rem; }
+  .seq-toggle { grid-column: 1 / -1; justify-self: start; }
+  @media (max-width: 800px) { .seq-side { grid-column: 1 / -1; } }
 
   .note { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: var(--section); }
   .note p { color: var(--fg-muted); max-width: 64ch; }

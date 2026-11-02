@@ -66,7 +66,8 @@ gallery:
   - type: image
     image: "../../assets/projects/biotechne-immunology/icons.jpg"
     alt: "A row of five hand-drawn line icons in black and blue ink: a magnifying glass over a cell with receptors, a cell with particles leaving it, a map pin between two figures, a coiled ribbon, and a scientist beside a framed diagram."
-  # Next: two 4:3 animations side by side (scientific reference / illustrative drawing), owner is building them.
+  # Next: `sequence` block, reference (left) + illustration (right), 10 frames each at 1s. Illustration frames are in
+  # assets/.../sequence/; waiting on the reference animation (the upload arrived as a single still).
   - type: grid
     ratio: "4 / 3"
     images:
