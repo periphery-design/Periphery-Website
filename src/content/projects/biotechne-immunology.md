@@ -7,12 +7,17 @@ product: "Immunology"           # DRAFT: confirm product / line name
 year: "TBC"                     # DRAFT
 sector: "Life sciences"
 role: "Strategy, concept, art direction, design"   # DRAFT: confirm role
-channels: ["TBC"]               # DRAFT: list channels once images are in
+channels: ["Social", "Print literature"]   # DRAFT: from the images so far (LinkedIn, flyer, brochure)
 summary: "Redefining scientific terms with the honest humour of lab life, to make a market leader the brand that truly gets immunologists."   # DRAFT: condensed from the board
 order: 2
 accent: "#0034B7"               # BT Blue (PMS 293 C), the campaign's primary colour. DRAFT: owner to confirm
 theme: light                    # the campaign is built on light grey and blue ink: this page always displays light. DRAFT: owner to confirm
-# cover / carousel: waiting for images
+cover: "../../assets/projects/biotechne-immunology/cover.jpg"
+coverAlt: "Dictionary-style definition on light grey: “immunology: i-myə-ˈnä-lə-jē : noun. the study of the immune system”, with “the immune system” struck through in blue pen and “the underlying cause of every disease you’ve ever heard of.” handwritten beneath. A blue ballpoint pen lies beside it, surrounded by hand-drawn cells, antibodies and arrows."
+carousel:           # homepage card slideshow, in order
+  - "../../assets/projects/biotechne-immunology/cover.jpg"
+  - "../../assets/projects/biotechne-immunology/phones.jpg"
+  - "../../assets/projects/biotechne-immunology/brochure-spread.jpg"
 
 overviewHeading: "Campaign goal"
 overview:
@@ -24,6 +29,9 @@ gallery:
     paragraphs:
       - "The \"Redefining\" campaign plays on dual meaning: literally redefining scientific terms with the honest humor of lab life (like \"Affinity: the strength of attraction between you and the bad coffee you drink during your overnight experiment\"), while metaphorically redefining what researchers should expect from their reagent supplier."
       - "Rather than sterile product messaging, we created insider moments that acknowledge the real, unglamorous side of research. Overnight experiments, questionable coffee, testing ten different hypotheses. This positions Bio-Techne as a partner who's been in the lab and designed products with those realities in mind."
+  - type: image
+    image: "../../assets/projects/biotechne-immunology/phone-hand.jpg"
+    alt: "A hand holding a phone showing an R&D Systems LinkedIn post: “Immunology Redefined”, with “Redefined” handwritten in blue, above the line “We asked for creative definitions for Immunology from scientists just like you. Don’t miss this chance to see some of the best definitions we received!”"
   - type: text
     heading: "Visual system"
     paragraphs:
@@ -62,5 +70,15 @@ gallery:
     bg: "#F0F0F0"
     image: "../../assets/projects/biotechne-immunology/cell-sequence.webp"
     alt: "A hand-drawn sequence in blue ink: an immune cell studded with antibodies binds to a speckled target cell, and an arrow leads to the target breaking apart into fragments."
+  - type: grid
+    ratio: "4 / 3"
+    images:
+      - image: "../../assets/projects/biotechne-immunology/flyer-4x3.jpg"
+        alt: "A printed R&D Systems flyer headed “Flex Your Multiplex: Fluorescent Conjugated Antibodies for Immunofluorescence and Flow Cytometry”, with “Immunofluorescence” struck through and “the science world’s version of a glow party” handwritten beneath, beside a fluorescent tissue image and a marker table."
+      - image: "../../assets/projects/biotechne-immunology/brochure-spread-4x3.jpg"
+        alt: "An open R&D Systems brochure: the left page, headed “immune cell analysis” in handwriting, introduces immune cell characterization by cytokine secretion analysis; the right page holds a table of ELISA kits, with hand-drawn immune cells in blue pen."
+  - type: image
+    image: "../../assets/projects/biotechne-immunology/phones.jpg"
+    alt: "Four phones floating at angles, each showing an R&D Systems LinkedIn carousel: the “Immunology Redefined” title card and scientists’ own handwritten definitions, such as “the body’s powerful yet not flawless superhero squad fighting villains and maintaining peace”, signed with their initials and country."
   # More images go here as they arrive.
 ---
