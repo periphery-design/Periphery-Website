@@ -3,10 +3,26 @@ import Lenis from 'lenis';
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- Smooth scroll (Nonstop-style feel), skipped for reduced motion ---------- */
+let lenis: Lenis | null = null;
 if (!reduceMotion) {
-  const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
-  const raf = (t: number) => { lenis.raf(t); requestAnimationFrame(raf); };
+  lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+  const raf = (t: number) => { lenis!.raf(t); requestAnimationFrame(raf); };
   requestAnimationFrame(raf);
+}
+
+/* ---------- Fresh visits always start at the top ----------
+   Some browsers (and embedded previews) carry an old scroll position onto a newly opened page, which drops
+   a case study straight onto its copy and skips the cover. Back/forward and reload keep the browser's own
+   restore, and links to an #anchor still jump to it. */
+const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+if (!location.hash && (!nav || nav.type === 'navigate')) {
+  // Stop forcing it the moment the visitor scrolls themselves (slow connections finish loading late)
+  let touched = false;
+  for (const ev of ['wheel', 'touchstart', 'keydown', 'pointerdown']) addEventListener(ev, () => { touched = true; }, { once: true, passive: true });
+  const toTop = () => { if (touched) return; window.scrollTo(0, 0); lenis?.scrollTo(0, { immediate: true, force: true }); };
+  toTop();
+  window.addEventListener('pageshow', (e) => { if (!e.persisted) toTop(); }, { once: true });
+  window.addEventListener('load', toTop, { once: true });   // after late layout shifts (images, fonts)
 }
 
 /* ---------- Theme toggle ---------- */
