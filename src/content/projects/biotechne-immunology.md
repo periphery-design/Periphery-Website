@@ -66,10 +66,7 @@ gallery:
   - type: image
     image: "../../assets/projects/biotechne-immunology/icons.jpg"
     alt: "A row of five hand-drawn line icons in black and blue ink: a magnifying glass over a cell with receptors, a cell with particles leaving it, a map pin between two figures, a coiled ribbon, and a scientist beside a framed diagram."
-  - type: image
-    bg: "#F0F0F0"
-    image: "../../assets/projects/biotechne-immunology/cell-sequence.webp"
-    alt: "A hand-drawn sequence in blue ink: an immune cell studded with antibodies binds to a speckled target cell, and an arrow leads to the target breaking apart into fragments."
+  # Next: two 4:3 animations side by side (scientific reference / illustrative drawing), owner is building them.
   - type: grid
     ratio: "4 / 3"
     images:

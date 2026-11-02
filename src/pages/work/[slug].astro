@@ -331,7 +331,7 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   /* Swatches: real colour, live values. A hairline keeps a light swatch visible on a light page. */
   .swatches { row-gap: var(--gutter); }
   .swatch {
-    grid-column: span 4; aspect-ratio: 4 / 3; border-radius: var(--radius);
+    grid-column: span 4; aspect-ratio: 8 / 3; border-radius: var(--radius);   /* half the height of a 4:3 tile */
     background: var(--sw); color: var(--sw-ink); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fg) 10%, transparent);
     padding: clamp(1rem, 0.7rem + 1vw, 1.5rem); display: flex; flex-direction: column; justify-content: space-between;
   }
