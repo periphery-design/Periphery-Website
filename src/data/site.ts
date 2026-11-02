@@ -1,26 +1,36 @@
+import strategyImg from '../assets/projects/biotechne-multiomics/social-triptych.jpg';
+import artDirectionImg from '../assets/projects/biotechne-multiomics/billboard.jpg';
+import illustrationImg from '../assets/projects/biotechne-immunology/dictionary.jpg';
+import brandingImg from '../assets/projects/biotechne-multiomics/literature.jpg';
 // Placeholder copy for the wireframe. Swap for real words once they're written.
 
-// Four disciplines, each opening to a line and service tags (Spiegel-style capabilities).
+
+// Four disciplines. Home: hover-reveal list (name + image). About: Spiegel-style panel (line + tags).
+// Images are stand-ins from the case studies; swap for a dedicated image per discipline when ready.
 export const capabilities = [
   {
     name: 'Strategy',
     line: 'Finding the truth about a brand that nobody has used yet, and the audience who needs to hear it.',
     tags: ['Insight & research', 'Positioning', 'Audience mapping', 'Campaign platforms'],
-  },
-  {
-    name: 'Ideas',
-    line: 'The one idea a whole campaign can hang on, sharpened until it fits in a sentence.',
-    tags: ['Campaign concepts', 'Creative platforms', 'Lines & naming', 'Brand storytelling'],
+    image: strategyImg, alt: 'Three social posts reading “Same Slide.”, “Same Section.” and “Same Moment.”',
   },
   {
     name: 'Art Direction',
     line: 'Making the idea look as sharp as it reads, in every format it has to live in.',
     tags: ['Visual direction', 'Photo & film direction', 'Design systems', 'Typography'],
+    image: artDirectionImg, alt: 'Digital billboard of a scientist with fluorescent cells reflected in their safety glasses',
   },
   {
-    name: 'Activation',
-    line: 'Taking the idea into the world: on the street, in the feed, and in people’s hands.',
-    tags: ['OOH', 'Social & content', 'Experiential', 'Retail & packaging', 'Launches'],
+    name: 'Illustration',
+    line: 'Placeholder: drawing that carries the idea, from a quick sketch to a whole visual language.',
+    tags: ['Hand-drawn systems', 'Icons', 'Scientific illustration', 'Lettering'],
+    image: illustrationImg, alt: 'Dictionary-style card for immunology with a hand-written definition and cell sketches',
+  },
+  {
+    name: 'Branding',
+    line: 'Placeholder: identities built to flex across every channel without losing themselves.',
+    tags: ['Identity systems', 'Brand guidelines', 'Literature', 'Packaging'],
+    image: brandingImg, alt: 'A spread of printed brochures with researcher portraits and fluorescent imagery',
   },
 ];
 

@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ProjectDeck from '../components/ProjectDeck.astro';
-import CapabilityPanel from '../components/CapabilityPanel.astro';
+import CapabilityReveal from '../components/CapabilityReveal.astro';
 import ProcessCards from '../components/ProcessCards.astro';
 import { capabilities, process } from '../data/site';
 
@@ -37,7 +37,7 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
       <h2 id="cap-h" class="label">Capabilities</h2>
       <p class="content statement" data-reveal>One idea, made to work everywhere the brand shows up.</p>
     </div>
-    <div class="grid"><div class="full" data-reveal><CapabilityPanel items={capabilities} idPrefix="home-cap" /></div></div>
+    <div class="grid"><div class="full" data-reveal><CapabilityReveal items={capabilities} /></div></div>
   </section>
 
   <section class="section" aria-labelledby="proc-h">

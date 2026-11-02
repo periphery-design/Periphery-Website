@@ -81,3 +81,58 @@ document.querySelectorAll<HTMLElement>('[data-stack]').forEach((el) => {
     }
   }, { threshold: [0, 0.4] }).observe(el);
 });
+
+/* ---------- Capabilities hover-reveal ----------
+   Mouse: the hovered name rolls and an image card trails the pointer (lerped, transform only).
+   Keyboard: focus does the same with the card parked beside the name. Touch: tap to switch the image under the list. */
+document.querySelectorAll<HTMLElement>('[data-cap-reveal]').forEach((el) => {
+  const rows = [...el.querySelectorAll<HTMLButtonElement>('.rv-row')];
+  const imgs = [...el.querySelectorAll<HTMLElement>('.rv-img')];
+  const card = el.querySelector<HTMLElement>('.rv-card')!;
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+  const set = (i: number) => {
+    el.classList.add('is-active');
+    rows.forEach((r, k) => { r.classList.toggle('is-on', k === i); r.setAttribute('aria-pressed', String(k === i)); });
+    imgs.forEach((m, k) => { m.classList.toggle('is-on', k === i); m.classList.toggle('is-before', k < i); });
+  };
+  const clear = () => {
+    el.classList.remove('is-active');
+    rows.forEach((r) => { r.classList.remove('is-on'); r.setAttribute('aria-pressed', 'false'); });
+  };
+
+  // Follow: card centre eases toward the target each frame; the loop sleeps once it has settled.
+  let tx = 0, ty = 0, cx = 0, cy = 0, running = false, shown = false;
+  const place = () => { card.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%)`; };
+  const tick = () => {
+    const k = reduceMotion ? 1 : 0.16;
+    cx += (tx - cx) * k; cy += (ty - cy) * k; place();
+    if (Math.abs(tx - cx) + Math.abs(ty - cy) > 0.3) requestAnimationFrame(tick); else running = false;
+  };
+  const aim = (x: number, y: number) => {
+    const w = card.offsetWidth, box = el.getBoundingClientRect();
+    tx = Math.min(Math.max(x, w / 2), box.width - w / 2); ty = y;
+    if (!shown) { cx = tx; cy = ty; place(); shown = true; }   // appear where the pointer is, don't fly in from the corner
+    if (!running) { running = true; requestAnimationFrame(tick); }
+  };
+
+  rows.forEach((r, i) => {
+    r.addEventListener('mouseenter', () => { if (fine.matches) set(i); });
+    r.addEventListener('click', () => set(i));   // touch (and mouse click, harmless)
+    r.addEventListener('focus', () => {
+      if (!fine.matches) return;
+      set(i);
+      const box = el.getBoundingClientRect(), rb = r.getBoundingClientRect();
+      aim(rb.right - box.left + card.offsetWidth * 0.55, rb.top - box.top + rb.height / 2);
+    });
+  });
+  el.addEventListener('pointermove', (e) => {
+    if (!fine.matches || e.pointerType !== 'mouse') return;
+    const box = el.getBoundingClientRect();
+    aim(e.clientX - box.left + card.offsetWidth * 0.35, e.clientY - box.top);
+  });
+  el.addEventListener('mouseleave', () => { if (fine.matches && !el.contains(document.activeElement)) { clear(); shown = false; } });
+  el.addEventListener('focusout', (e) => { if (fine.matches && !el.contains(e.relatedTarget as Node)) { clear(); shown = false; } });
+
+  if (!fine.matches) set(0);   // touch: start with the first image showing under the list
+});
