@@ -4,14 +4,14 @@
 title: "Redefining immunology."
 client: "R&D Systems (a Bio-Techne brand)"
 product: "Immunology"           # DRAFT: confirm product / line name
-year: "TBC"                     # DRAFT
+year: 2025
 sector: "Life sciences"
-role: "Strategy, concept, art direction, design"   # DRAFT: confirm role
+role: "Art direction, execution"
 channels: ["Social", "Web", "Email", "Print literature"]   # DRAFT: from the images so far
 summary: "Redefining scientific terms with the honest humour of lab life, to make a market leader the brand that truly gets immunologists."   # DRAFT: condensed from the board
 order: 2
-accent: "#0034B7"               # BT Blue (PMS 293 C), the campaign's primary colour. DRAFT: owner to confirm
-theme: light                    # the campaign is built on light grey and blue ink: this page always displays light. DRAFT: owner to confirm
+accent: "#0034B7"               # BT Blue (PMS 293 C), the campaign's primary colour
+theme: light                    # the campaign is built on light grey and blue ink: this page always displays light
 cover: "../../assets/projects/biotechne-immunology/cover.jpg"
 coverAlt: "Dictionary-style definition on light grey: “immunology: i-myə-ˈnä-lə-jē : noun. the study of the immune system”, with “the immune system” struck through in blue pen and “the underlying cause of every disease you’ve ever heard of.” handwritten beneath. A blue ballpoint pen lies beside it, surrounded by hand-drawn cells, antibodies and arrows."
 carousel:           # homepage card slideshow, in order
