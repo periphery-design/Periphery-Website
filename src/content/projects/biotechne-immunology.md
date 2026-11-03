@@ -66,8 +66,36 @@ gallery:
   - type: image
     image: "../../assets/projects/biotechne-immunology/icons.jpg"
     alt: "A row of five hand-drawn line icons in black and blue ink: a magnifying glass over a cell with receptors, a cell with particles leaving it, a map pin between two figures, a coiled ribbon, and a scientist beside a framed diagram."
-  # Next: `sequence` block, reference (left) + illustration (right), 10 frames each at 1s. Illustration frames are in
-  # assets/.../sequence/; waiting on the reference animation (the upload arrived as a single still).
+  - type: sequence      # reference (left) and illustration (right) cut together, one frame per second
+    interval: 1000
+    left:
+      label: "Scientific reference"
+      alt: "A sequence of ten colour textbook-style immunology diagrams: a labelled lymph node cross-section, a monocyte differentiating into an inflammatory dendritic cell, receptor signalling pathways, regulatory cytokines, NK cell activation, macrophages in tissue healing, a cell engulfing bacteria, activated T cells and plasma cells releasing cytokines and antibodies, dendritic cell effector function, and T and B cells crossing the blood–brain barrier."
+      frames:
+        - "../../assets/projects/biotechne-immunology/sequence/reference-01.png"
+        - "../../assets/projects/biotechne-immunology/sequence/reference-02.png"
+        - "../../assets/projects/biotechne-immunology/sequence/reference-03.png"
+        - "../../assets/projects/biotechne-immunology/sequence/reference-04.png"
+        - "../../assets/projects/biotechne-immunology/sequence/reference-05.png"
+        - "../../assets/projects/biotechne-immunology/sequence/reference-06.png"
+        - "../../assets/projects/biotechne-immunology/sequence/reference-07.png"
+        - "../../assets/projects/biotechne-immunology/sequence/reference-08.png"
+        - "../../assets/projects/biotechne-immunology/sequence/reference-09.png"
+        - "../../assets/projects/biotechne-immunology/sequence/reference-10.png"
+    right:
+      label: "Campaign illustration"
+      alt: "The same ten subjects redrawn as loose single-line blue pen sketches in the campaign's hand-drawn style, frame for frame alongside the reference diagrams."
+      frames:
+        - "../../assets/projects/biotechne-immunology/sequence/illustration-01.png"
+        - "../../assets/projects/biotechne-immunology/sequence/illustration-02.png"
+        - "../../assets/projects/biotechne-immunology/sequence/illustration-03.png"
+        - "../../assets/projects/biotechne-immunology/sequence/illustration-04.png"
+        - "../../assets/projects/biotechne-immunology/sequence/illustration-05.png"
+        - "../../assets/projects/biotechne-immunology/sequence/illustration-06.png"
+        - "../../assets/projects/biotechne-immunology/sequence/illustration-07.png"
+        - "../../assets/projects/biotechne-immunology/sequence/illustration-08.png"
+        - "../../assets/projects/biotechne-immunology/sequence/illustration-09.png"
+        - "../../assets/projects/biotechne-immunology/sequence/illustration-10.png"
   - type: grid
     ratio: "4 / 3"
     images:
