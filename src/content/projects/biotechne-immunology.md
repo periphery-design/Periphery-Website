@@ -7,7 +7,7 @@ product: "Immunology"           # DRAFT: confirm product / line name
 year: 2025
 sector: "Life sciences"
 role: "Art direction, execution"
-channels: ["Social", "Web", "Email", "Print literature"]   # DRAFT: from the images so far
+channels: ["Out of home", "Social", "Web", "Email", "Print literature"]   # DRAFT: from the images so far
 summary: "Redefining scientific terms with the honest humour of lab life, to make a market leader the brand that truly gets immunologists."   # DRAFT: condensed from the board
 order: 2
 accent: "#0034B7"               # BT Blue (PMS 293 C), the campaign's primary colour
@@ -45,16 +45,16 @@ gallery:
       - title: "Dictionary format."
         text: "Academic structure meets relatable humor for immediate recognition and comedic payoff."
   - type: trio
-    bg: "#F0F0F0"   # the cards' own light grey, so the main card's extra height is seamless
+    layout: row       # dictionary, lot 47, arrow in one line at equal height (arrow points off the end)
     main:
       image: "../../assets/projects/biotechne-immunology/dictionary.jpg"
       alt: "Dictionary-style card under the R&D Systems, a Bio-Techne brand logo: “immunology: i-myə-ˈnä-lə-jē : noun. the study of the immune system”, with “the immune system” struck through in blue pen and “the underlying cause of every disease you’ve ever heard of.” handwritten beneath, beside sketches of cells releasing particles and antibodies."
     top:
-      image: "../../assets/projects/biotechne-immunology/arrow.jpg"
-      alt: "A white hand-drawn arrow sweeping up and to the right across a solid BT Blue card."
-    bottom:
       image: "../../assets/projects/biotechne-immunology/lot-47.jpg"
       alt: "Card reading “when lot 47 is works exactly like lot 1”, with “works exactly” circled in blue pen and an arrow looping to the handwritten note “yes we mean exactly....”."
+    bottom:
+      image: "../../assets/projects/biotechne-immunology/arrow.jpg"
+      alt: "A white hand-drawn arrow sweeping up and to the right across a solid BT Blue card."
   - type: text
     paragraphs:
       - "The restrained navy palette and typography maintain scientific credibility while struck-through text and sketchy illustrations add warmth and accessibility. This balances authenticity with the rigor researchers require from their suppliers."
@@ -65,7 +65,7 @@ gallery:
       - { name: "BT Light Grey", hex: "#F0F0F0", pms: "Cool Gray 1C", cmyk: "0.0.0.10", rgb: "240.240.240" }
   - type: image
     image: "../../assets/projects/biotechne-immunology/icons.jpg"
-    alt: "A row of five hand-drawn line icons in black and blue ink: a magnifying glass over a cell with receptors, a cell with particles leaving it, a map pin between two figures, a coiled ribbon, and a scientist beside a framed diagram."
+    alt: "A row of eight hand-drawn line icons in black and blue ink: an antibody, a cell with particles inside, an open brochure, a scientist beside a framed diagram, a coiled ribbon, a map pin between two figures, a cell with particles leaving it, and a magnifying glass over a cell with receptors."
   - type: sequence      # reference (left) and illustration (right) cut together, one frame per second
     interval: 1000
     left:
@@ -113,5 +113,8 @@ gallery:
         alt: "A desktop monitor showing the R&D Systems immunology web page: the dictionary definition with “the immune system” struck through and “the underlying cause of every disease you’ve ever heard of.” handwritten beside it, above the sections “Redefine Immunology Research” and “How Do You Define Immunology?” with a Submit Your Definition button."
       - image: "../../assets/projects/biotechne-immunology/email-4x3.jpg"
         alt: "A tablet showing an R&D Systems email: “Immunology Solutions” with hand-drawn cells and a Learn More button, a dictionary-definition banner reading “Redefining research with consistent reagents”, and illustrated cards for Immuno-oncology and Cell Therapy."
+  - type: image
+    image: "../../assets/projects/biotechne-immunology/billboards.jpg"
+    alt: "Three framed posters on a concrete wall in a city plaza. Left: “affinity: the strength of the attraction between two substances”, with “two substances” struck through and “you and the bad coffee you drink during your overnight experiment.” handwritten beneath. Centre, on BT Blue: “Reagents defined by consistency. Proteins with consistency, antibodies with flexibility, ELISAs with accuracy.” Right: “efficacy: how well a therapy provides the expected therapeutic effect”, struck through, with “does what you say it’s going to do.” handwritten beneath."
   # More images go here as they arrive.
 ---

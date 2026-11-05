@@ -137,6 +137,17 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
                 </li>
               ))}
             </ul>
+          ) : b.type === 'trio' && b.layout === 'row' ? (
+            /* One row, equal heights: each card grows in proportion to its width/height, so the heights match exactly */
+            <div class="grid" data-reveal>
+              <div class="trio-row">
+                {[b.main, b.top, b.bottom].map((c, k) => (
+                  <div class:list={['trio-cell', k === 0 && 'trio-cell-main']} style={`--r: ${c.image.width / c.image.height}`}>
+                    <Image src={c.image} alt={c.alt} widths={[500, 800, 1200]} sizes={k === 0 ? '(min-width: 900px) 34vw, 100vw' : '(min-width: 900px) 26vw, 50vw'} />
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : b.type === 'trio' ? (
             <div class="grid trio" data-reveal>
               <div class="trio-main" style={b.bg ? `--trio-bg:${b.bg}` : undefined}><Image src={b.main.image} alt={b.main.alt} widths={[800, 1200, 1600, 2000]} sizes="(min-width: 800px) 66vw, 100vw" /></div>
@@ -357,6 +368,14 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   /* Trio: main card (8 cols) beside a stacked pair (4 cols). The pair's natural heights set the row;
      the main image sits centred on its own card colour, so the extra height reads as card, not gap. */
   .trio { row-gap: var(--gutter); }
+  /* Trio as a row: flex-grow = aspect ratio with a zero basis, so all three end up the same height */
+  .trio-row { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--gutter); }
+  .trio-cell { flex: var(--r) 1 0; min-width: 0; }
+  .trio-cell :global(img) { width: 100%; height: auto; border-radius: var(--radius); display: block; }
+  /* Tablet: main card on its own line, the other two share the next line at equal height */
+  @media (max-width: 900px) { .trio-cell-main { flex-basis: 100%; } }
+  /* Phone: one per line */
+  @media (max-width: 560px) { .trio-cell { flex-basis: 100%; } }
   .trio-main { grid-column: 1 / span 8; position: relative; overflow: hidden; border-radius: var(--radius); background: var(--trio-bg, var(--bg-raised)); }
   .trio-main :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
   .trio-side { grid-column: 9 / -1; display: grid; gap: var(--gutter); align-content: start; }
