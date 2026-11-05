@@ -15,7 +15,7 @@ cover: "../../assets/projects/biotechne-multiomics/multiomics-cover.jpg"
 theme: dark         # the work is shot on black: this page always displays dark
 accent: "#7a1fd6"   # campaign purple, brightened so the thin carousel bars read over dark images
 carousel:           # homepage card slideshow, in order
-  - "../../assets/projects/biotechne-multiomics/multiomics-cover.jpg"
+  - "../../assets/projects/biotechne-multiomics/transit-poster.jpg"
   - "../../assets/projects/biotechne-multiomics/billboard.jpg"
   - "../../assets/projects/biotechne-multiomics/mobile-site.jpg"
 coverAlt: "Title card on black: the Bio-Techne Spatial logo, the line “See more with RNAscope” and the word MULTIOMICS in large silver capitals, above a fan of six glass slides, each glowing with a different fluorescent layer."

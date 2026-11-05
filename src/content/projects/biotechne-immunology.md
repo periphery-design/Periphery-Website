@@ -15,7 +15,7 @@ theme: light                    # the campaign is built on light grey and blue i
 cover: "../../assets/projects/biotechne-immunology/cover.jpg"
 coverAlt: "Dictionary-style definition on light grey: “immunology: i-myə-ˈnä-lə-jē : noun. the study of the immune system”, with “the immune system” struck through in blue pen and “the underlying cause of every disease you’ve ever heard of.” handwritten beneath. A blue ballpoint pen lies beside it, surrounded by hand-drawn cells, antibodies and arrows."
 carousel:           # homepage card slideshow, in order
-  - "../../assets/projects/biotechne-immunology/cover.jpg"
+  - "../../assets/projects/biotechne-immunology/billboards.jpg"
   - "../../assets/projects/biotechne-immunology/phones.jpg"
   - "../../assets/projects/biotechne-immunology/brochure-spread.jpg"
 
