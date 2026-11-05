@@ -115,6 +115,6 @@ gallery:
         alt: "A tablet showing an R&D Systems email: “Immunology Solutions” with hand-drawn cells and a Learn More button, a dictionary-definition banner reading “Redefining research with consistent reagents”, and illustrated cards for Immuno-oncology and Cell Therapy."
   - type: image
     image: "../../assets/projects/biotechne-immunology/billboards.jpg"
-    alt: "Three framed posters on a concrete wall in a city plaza. Left: “affinity: the strength of the attraction between two substances”, with “two substances” struck through and “you and the bad coffee you drink during your overnight experiment.” handwritten beneath. Centre, on BT Blue: “Reagents defined by consistency. Proteins with consistency, antibodies with flexibility, ELISAs with accuracy.” Right: “efficacy: how well a therapy provides the expected therapeutic effect”, struck through, with “does what you say it’s going to do.” handwritten beneath."
+    alt: "Three framed posters on a concrete wall in a city plaza. Left: “affinity: the strength of the attraction between two substances”, with “two substances” struck through and “you and the bad coffee you drink during your overnight experiment.” handwritten beneath. Centre, on BT Blue: “Immunology Redefined”, with “Redefined” handwritten, above “Proteins with consistency, antibodies with flexibility, ELISAs with accuracy.” Right: “efficacy: how well a therapy provides the expected therapeutic effect”, struck through, with “does what you say it’s going to do.” handwritten beneath."
   # More images go here as they arrive.
 ---
