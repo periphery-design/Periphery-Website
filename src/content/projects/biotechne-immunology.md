@@ -45,19 +45,16 @@ gallery:
       - title: "Dictionary format."
         text: "Academic structure meets relatable humor for immediate recognition and comedic payoff."
   - type: trio
-    layout: row       # dictionary, lot 47, arrow in one line at equal height (arrow points off the end)
+    layout: row       # consistency, lot 47, arrow in one line at equal height (arrow points off the end)
     main:
-      image: "../../assets/projects/biotechne-immunology/dictionary.jpg"
-      alt: "Dictionary-style card under the R&D Systems, a Bio-Techne brand logo: “immunology: i-myə-ˈnä-lə-jē : noun. the study of the immune system”, with “the immune system” struck through in blue pen and “the underlying cause of every disease you’ve ever heard of.” handwritten beneath, beside sketches of cells releasing particles and antibodies."
+      image: "../../assets/projects/biotechne-immunology/consistency.jpg"
+      alt: "Dictionary-style card: “consistency: kənˈsistnsē : noun. the quality of achieving consistent results”, with everything after “the quality” struck through in blue pen and an arrow looping to the handwritten line “when lot 47 works exactly like lot 1”, beside loose hand-drawn cell shapes."
     top:
       image: "../../assets/projects/biotechne-immunology/lot-47.jpg"
       alt: "Card reading “when lot 47 is works exactly like lot 1”, with “works exactly” circled in blue pen and an arrow looping to the handwritten note “yes we mean exactly....”."
     bottom:
       image: "../../assets/projects/biotechne-immunology/arrow.jpg"
       alt: "A white hand-drawn arrow sweeping up and to the right across a solid BT Blue card."
-  - type: image
-    image: "../../assets/projects/biotechne-immunology/consistency.jpg"
-    alt: "Dictionary-style card: “consistency: kənˈsistnsē : noun. the quality of achieving consistent results”, with everything after “the quality” struck through in blue pen and an arrow looping to the handwritten line “when lot 47 works exactly like lot 1”, beside loose hand-drawn cell shapes."
   - type: image
     image: "../../assets/projects/biotechne-immunology/icons.jpg"
     alt: "A row of eight hand-drawn line icons in black and blue ink: an antibody, a cell with particles inside, an open brochure, a scientist beside a framed diagram, a coiled ribbon, a map pin between two figures, a cell with particles leaving it, and a magnifying glass over a cell with receptors."
