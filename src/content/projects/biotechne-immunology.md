@@ -55,17 +55,17 @@ gallery:
     bottom:
       image: "../../assets/projects/biotechne-immunology/arrow.jpg"
       alt: "A white hand-drawn arrow sweeping up and to the right across a solid BT Blue card."
-  - type: text
-    paragraphs:
-      - "The restrained navy palette and typography maintain scientific credibility while struck-through text and sketchy illustrations add warmth and accessibility. This balances authenticity with the rigor researchers require from their suppliers."
+  - type: image
+    image: "../../assets/projects/biotechne-immunology/icons.jpg"
+    alt: "A row of eight hand-drawn line icons in black and blue ink: an antibody, a cell with particles inside, an open brochure, a scientist beside a framed diagram, a coiled ribbon, a map pin between two figures, a cell with particles leaving it, and a magnifying glass over a cell with receptors."
   - type: swatches
     colours:
       - { name: "BT Blue", hex: "#0034B7", pms: "293 C", cmyk: "100.80.00.00", rgb: "0.52.183" }
       - { name: "BT Dark Blue", hex: "#141A47", pms: "295 C", cmyk: "100.96.39.44", rgb: "20.26.71" }
       - { name: "BT Light Grey", hex: "#F0F0F0", pms: "Cool Gray 1C", cmyk: "0.0.0.10", rgb: "240.240.240" }
-  - type: image
-    image: "../../assets/projects/biotechne-immunology/icons.jpg"
-    alt: "A row of eight hand-drawn line icons in black and blue ink: an antibody, a cell with particles inside, an open brochure, a scientist beside a framed diagram, a coiled ribbon, a map pin between two figures, a cell with particles leaving it, and a magnifying glass over a cell with receptors."
+  - type: text
+    paragraphs:
+      - "The restrained navy palette and typography maintain scientific credibility while struck-through text and sketchy illustrations add warmth and accessibility. This balances authenticity with the rigor researchers require from their suppliers."
   - type: sequence      # reference (left) and illustration (right) cut together, one frame per second
     interval: 1000
     left:
