@@ -12,8 +12,8 @@ summary: "Redefining scientific terms with the honest humour of lab life, to mak
 order: 2
 accent: "#0034B7"               # BT Blue (PMS 293 C), the campaign's primary colour
 theme: light                    # the campaign is built on light grey and blue ink: this page always displays light
-cover: "../../assets/projects/biotechne-immunology/cover.jpg"
-coverAlt: "Dictionary-style definition on light grey: “immunology: i-myə-ˈnä-lə-jē : noun. the study of the immune system”, with “the immune system” struck through in blue pen and “the underlying cause of every disease you’ve ever heard of.” handwritten beneath. A blue ballpoint pen lies beside it, surrounded by hand-drawn cells, antibodies and arrows."
+cover: "../../assets/projects/biotechne-immunology/hero-lab.jpg"
+coverAlt: "Close-up of a scientist in a white lab coat writing in a notebook with a blue ballpoint pen at a bright lab bench, with the R&D Systems logo and the line “Redefining what scientists expect”, “Redefining” handwritten."
 carousel:           # homepage card slideshow, in order
   - "../../assets/projects/biotechne-immunology/billboards.jpg"
   - "../../assets/projects/biotechne-immunology/phones.jpg"
@@ -29,6 +29,9 @@ gallery:
     paragraphs:
       - "The \"Redefining\" campaign plays on dual meaning: literally redefining scientific terms with the honest humor of lab life (like \"Affinity: the strength of attraction between you and the bad coffee you drink during your overnight experiment\"), while metaphorically redefining what researchers should expect from their reagent supplier."
       - "Rather than sterile product messaging, we created insider moments that acknowledge the real, unglamorous side of research. Overnight experiments, questionable coffee, testing ten different hypotheses. This positions Bio-Techne as a partner who's been in the lab and designed products with those realities in mind."
+  - type: image          # the original cover: the first look at the idea, right after the strategy
+    image: "../../assets/projects/biotechne-immunology/cover.jpg"
+    alt: "Dictionary-style definition on light grey: “immunology: i-myə-ˈnä-lə-jē : noun. the study of the immune system”, with “the immune system” struck through in blue pen and “the underlying cause of every disease you’ve ever heard of.” handwritten beneath. A blue ballpoint pen lies beside it, surrounded by hand-drawn cells, antibodies and arrows."
   - type: image
     image: "../../assets/projects/biotechne-immunology/phone-hand.jpg"
     alt: "A hand holding a phone showing an R&D Systems LinkedIn post: “Immunology Redefined”, with “Redefined” handwritten in blue, above the line “We asked for creative definitions for Immunology from scientists just like you. Don’t miss this chance to see some of the best definitions we received!”"
