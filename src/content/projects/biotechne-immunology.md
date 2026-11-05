@@ -119,5 +119,8 @@ gallery:
   - type: image
     image: "../../assets/projects/biotechne-immunology/billboards.jpg"
     alt: "Three framed posters on a concrete wall in a city plaza. Left: “affinity: the strength of the attraction between two substances”, with “two substances” struck through and “you and the bad coffee you drink during your overnight experiment.” handwritten beneath. Centre, on BT Blue: “Immunology Redefined”, with “Redefined” handwritten, above “Proteins with consistency, antibodies with flexibility, ELISAs with accuracy.” Right: “efficacy: how well a therapy provides the expected therapeutic effect”, struck through, with “does what you say it’s going to do.” handwritten beneath."
+  - type: image          # bookend: the campaign voice written onto a real lab moment (opens on the lab photo, closes here)
+    image: "../../assets/projects/biotechne-immunology/reproducible.jpg"
+    alt: "A scientist in glasses and gloves holds three test tubes up to the light in a dark lab. Written beside his gaze in white: “reproducible: adjective”, with the definition “able to be repeated” struck through and “the same answer at 2am as at 2pm.” handwritten beneath; a hand-drawn circle loops around the vials."
   # More images go here as they arrive.
 ---
