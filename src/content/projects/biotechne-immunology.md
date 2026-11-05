@@ -56,6 +56,9 @@ gallery:
       image: "../../assets/projects/biotechne-immunology/arrow.jpg"
       alt: "A white hand-drawn arrow sweeping up and to the right across a solid BT Blue card."
   - type: image
+    image: "../../assets/projects/biotechne-immunology/consistency.jpg"
+    alt: "Dictionary-style card: “consistency: kənˈsistnsē : noun. the quality of achieving consistent results”, with everything after “the quality” struck through in blue pen and an arrow looping to the handwritten line “when lot 47 works exactly like lot 1”, beside loose hand-drawn cell shapes."
+  - type: image
     image: "../../assets/projects/biotechne-immunology/icons.jpg"
     alt: "A row of eight hand-drawn line icons in black and blue ink: an antibody, a cell with particles inside, an open brochure, a scientist beside a framed diagram, a coiled ribbon, a map pin between two figures, a cell with particles leaving it, and a magnifying glass over a cell with receptors."
   - type: swatches
