@@ -9,6 +9,7 @@ sector: "Life sciences"
 role: "Art direction, execution"
 channels: ["Out of home", "Social", "Web", "Email", "Print literature"]   # DRAFT: from the images so far
 summary: "Redefining scientific terms with the honest humour of lab life, to make a market leader the brand that truly gets immunologists."   # DRAFT: condensed from the board
+tags: ["Art Direction", "Strategy", "Campaign"]
 order: 2
 accent: "#0034B7"               # BT Blue (PMS 293 C), the campaign's primary colour
 theme: light                    # the campaign is built on light grey and blue ink: this page always displays light

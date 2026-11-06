@@ -101,6 +101,7 @@ const projects = defineCollection({
       role: z.string(),
       channels: z.array(z.string()),
       summary: z.string(),          // one or two sentences for the homepage card
+      tags: z.array(z.string()).default([]),   // pill tags along the bottom of the homepage card
       order: z.number(),            // position on the homepage
       cover: image().optional(),    // homepage card + project hero
       coverAlt: z.string().optional(),

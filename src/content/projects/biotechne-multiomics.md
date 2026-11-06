@@ -10,6 +10,7 @@ sector: "Life sciences"
 role: "Strategy, concept, art direction, design"  # DRAFT: confirm role
 channels: ["Out of home", "Events", "Social", "Web", "Print literature"]
 summary: "A campaign built the same way the technology works: two visual languages, scientific and human, layered into one system."  # DRAFT: condensed from the overview
+tags: ["Art Direction", "Strategy", "Campaign"]
 order: 1
 cover: "../../assets/projects/biotechne-multiomics/multiomics-cover.jpg"
 theme: dark         # the work is shot on black: this page always displays dark
