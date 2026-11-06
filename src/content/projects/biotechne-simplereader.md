@@ -7,7 +7,7 @@ product: "SimpleReader"
 year: "TBC"                            # DRAFT
 sector: "Life sciences"
 role: "Art direction, storyboarding, motion design"   # DRAFT: from "storyboarding, motion design" in the board copy
-channels: ["Film", "Out of home", "Social", "Packaging"]        # DRAFT: from the images so far
+channels: ["Product video", "Out of home", "Social", "Packaging"]        # DRAFT: from the images so far
 summary: "A launch film and visual system that made a compact plate reader feel modern, energetic and built for early-career scientists."   # DRAFT
 tags: ["Art Direction", "Strategy", "Campaign"]        # DRAFT: same as the other two; Motion may fit better
 order: 3
@@ -72,6 +72,10 @@ gallery:
         - "../../assets/projects/simplereader/social/social-02.png"
         - "../../assets/projects/simplereader/social/social-03.png"
         - "../../assets/projects/simplereader/social/social-04.png"
+  - type: image          # bookend: opens on the blue key visual, closes on the orange one
+    image: "../../assets/projects/simplereader/plug-in-orange.jpg"
+    alt: "Top-down view of the grey SimpleReader instrument, plugged in, on a bright orange background beside the line “Plug In, Read & Discover” in navy."
+note: "The product video was the core deliverable. The poster and social pieces were developed to show how its system, one line, three colours and the instrument as the hero, extends across a full rollout."
 # ---- original copy (from the presentation boards), kept for reference ----
 #   - type: text
 #     heading: "Campaign visuals"
