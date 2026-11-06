@@ -103,9 +103,11 @@ const projects = defineCollection({
         type: z.literal('sequence'),
         interval: z.number().default(1000),          // ms per frame
         ratio: z.string().regex(/^\d+ \/ \d+$/).default('4 / 3'),
-        left: z.object({ frames: z.array(image()).min(2), alt: z.string(), label: z.string().optional() }),
-        right: z.object({ frames: z.array(image()).min(2), alt: z.string(), label: z.string().optional() }),
-      }).refine((b) => b.left.frames.length === b.right.frames.length, { message: 'sequence: left and right need the same number of frames' }),
+        // A side with one frame is a still (e.g. a poster beside an animated social post)
+        left: z.object({ frames: z.array(image()).min(1), alt: z.string(), label: z.string().optional() }),
+        right: z.object({ frames: z.array(image()).min(1), alt: z.string(), label: z.string().optional() }),
+      }).refine((b) => b.left.frames.length === 1 || b.right.frames.length === 1 || b.left.frames.length === b.right.frames.length,
+        { message: 'sequence: animated sides need the same number of frames' }),
     ]);
 
     return z.object({

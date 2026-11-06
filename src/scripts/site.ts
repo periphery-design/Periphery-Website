@@ -167,7 +167,8 @@ document.querySelectorAll<HTMLElement>('[data-cap-reveal]').forEach((el) => {
    button (auto-moving content), and stays on the first frame for reduced motion. */
 document.querySelectorAll<HTMLElement>('[data-seq]').forEach((el) => {
   if (reduceMotion) return;
-  const sides = [...el.querySelectorAll<HTMLElement>('.seq-frames')].map((s) => [...s.querySelectorAll<HTMLImageElement>('.seq-frame')]);
+  // Sides with a single frame are stills and are left alone
+  const sides = [...el.querySelectorAll<HTMLElement>('.seq-frames')].map((s) => [...s.querySelectorAll<HTMLImageElement>('.seq-frame')]).filter((s) => s.length > 1);
   const n = sides[0]?.length ?? 0;
   if (n < 2 || sides.some((s) => s.length !== n)) return;
   const interval = Number(el.dataset.seq) || 1000;

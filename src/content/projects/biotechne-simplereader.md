@@ -7,7 +7,7 @@ product: "SimpleReader"
 year: "TBC"                            # DRAFT
 sector: "Life sciences"
 role: "Art direction, storyboarding, motion design"   # DRAFT: from "storyboarding, motion design" in the board copy
-channels: ["Film", "Photography", "Packaging"]        # DRAFT: from the images so far
+channels: ["Film", "Out of home", "Social", "Packaging"]        # DRAFT: from the images so far
 summary: "A launch film and visual system that made a compact plate reader feel modern, energetic and built for early-career scientists."   # DRAFT
 tags: ["Art Direction", "Strategy", "Campaign"]        # DRAFT: same as the other two; Motion may fit better
 order: 3
@@ -58,6 +58,20 @@ gallery:
           alt: "Two hands in bright blue lab gloves making a heart shape in front of a white lab coat."
         - image: "../../assets/projects/simplereader/pipette.jpg"
           alt: "A scientist in safety glasses and blue gloves concentrating as he pipettes yellow liquid into a sample plate."
+  - type: sequence       # rollout: bus shelter poster (still) beside the LinkedIn carousel (4 posts, 1s each)
+    interval: 1000
+    ratio: "3 / 4"
+    left:
+      alt: "A SimpleReader poster in a city bus shelter: “Plug In. Read. Discover.” in large light-blue type on Bio-Techne blue, the SimpleReader wordmark and the line “Pocket ELISA on-the-go” above, a QR code, and the grey instrument breaking up into the headline."
+      frames:
+        - "../../assets/projects/simplereader/bus-shelter.jpg"
+    right:
+      alt: "A phone showing an R&D Systems LinkedIn post that cycles through four campaign cards: “Compact & Portable” on navy, “Your bench & budget” on blue, “Plug In, Read, Discover” on orange, and “SimpleReader, Order Yours Today” on blue."
+      frames:
+        - "../../assets/projects/simplereader/social/social-01.png"
+        - "../../assets/projects/simplereader/social/social-02.png"
+        - "../../assets/projects/simplereader/social/social-03.png"
+        - "../../assets/projects/simplereader/social/social-04.png"
 # ---- original copy (from the presentation boards), kept for reference ----
 #   - type: text
 #     heading: "Campaign visuals"
