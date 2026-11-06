@@ -30,6 +30,7 @@ const projects = defineCollection({
         type: z.literal('grid'),
         images: z.array(z.object({ image: image(), alt: z.string() })),
         ratio: z.string().regex(/^\d+ \/ \d+$/).optional(),   // tile shape, e.g. "4 / 3" (default 16 / 9)
+        row: z.boolean().default(false),   // true: all images in one line at equal height, each at its own shape (no crop)
       }),
       // text: a text band on its own, placed anywhere in the image sequence (label on the left)
       z.object({

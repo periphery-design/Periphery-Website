@@ -170,6 +170,16 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
               ))}
               <button type="button" class="pill ghost seq-toggle" data-seq-toggle aria-pressed="false" hidden>Pause</button>
             </div>
+          ) : b.type === 'grid' && b.row ? (
+            <div class="grid" data-reveal>
+              <div class="trio-row">
+                {b.images.map((g) => (
+                  <div class="trio-cell" style={`--r: ${g.image.width / g.image.height}`}>
+                    <Image src={g.image} alt={g.alt} widths={[500, 800, 1200]} sizes="(min-width: 560px) 50vw, 100vw" />
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : b.type === 'grid' ? (
             <div class="grid img-grid" data-reveal style={b.ratio ? `--grid-ratio: ${b.ratio}` : undefined}>
               {b.images.map((g) => <div class="img-wrap"><Image src={g.image} alt={g.alt} widths={[600, 1000, 1400, 2000]} sizes="(min-width: 800px) 50vw, 100vw" /></div>)}
@@ -348,7 +358,9 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   .img-grid :global(img) { width: 100%; height: 100%; object-fit: cover; aspect-ratio: var(--grid-ratio, 16 / 9); border-radius: var(--radius); }
   /* Principles: three short points under a text band, each with a hairline rule like the facts row */
   .principles { row-gap: 1.5rem; }
-  .principles li { grid-column: span 4; border-top: 1px solid var(--line); padding-top: 0.75rem; display: grid; gap: 0.4rem; align-content: start; }
+  .principles:has(li:nth-child(4)) { --pr-span: span 3; }   /* four points: one row of four */
+  @media (max-width: 1000px) { .principles:has(li:nth-child(4)) { --pr-span: span 6; } }
+  .principles li { grid-column: var(--pr-span, span 4); border-top: 1px solid var(--line); padding-top: 0.75rem; display: grid; gap: 0.4rem; align-content: start; }
   .pr-title { font-size: calc(var(--step-1) * 0.8); font-weight: var(--weight-sub); line-height: var(--leading-sub); }
   .principles p { font-size: calc(var(--step-1) * 0.8); max-width: 40ch; }
   @media (max-width: 800px) { .principles li { grid-column: 1 / -1; } }
