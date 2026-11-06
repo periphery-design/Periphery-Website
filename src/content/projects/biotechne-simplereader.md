@@ -24,6 +24,13 @@ overview:
   - "Through dynamic visuals and size comparisons, we’ll emphasize its power and portability, positioning it as a fun yet credible innovation that redefines what a scientific instrument can be."
 
 gallery:
+  - type: video          # the launch film: the centrepiece, first thing after the intro
+    src: "/media/simplereader-film.mp4"
+    poster: "/media/simplereader-film-poster.jpg"
+    label: "SimpleReader launch film, 42 seconds: researchers at the bench, the instrument held in one gloved hand, the lines “Pocket ELISA on-the-go”, “Compact, Portable” and “Plug In, Read & Discover”, ending on the SimpleReader name and the Bio-Techne and R&D Systems logos."
+  - type: image          # product shot, right after the film
+    image: "../../assets/projects/simplereader/device-laptop.jpg"
+    alt: "The white SimpleReader instrument plugged into a laptop by USB on a pale grey desk, a clear 96-well plate beside it."
   - type: principles
     items:
       - title: "Target pain point"
@@ -39,13 +46,6 @@ gallery:
     paragraphs:
       - "SimpleReader is a compact, cost-effective plate reader that streamlines a traditionally labor-intensive process. The brief was to make it land with a younger, academically focused audience, so we storyboarded and built a fast-paced motion piece that carries both the utility and the energy of the product."
       - "The photography follows the same line: warm, inviting light, authentic academic settings and subtle pops of Bio-Techne colour. Credible to scientists, approachable to the students and early-career researchers it was made for."
-  - type: video          # the launch film: the centrepiece, right after the paragraph that describes it
-    src: "/media/simplereader-film.mp4"
-    poster: "/media/simplereader-film-poster.jpg"
-    label: "SimpleReader launch film, 42 seconds: researchers at the bench, the instrument held in one gloved hand, the lines “Pocket ELISA on-the-go”, “Compact, Portable” and “Plug In, Read & Discover”, ending on the SimpleReader name and the Bio-Techne and R&D Systems logos."
-  - type: image          # product shot, right after the film
-    image: "../../assets/projects/simplereader/device-laptop.jpg"
-    alt: "The white SimpleReader instrument plugged into a laptop by USB on a pale grey desk, a clear 96-well plate beside it."
   - type: mosaic         # photography bento: product + students over three portraits
     rows:
       - - image: "../../assets/projects/simplereader/packaging.jpg"
