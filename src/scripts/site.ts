@@ -99,7 +99,7 @@ document.querySelectorAll<HTMLElement>('[data-stack]').forEach((el) => {
 });
 
 /* ---------- Capabilities: image card that trails the mouse over the panel ----------
-   Hovering a row shows its image; images slide up or down with the direction of travel. The card eases toward
+   Hovering a row shows its image: the card grows in, and each new image expands over the last. The card eases toward
    the pointer (transform only) and the loop sleeps once it settles. Keyboard focus parks it beside the row.
    Touch devices never see the card (CSS hides it); their image is inside the opened row. */
 document.querySelectorAll<HTMLElement>('[data-cap-reveal]').forEach((el) => {
@@ -109,12 +109,25 @@ document.querySelectorAll<HTMLElement>('[data-cap-reveal]').forEach((el) => {
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
   if (!card || imgs.length !== rows.length) return;
 
+  // Show image i. If the card is just growing in, the image is already full size inside it; otherwise the new
+  // image goes on top and expands from the centre, and the ones underneath close (unseen) once it has finished.
+  let z = 1, cur = -1;
+  const snap = (m: HTMLElement, on: boolean) => { m.classList.add('no-anim'); m.classList.toggle('is-on', on); void m.offsetWidth; m.classList.remove('no-anim'); };
   const set = (i: number) => {
+    const wasActive = el.classList.contains('is-active');
     el.classList.add('is-active');
-    imgs.forEach((m, k) => { m.classList.toggle('is-on', k === i); m.classList.toggle('is-before', k < i); });
+    if (i === cur) return;
+    cur = i;
+    const img = imgs[i];
+    img.style.zIndex = String(++z);
+    if (!wasActive) { imgs.forEach((m) => snap(m, m === img)); return; }
+    img.classList.add('is-on');
+    img.addEventListener('transitionend', () => {
+      if (cur === i) imgs.forEach((m) => { if (m !== img) snap(m, false); });
+    }, { once: true });
   };
   let tx = 0, ty = 0, cx = 0, cy = 0, running = false, shown = false;
-  const clear = () => { el.classList.remove('is-active'); shown = false; };
+  const clear = () => { el.classList.remove('is-active'); shown = false; cur = -1; };
   const place = () => { card.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%)`; };
   const tick = () => {
     const k = reduceMotion ? 1 : 0.16;

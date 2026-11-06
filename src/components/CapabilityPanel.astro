@@ -1,9 +1,9 @@
 ---
 // Capabilities, after Spiegel: large discipline names stacked tight inside a rounded panel.
-// Hover (or tap / keyboard) opens a row to show a line and service tags; the other rows dim and the name rolls.
-// With images (home page), a card trails the mouse over the text, after General Condition: images slide up or
-// down inside it depending on which way you move through the list. Keyboard parks the card beside the row;
-// on touch there is no card, the image sits inside the opened row instead.
+// Names sit in light grey; hovering (or tapping / keyboard) turns one black and opens it to show a line and tags.
+// With images (home page), a card trails the mouse over the text, after General Condition: it grows in from
+// nothing when you enter the list, and each new image expands from the centre over the last. Keyboard parks the
+// card beside the row; on touch there is no card, the image sits inside the opened row instead.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 interface Cap { name: string; line: string; tags: string[]; image?: ImageMetadata; alt?: string; }
@@ -17,10 +17,7 @@ const withImages = reveal && items.every((c) => c.image);
       <li class="cap" data-expand-item>
         <h3>
           <button type="button" class="cap-trigger" data-expand aria-expanded="false" aria-controls={`${idPrefix}-${i}`}>
-            <span class="cap-name roll">
-              <span class="roll-a">{c.name}</span>
-              <span class="roll-b" aria-hidden="true">{c.name}</span>
-            </span>
+            <span class="cap-name">{c.name}</span>
             <span class="cap-num" aria-hidden="true">{i + 1}</span>
           </button>
         </h3>
@@ -36,9 +33,11 @@ const withImages = reveal && items.every((c) => c.image);
   </ol>
   {withImages && (
     <div class="rv-card" aria-hidden="true">
-      {items.map((c) => (
-        <div class="rv-img"><Image src={c.image!} alt="" widths={[480, 800]} sizes="26rem" loading="lazy" /></div>
-      ))}
+      <div class="rv-inner">
+        {items.map((c) => (
+          <div class="rv-img"><Image src={c.image!} alt="" widths={[480, 800]} sizes="26rem" loading="lazy" /></div>
+        ))}
+      </div>
     </div>
   )}
 </div>
@@ -50,27 +49,21 @@ const withImages = reveal && items.every((c) => c.image);
     border-radius: calc(var(--radius) * 1.25);
     padding: clamp(1.5rem, 1rem + 3vw, 3.5rem);
   }
-  .cap { border-bottom: 1px solid var(--line); transition: opacity var(--dur-fast) var(--ease-out); }
+  .cap { border-bottom: 1px solid var(--line); }
   .cap:last-child { border-bottom: 0; }
   .cap-trigger {
     width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
     padding-block: 0.6rem; text-align: left;
   }
-  .cap-name { font-family: var(--font-display); font-size: min(var(--step-3), 7.8vw);  /* longest word ("Illustration") fits a phone */
-    font-weight: var(--weight-headline); letter-spacing: -0.03em; line-height: 1; }
-  .cap-num { font-size: var(--step-2); font-weight: var(--weight-sub); color: var(--fg-muted); font-variant-numeric: tabular-nums; }
-
-  /* Rolling name, same motion as the homepage project titles */
-  .roll {
-    --roll-ease: cubic-bezier(0.76, 0, 0.24, 1);
-    --roll-dur: 550ms;
-    display: grid; overflow: hidden;
-    padding-block: 0.08em 0.22em; margin-block: -0.08em -0.22em;  /* room for Syne's deep descenders (g, y) */
+  /* Light grey at rest, black when hovered / open / focused: a colour change only */
+  .cap-name {
+    font-family: var(--font-display); font-size: min(var(--step-3), 7.8vw);  /* longest word ("Illustration") fits a phone */
+    font-weight: var(--weight-headline); letter-spacing: -0.03em; line-height: 1;
+    color: color-mix(in srgb, var(--fg) 26%, var(--bg-raised));
+    transition: color var(--dur-fast) ease;
   }
-  .roll > span { grid-area: 1 / 1; transition: transform var(--roll-dur) var(--roll-ease); }
-  .roll-b { transform: translateY(135%); }   /* parked fully below the window, i-dots included */
-  .cap.is-open .roll-a, .cap-trigger:focus-visible .roll-a { transform: translateY(-135%); }
-  .cap.is-open .roll-b, .cap-trigger:focus-visible .roll-b { transform: none; }
+  .cap.is-open .cap-name, .cap-trigger:focus-visible .cap-name { color: var(--fg); }
+  .cap-num { font-size: var(--step-2); font-weight: var(--weight-sub); color: var(--fg-muted); font-variant-numeric: tabular-nums; }
 
   .cap-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-med) var(--ease-inout); }
   .cap-inner {
@@ -92,44 +85,38 @@ const withImages = reveal && items.every((c) => c.image);
   .cap.is-open .cap-body { grid-template-rows: 1fr; }
   .cap.is-open :is(.cap-line, .tags, .cap-media) { opacity: 1; transform: none; transition-delay: 80ms; }
   @media (hover: hover) {
-    .caps:hover .cap:not(:hover) { opacity: 0.4; }
     .cap:hover .cap-body { grid-template-rows: 1fr; }
     .cap:hover :is(.cap-line, .tags) { opacity: 1; transform: none; transition-delay: 80ms; }
-    .cap:hover .roll-a { transform: translateY(-135%); }
-    .cap:hover .roll-b { transform: none; }
+    .cap:hover .cap-name { color: var(--fg); }
   }
 
-  /* Cursor card: floats over the text, positioned from JS with transform. Mouse only. */
+  /* Cursor card: floats over the text, positioned from JS with transform (on .rv-card). Mouse only.
+     .rv-inner grows in from nothing when the list is entered and shrinks away on leave. */
   .rv-card { display: none; }
   @media (hover: hover) and (pointer: fine) {
     .cap-media { display: none; }
     .rv-card {
       display: block; position: absolute; top: 0; left: 0; z-index: 3; pointer-events: none;
       width: clamp(14rem, 9rem + 13vw, 24rem); aspect-ratio: 3 / 2;
-      overflow: hidden; border-radius: var(--radius); background: var(--bg);
-      box-shadow: 0 1.5rem 3rem -1rem rgb(0 0 0 / 0.35);
-      opacity: 0;
-      transition: opacity 300ms var(--ease-out);
       will-change: transform;
     }
-    [data-cap-reveal].is-active .rv-card { opacity: 1; }
+    .rv-inner {
+      position: absolute; inset: 0; overflow: hidden; border-radius: var(--radius); background: var(--bg);
+      box-shadow: 0 1.5rem 3rem -1rem rgb(0 0 0 / 0.35);
+      transform: scale(0.15); opacity: 0;
+      transition: transform 450ms var(--ease-out), opacity 200ms var(--ease-out);
+    }
+    [data-cap-reveal].is-active .rv-inner { transform: none; opacity: 1; }
   }
+  /* Each new image expands from the centre over the previous one (stacking order set in site.ts) */
   .rv-img {
     position: absolute; inset: 0;
-    transform: translateY(101%);   /* 101%: no sub-pixel sliver of the next image at the edge */
-    transition: transform 550ms cubic-bezier(0.76, 0, 0.24, 1);
+    clip-path: inset(50% round var(--radius));
+    transition: clip-path 450ms var(--ease-out);
   }
-  .rv-img.is-before { transform: translateY(-101%); }
-  .rv-img.is-on { transform: none; }
+  .rv-img.is-on { clip-path: inset(0 round var(--radius)); }
+  .rv-img.no-anim { transition: none; }
   .rv-img :global(img) { width: 100%; height: 100%; object-fit: cover; }
-
-  /* Reduced motion: no rolling or sliding; images swap in place */
-  @media (prefers-reduced-motion: reduce) {
-    .roll-b { display: none; }
-    .cap .roll-a, .cap.is-open .roll-a, .cap:hover .roll-a, .cap-trigger:focus-visible .roll-a { transform: none; }
-    .rv-img, .rv-img.is-before { transform: none; opacity: 0; }
-    .rv-img.is-on { opacity: 1; }
-  }
 
   @media (max-width: 800px) {
     .cap-inner { grid-template-columns: 1fr; }
