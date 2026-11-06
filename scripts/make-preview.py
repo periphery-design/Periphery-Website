@@ -21,7 +21,7 @@ for root, _, files in os.walk(out):
         depth = os.path.relpath(root, out).count(os.sep) + (0 if os.path.relpath(root, out) == '.' else 1)
         prefix = '../' * depth
         s = open(fp, encoding='utf-8').read()
-        s = re.sub(r'(href|src)="(/(?!/)[^"]*)"', lambda m: f'{m.group(1)}="{fix(m.group(2), prefix)}"', s)
+        s = re.sub(r'(href|src|poster)="(/(?!/)[^"]*)"', lambda m: f'{m.group(1)}="{fix(m.group(2), prefix)}"', s)
         s = re.sub(r'srcset="([^"]*)"', lambda m: 'srcset="' + ', '.join(
             (fix(part.strip().split(' ')[0], prefix) + (' ' + part.strip().split(' ', 1)[1] if ' ' in part.strip() else '')) if part.strip().startswith('/') else part.strip()
             for part in m.group(1).split(',')) + '"', s)

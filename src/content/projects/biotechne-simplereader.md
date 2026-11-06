@@ -38,6 +38,10 @@ gallery:
     heading: "Campaign visuals"
     paragraphs:
       - "To support the launch of SimpleReader, a new, cost-effective instrument designed to streamline a traditionally labor-intensive process. The creative team was tasked with developing an engaging visual narrative tailored to a younger, academically focused audience. Our approach combined storyboarding, motion design, and iterative collaboration to craft a fast-paced, visually dynamic video that conveys both the utility and energy of the product. The final execution balances technical clarity with bold, contemporary aesthetics, delivering a compelling message that resonates with early-career researchers and academic institutions."
+  - type: video          # the launch film: the centrepiece, right after the paragraph that describes it
+    src: "/media/simplereader-film.mp4"
+    poster: "/media/simplereader-film-poster.jpg"
+    label: "SimpleReader launch film, 42 seconds: researchers at the bench, the instrument held in one gloved hand, the lines “Pocket ELISA on-the-go”, “Compact, Portable” and “Plug In, Read & Discover”, ending on the SimpleReader name and the Bio-Techne and R&D Systems logos."
   - type: grid
     row: true
     images:
@@ -57,5 +61,4 @@ gallery:
         alt: "Overhead shot of three students around an orange table with phones, notes and a SimpleReader instrument in the middle."
       - image: "../../assets/projects/simplereader/gloves-heart.jpg"
         alt: "Two hands in bright blue lab gloves making a heart shape in front of a white lab coat."
-  # Next: the launch film (as MP4) and its stills.
 ---

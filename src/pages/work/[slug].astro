@@ -170,6 +170,16 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
               ))}
               <button type="button" class="pill ghost seq-toggle" data-seq-toggle aria-pressed="false" hidden>Pause</button>
             </div>
+          ) : b.type === 'video' ? (
+            <figure class="grid film" data-reveal data-film>
+              <div class="film-frame" style={`aspect-ratio: ${b.ratio}`}>
+                <video src={b.src} poster={b.poster} muted loop playsinline preload="none" aria-label={b.label}></video>
+              </div>
+              <div class="film-controls">
+                <button type="button" class="pill ghost" data-film-play aria-pressed="false">Play</button>
+                <button type="button" class="pill ghost" data-film-sound aria-pressed="false">Sound on</button>
+              </div>
+            </figure>
           ) : b.type === 'grid' && b.row ? (
             <div class="grid" data-reveal>
               <div class="trio-row">
@@ -406,6 +416,11 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   .seq-label { margin-top: 0.6rem; }
   .seq-toggle { grid-column: 1 / -1; justify-self: start; }
   @media (max-width: 800px) { .seq-side { grid-column: 1 / -1; } }
+
+  /* Film: full width, rounded like the image frames; small pill controls underneath */
+  .film-frame { grid-column: 1 / -1; border-radius: var(--radius); overflow: hidden; background: #000; }
+  .film-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .film-controls { grid-column: 1 / -1; display: flex; gap: 0.5rem; margin-top: 0.75rem; }
 
   .note { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: var(--section); }
   .note p { color: var(--fg-muted); max-width: 64ch; }

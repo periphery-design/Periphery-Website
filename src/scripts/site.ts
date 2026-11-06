@@ -229,3 +229,29 @@ document.querySelectorAll<HTMLElement>('[data-roll-once]').forEach((el) => {
   el.addEventListener('focus', () => { if (el.matches(':focus-visible')) enter(); });
   el.addEventListener('blur', leave);
 });
+
+/* ---------- Films (case studies) ----------
+   Muted, looping, plays while on screen and pauses when it scrolls away or the tab is hidden. The visitor's
+   Pause sticks until they press Play. Sound is off until asked for. Reduced motion: never autoplays. */
+document.querySelectorAll<HTMLElement>('[data-film]').forEach((el) => {
+  const v = el.querySelector('video')!;
+  const play = el.querySelector<HTMLButtonElement>('[data-film-play]')!;
+  const sound = el.querySelector<HTMLButtonElement>('[data-film-sound]')!;
+  let userPaused = reduceMotion, onScreen = false;
+  const label = () => { const on = !v.paused; play.textContent = on ? 'Pause' : 'Play'; play.setAttribute('aria-pressed', String(on)); };
+  const sync = () => {
+    if (onScreen && !userPaused && !document.hidden) { v.preload = 'auto'; v.play().catch(() => {}); }
+    else v.pause();
+  };
+  v.addEventListener('play', label); v.addEventListener('pause', label);
+  play.addEventListener('click', () => { userPaused = !v.paused; if (!userPaused) { v.preload = 'auto'; v.play().catch(() => {}); } else v.pause(); });
+  sound.addEventListener('click', () => {
+    v.muted = !v.muted;
+    sound.textContent = v.muted ? 'Sound on' : 'Sound off';
+    sound.setAttribute('aria-pressed', String(!v.muted));
+    if (!v.muted && v.paused) { userPaused = false; v.play().catch(() => {}); }
+  });
+  new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; sync(); }, { threshold: 0.35 }).observe(v);
+  document.addEventListener('visibilitychange', sync);
+  label();
+});
