@@ -11,7 +11,7 @@ const { projects } = Astro.props;
 <ol class="deck" style={`--count: ${projects.length}`}>
   {projects.map((p, i) => (
     <li class="card" style={`--i: ${i}`}>
-      <a href={`/work/${p.id}/`} class="card-link grid">
+      <a href={`/work/${p.id}/`} class="card-link grid" data-roll-once>
         <!-- Images are decorative here: the link is named by the title. Full alt text is on the project page.
              Carousel: up to 3 images cross-fade in turn; the bars along the bottom fill like a loading bar in
              the project's accent colour, then the next image comes in. Placeholder projects show 3 grey slides. -->
@@ -99,8 +99,13 @@ const { projects } = Astro.props;
   }
   .roll > span { grid-area: 1 / 1; transition: transform var(--roll-dur) var(--roll-ease); }
   .roll-b { transform: translateY(115%); }
-  .card-link:hover .roll-a, .card-link:focus-visible .roll-a { transform: translateY(-115%); }
-  .card-link:hover .roll-b, .card-link:focus-visible .roll-b { transform: none; }
+  /* Rolls up once per hover and stays up (see site.ts: the reset back is instant and invisible, since both
+     copies of the title are the same). Without JS it falls back to a plain hover roll. */
+  .card-link.is-rolled .roll-a { transform: translateY(-115%); }
+  .card-link.is-rolled .roll-b { transform: none; }
+  .roll.no-anim > span { transition: none; }
+  :global(html:not(.js)) .card-link:hover .roll-a { transform: translateY(-115%); }
+  :global(html:not(.js)) .card-link:hover .roll-b { transform: none; }
   @media (hover: hover) {
     .card-link:hover .card-media :global(img), .card-link:hover .card-media :global(.ph) { transform: scale(1.03); }
   }

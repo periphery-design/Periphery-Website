@@ -186,3 +186,33 @@ document.querySelectorAll<HTMLElement>('[data-seq]').forEach((el) => {
     });
   }
 });
+
+/* ---------- Roll once: hovered titles roll up and stay up ----------
+   On leave, once the roll has finished, the title snaps back to its start with transitions off. Both copies
+   of the title are identical, so the snap can't be seen, and the next hover rolls up again. Leaving mid-roll
+   lets the roll finish first. Keyboard focus behaves like hover. */
+document.querySelectorAll<HTMLElement>('[data-roll-once]').forEach((el) => {
+  const roll = el.querySelector<HTMLElement>('.roll');
+  const b = roll?.querySelector<HTMLElement>('.roll-b');
+  if (!roll || !b) return;
+  let state: 'idle' | 'rolling' | 'rolled' = 'idle';
+  let inside = false;
+  const reset = () => {
+    roll.classList.add('no-anim');
+    el.classList.remove('is-rolled');
+    void roll.offsetWidth;            // apply the snap before transitions come back
+    roll.classList.remove('no-anim');
+    state = 'idle';
+  };
+  const enter = () => { inside = true; if (state === 'idle') { state = 'rolling'; el.classList.add('is-rolled'); } };
+  const leave = () => { inside = false; if (state === 'rolled') reset(); };
+  b.addEventListener('transitionend', (e) => {
+    if (e.propertyName !== 'transform' || state !== 'rolling') return;
+    state = 'rolled';
+    if (!inside) reset();
+  });
+  el.addEventListener('mouseenter', enter);
+  el.addEventListener('mouseleave', leave);
+  el.addEventListener('focus', () => { if (el.matches(':focus-visible')) enter(); });
+  el.addEventListener('blur', leave);
+});
