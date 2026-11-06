@@ -16,8 +16,8 @@ cover: "../../assets/projects/simplereader/cover.jpg"
 coverAlt: "Key visual on Bio-Techne blue: the line “Plug In, Read, Discover” above the word SimpleReader in huge white letters, with the compact grey SimpleReader instrument rising in front of it."
 carousel:
   - "../../assets/projects/simplereader/cover.jpg"
-  - "../../assets/projects/simplereader/device-desk.jpg"
-  - "../../assets/projects/simplereader/students.jpg"
+  - "../../assets/projects/simplereader/device-laptop.jpg"
+  - "../../assets/projects/simplereader/plug-in-orange.jpg"
 
 overview:
   - "This video highlights the sleek, compact design of the instrument, showcasing how big performance fits in a small form. The creative approach will make it feel modern, energetic, and approachable, appealing to a younger scientific audience."
@@ -42,7 +42,9 @@ gallery:
     src: "/media/simplereader-film.mp4"
     poster: "/media/simplereader-film-poster.jpg"
     label: "SimpleReader launch film, 42 seconds: researchers at the bench, the instrument held in one gloved hand, the lines “Pocket ELISA on-the-go”, “Compact, Portable” and “Plug In, Read & Discover”, ending on the SimpleReader name and the Bio-Techne and R&D Systems logos."
-  # device-desk.jpg is portrait and cut at the left: homepage carousel only until a landscape version arrives
+  - type: image          # product shot, right after the film
+    image: "../../assets/projects/simplereader/device-laptop.jpg"
+    alt: "The white SimpleReader instrument plugged into a laptop by USB on a pale grey desk, a clear 96-well plate beside it."
   - type: text
     heading: "Photography"
     paragraphs:
