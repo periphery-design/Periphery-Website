@@ -91,6 +91,12 @@ const projects = defineCollection({
         label: z.string(),            // what the film shows, for screen readers
         ratio: z.string().regex(/^\d+ \/ \d+$/).default('16 / 9'),
       }),
+      // mosaic: a bento of rows. Each row holds its images at equal height, each at its own shape (no crop);
+      // rows sit a gutter apart. Phones: one image per line.
+      z.object({
+        type: z.literal('mosaic'),
+        rows: z.array(z.array(z.object({ image: image(), alt: z.string() })).min(1)).min(1),
+      }),
       // sequence: two frame-by-frame animations side by side, driven by one clock so they change on the same
       // tick (two GIFs drift). Both sides need the same number of frames. Pauses off-screen; static for reduced motion.
       z.object({

@@ -180,6 +180,20 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
                 <button type="button" class="pill ghost" data-film-sound aria-pressed="false">Sound on</button>
               </div>
             </figure>
+          ) : b.type === 'mosaic' ? (
+            <div class="grid" data-reveal>
+              <div class="mosaic">
+                {b.rows.map((row) => (
+                  <div class="trio-row">
+                    {row.map((g) => (
+                      <div class="trio-cell" style={`--r: ${g.image.width / g.image.height}`}>
+                        <Image src={g.image} alt={g.alt} widths={[500, 800, 1200]} sizes={`(min-width: 560px) ${Math.round(100 / row.length)}vw, 100vw`} />
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : b.type === 'grid' && b.row ? (
             <div class="grid" data-reveal>
               <div class="trio-row">
@@ -393,6 +407,7 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   /* Trio as a row: flex-grow = aspect ratio with a zero basis, so all three end up the same height */
   .trio-row { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--gutter); }
   .trio-cell { flex: var(--r) 1 0; min-width: 0; }
+  .mosaic { grid-column: 1 / -1; display: grid; gap: var(--gutter); }
   .trio-cell :global(img) { width: 100%; height: auto; border-radius: var(--radius); display: block; }
   /* Tablet: main card on its own line, the other two share the next line at equal height */
   @media (max-width: 900px) { .trio-cell-main { flex-basis: 100%; } }

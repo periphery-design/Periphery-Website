@@ -42,23 +42,22 @@ gallery:
     src: "/media/simplereader-film.mp4"
     poster: "/media/simplereader-film-poster.jpg"
     label: "SimpleReader launch film, 42 seconds: researchers at the bench, the instrument held in one gloved hand, the lines “Pocket ELISA on-the-go”, “Compact, Portable” and “Plug In, Read & Discover”, ending on the SimpleReader name and the Bio-Techne and R&D Systems logos."
-  - type: grid
-    row: true
-    images:
-      - image: "../../assets/projects/simplereader/device-desk.jpg"
-        alt: "The white SimpleReader instrument on a pale grey desk beside a laptop and a strip of sample wells, its plate drawer at the front."
-      - image: "../../assets/projects/simplereader/packaging.jpg"
-        alt: "SimpleReader packaging: a white box with black ends and a Bio-Techne blue top perforated with a grid of dots, the name Simple Reader in blue and black on the side."
+  # device-desk.jpg is portrait and cut at the left: homepage carousel only until a landscape version arrives
   - type: text
     heading: "Photography"
     paragraphs:
       - "We focused on warm, inviting tones and lighting that feel energetic, modern, and approachable. Each image was selected to support a youthful visual language that aligns with early-career scientists and reflects the fast-paced, dynamic nature of the SimpleReader narrative."
       - "Photo choices emphasized authenticity, contemporary academic settings, and subtle pops of Bio-Techne brand color. We ensured every image supported a cohesive look—balancing scientific credibility with an engaging, student-forward vibe to match the product’s positioning and visual strategy."
-  - type: grid
-    row: true
-    images:
-      - image: "../../assets/projects/simplereader/students.jpg"
-        alt: "Overhead shot of three students around an orange table with phones, notes and a SimpleReader instrument in the middle."
-      - image: "../../assets/projects/simplereader/gloves-heart.jpg"
-        alt: "Two hands in bright blue lab gloves making a heart shape in front of a white lab coat."
+  - type: mosaic         # photography bento: product + students over three portraits
+    rows:
+      - - image: "../../assets/projects/simplereader/packaging.jpg"
+          alt: "SimpleReader packaging: a white box with black ends and a Bio-Techne blue top perforated with a grid of dots, the name Simple Reader in blue and black on the side."
+        - image: "../../assets/projects/simplereader/students.jpg"
+          alt: "Overhead shot of three students around an orange table with phones, notes and a SimpleReader instrument in the middle."
+      - - image: "../../assets/projects/simplereader/portrait.jpg"
+          alt: "A smiling scientist in a white lab coat and blue gloves, arms folded, in a bright lab with orange benches."
+        - image: "../../assets/projects/simplereader/gloves-heart.jpg"
+          alt: "Two hands in bright blue lab gloves making a heart shape in front of a white lab coat."
+        - image: "../../assets/projects/simplereader/pipette.jpg"
+          alt: "A scientist in safety glasses and blue gloves concentrating as he pipettes yellow liquid into a sample plate."
 ---
