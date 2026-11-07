@@ -9,7 +9,7 @@ role: "Brand identity, packaging, illustration, campaign"   # DRAFT
 channels: ["Packaging", "Out of home", "Merch"]         # DRAFT: confirm which pieces were made for real
 summary: "A hot sauce I make myself, and the brand built around it: blackletter attitude, little devils and a heat level for every bottle."   # DRAFT
 tags: ["Branding", "Illustration", "Campaign"]          # DRAFT
-order: 4
+order: 2
 theme: dark          # the red and yellow glow on black, and it matches the night billboard
 accent: "#ed1f25"    # brand red, sampled from the logo suite
 cover: "../../assets/projects/little-devils/billboard-night.jpg"
