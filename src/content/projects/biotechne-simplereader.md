@@ -10,7 +10,7 @@ role: "Art direction, storyboarding, motion design"   # DRAFT: from "storyboardi
 channels: ["Product video", "Out of home", "Social", "Packaging"]        # DRAFT: from the images so far
 summary: "A launch film and visual system that made a compact plate reader feel modern, energetic and built for early-career scientists."   # DRAFT
 tags: ["Art Direction", "Strategy", "Campaign"]        # DRAFT: same as the other two; Motion may fit better
-order: 3
+order: 4
 accent: "#ff7000"   # campaign orange, sampled from the boards
 cover: "../../assets/projects/simplereader/cover.jpg"
 coverAlt: "Key visual on Bio-Techne blue: the line “Plug In, Read, Discover” above the word SimpleReader in huge white letters, with the compact grey SimpleReader instrument rising in front of it."
