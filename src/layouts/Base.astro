@@ -29,6 +29,19 @@ const fullTitle = title ? `${title} — Periphery Design` : 'Periphery Design';
         document.documentElement.classList.add('js');
       })();
     </script>
+    <!-- Page transition, after Collins (pattern only): opening a case study slides the new page up over the
+         current one like a sheet, its rounded top corners flattening as it lands. Uses cross-document View
+         Transitions (Chrome, Edge, Safari 18.2+); other browsers simply load the page as normal. Must run before
+         first paint, so it lives inline in the head. Only case-study pages get it; everything else navigates as usual. -->
+    <script is:inline>
+      window.addEventListener('pagereveal', (e) => {
+        if (!e.viewTransition) return;
+        var p = location.pathname.replace(/index\.html$/, '');
+        var isCase = /\/work\/[^/]+\/$/.test(p);
+        if (isCase && !matchMedia('(prefers-reduced-motion: reduce)').matches) e.viewTransition.types.add('sheet-up');
+        else e.viewTransition.skipTransition();
+      });
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
