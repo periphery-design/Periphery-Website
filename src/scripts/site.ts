@@ -299,3 +299,23 @@ if (reels.length) {
     }).catch(() => {});
   });
 }
+
+/* ---------- Homepage card videos ----------
+   Silent loops that play only while their card is on screen (and the tab is visible). They load nothing until
+   first needed. Reduced motion: never play; the still image stays. */
+const cardVideos = [...document.querySelectorAll<HTMLVideoElement>('[data-card-video]')];
+if (cardVideos.length && !reduceMotion) {
+  const visible = new Set<HTMLVideoElement>();
+  const sync = (v: HTMLVideoElement) => {
+    if (visible.has(v) && !document.hidden) { v.preload = 'auto'; v.play().catch(() => {}); }
+    else v.pause();
+  };
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) { const v = e.target as HTMLVideoElement; e.isIntersecting ? visible.add(v) : visible.delete(v); sync(v); }
+  }, { threshold: 0.2 });
+  cardVideos.forEach((v) => {
+    v.addEventListener('playing', () => v.classList.add('is-playing'), { once: true });
+    io.observe(v);
+  });
+  document.addEventListener('visibilitychange', () => cardVideos.forEach(sync));
+}
