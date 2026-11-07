@@ -15,6 +15,22 @@ accent: "#0034B7"               # BT Blue (PMS 293 C), the campaign's primary co
 theme: light                    # the campaign is built on light grey and blue ink: this page always displays light
 cover: "../../assets/projects/biotechne-immunology/hero-lab.jpg"
 coverAlt: "Close-up of a scientist in a white lab coat writing in a notebook with a blue ballpoint pen at a bright lab bench, with the R&D Systems logo and the line “Redefining what scientists expect”, “Redefining” handwritten."
+reel:   # wireframe 2: homepage reel (images with channel labels, one statement card from the campaign copy)
+  - image: "../../assets/projects/biotechne-immunology/billboards.jpg"
+    label: "Out of home"
+  - image: "../../assets/projects/biotechne-immunology/phones.jpg"
+    label: "LinkedIn"
+  - quote: "Strikethrough, never erase."
+  - image: "../../assets/projects/biotechne-immunology/consistency.jpg"
+    label: "Visual system"
+  - image: "../../assets/projects/biotechne-immunology/website-4x3.jpg"
+    label: "Web"
+  - image: "../../assets/projects/biotechne-immunology/email-4x3.jpg"
+    label: "Email"
+  - image: "../../assets/projects/biotechne-immunology/brochure-spread-4x3.jpg"
+    label: "Print literature"
+  - image: "../../assets/projects/biotechne-immunology/reproducible.jpg"
+    label: "Lifestyle"
 carousel:           # homepage card slideshow, in order
   - "../../assets/projects/biotechne-immunology/billboards.jpg"
   - "../../assets/projects/biotechne-immunology/phones.jpg"

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import ProjectDeck from '../components/ProjectDeck.astro';
+import CampaignReels from '../components/CampaignReels.astro';
 import CapabilityPanel from '../components/CapabilityPanel.astro';
 import ProcessCards from '../components/ProcessCards.astro';
 import { capabilities, process } from '../data/site';
@@ -28,7 +28,7 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
       <h2 id="work-h" class="label">Selected work</h2>
       <p class="content meta">{projects.length} campaigns</p>
     </div>
-    <ProjectDeck projects={projects} />
+    <CampaignReels projects={projects} />
     <div class="grid all-work"><p class="content"><a class="pill ghost" href="/work/">All work <span class="arrow" aria-hidden="true">→</span></a></p></div>
   </section>
 

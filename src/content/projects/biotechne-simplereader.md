@@ -14,6 +14,22 @@ order: 3
 accent: "#ff7000"   # campaign orange, sampled from the boards
 cover: "../../assets/projects/simplereader/cover.jpg"
 coverAlt: "Key visual on Bio-Techne blue: the line “Plug In, Read, Discover” above the word SimpleReader in huge white letters, with the compact grey SimpleReader instrument rising in front of it."
+reel:   # wireframe 2: homepage reel (images with channel labels, one statement card from the campaign copy)
+  - image: "../../assets/projects/simplereader/cover.jpg"
+    label: "Key visual"
+  - image: "../../assets/projects/simplereader/bus-shelter.jpg"
+    label: "Out of home"
+  - quote: "Take the lab with you—anywhere, anytime, without compromising quality."
+  - image: "../../assets/projects/simplereader/device-laptop.jpg"
+    label: "Product"
+  - image: "../../assets/projects/simplereader/social/social-01.png"
+    label: "LinkedIn"
+  - image: "../../assets/projects/simplereader/packaging.jpg"
+    label: "Packaging"
+  - image: "../../assets/projects/simplereader/students.jpg"
+    label: "Photography"
+  - image: "../../assets/projects/simplereader/plug-in-orange.jpg"
+    label: "Product video"
 carousel:
   - "../../assets/projects/simplereader/cover.jpg"
   - "../../assets/projects/simplereader/device-laptop.jpg"

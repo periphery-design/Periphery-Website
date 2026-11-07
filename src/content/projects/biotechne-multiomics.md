@@ -15,6 +15,22 @@ order: 1
 cover: "../../assets/projects/biotechne-multiomics/multiomics-cover.jpg"
 theme: dark         # the work is shot on black: this page always displays dark
 accent: "#7a1fd6"   # campaign purple, brightened so the thin carousel bars read over dark images
+reel:   # wireframe 2: homepage reel (images with channel labels, one statement card from the campaign copy)
+  - image: "../../assets/projects/biotechne-multiomics/transit-poster.jpg"
+    label: "Transit poster"
+  - image: "../../assets/projects/biotechne-multiomics/billboard.jpg"
+    label: "Digital billboard"
+  - quote: "When every brand shows it, no brand owns it."
+  - image: "../../assets/projects/biotechne-multiomics/bento-large.jpg"
+    label: "The glass slide system"
+  - image: "../../assets/projects/biotechne-multiomics/social-triptych.jpg"
+    label: "Social"
+  - image: "../../assets/projects/biotechne-multiomics/mobile-site.jpg"
+    label: "Mobile site"
+  - image: "../../assets/projects/biotechne-multiomics/stage-screen.jpg"
+    label: "Event screen"
+  - image: "../../assets/projects/biotechne-multiomics/literature.jpg"
+    label: "Literature"
 carousel:           # homepage card slideshow, in order
   - "../../assets/projects/biotechne-multiomics/transit-poster.jpg"
   - "../../assets/projects/biotechne-multiomics/billboard.jpg"

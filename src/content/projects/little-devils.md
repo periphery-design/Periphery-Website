@@ -14,6 +14,18 @@ theme: dark          # the red and yellow glow on black, and it matches the nigh
 accent: "#ed1f25"    # brand red, sampled from the logo suite
 cover: "../../assets/projects/little-devils/billboard-night.jpg"
 coverAlt: "A roadside billboard at night in the rain, steam rising off it: “raise a little hell” in yellow blackletter on red, beside red devil hands clutching a bottle of Little Devils Habanero Apple hot sauce."
+reel:   # wireframe 2: homepage reel (images with channel labels, one statement card from the campaign copy)
+  - image: "../../assets/projects/little-devils/billboard-night.jpg"
+    label: "Out of home"
+  - image: "../../assets/projects/little-devils/packaging.jpg"
+    label: "Packaging"
+  - quote: "Heat, not your Midwest."
+  - image: "../../assets/projects/little-devils/logo-suite.jpg"
+    label: "Identity"
+  - image: "../../assets/projects/little-devils/colourways.jpg"
+    label: "Flavour colourways"
+  - image: "../../assets/projects/little-devils/bottle-illustration.jpg"
+    label: "Illustration"
 carousel:
   - "../../assets/projects/little-devils/billboard-night.jpg"
   - "../../assets/projects/little-devils/packaging.jpg"

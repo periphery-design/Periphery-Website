@@ -256,3 +256,46 @@ document.querySelectorAll<HTMLElement>('[data-film]').forEach((el) => {
   document.addEventListener('visibilitychange', sync);
   label();
 });
+
+/* ---------- Wireframe 2: campaign reels ----------
+   Blossom (drag + momentum + snap) loads only for a mouse; touch keeps the phone's own swipe and scroll-snap.
+   A thin progress line follows the scroll, and Previous / Next step one slide at a time. */
+const reels = [...document.querySelectorAll<HTMLElement>('[data-reel]')];
+if (reels.length) {
+  const fineReel = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const blossomReady = fineReel ? import('@blossom-carousel/core').then((m) => m.Blossom) : Promise.resolve(null);
+  reels.forEach((wrap) => {
+    const list = wrap.querySelector<HTMLElement>('[blossom-carousel]')!;
+    const fill = wrap.querySelector<HTMLElement>('.progress-fill');
+    const prev = wrap.querySelector<HTMLButtonElement>('[data-reel-prev]');
+    const next = wrap.querySelector<HTMLButtonElement>('[data-reel-next]');
+    let api: { prev: (o?: object) => void; next: (o?: object) => void } | null = null;
+    const update = () => {
+      const max = list.scrollWidth - list.clientWidth;
+      const p = max > 0 ? list.scrollLeft / max : 1;
+      fill?.style.setProperty('--p', String(Math.min(1, Math.max(0, p))));
+      if (prev) prev.disabled = list.scrollLeft <= 2;
+      if (next) next.disabled = list.scrollLeft >= max - 2;
+    };
+    // Fallback stepping without Blossom: scroll to the next / previous slide edge
+    const step = (dir: 1 | -1) => {
+      const slides = [...list.children] as HTMLElement[];
+      const pad = parseFloat(getComputedStyle(list).scrollPaddingInlineStart) || 0;
+      const x = list.scrollLeft + pad;
+      const target = dir > 0 ? slides.find((s) => s.offsetLeft > x + 4) : [...slides].reverse().find((s) => s.offsetLeft < x - 4);
+      list.scrollTo({ left: target ? target.offsetLeft - pad : dir > 0 ? list.scrollWidth : 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    };
+    prev?.addEventListener('click', () => (api ? api.prev() : step(-1)));
+    next?.addEventListener('click', () => (api ? api.next() : step(1)));
+    list.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    blossomReady.then((Blossom) => {
+      if (!Blossom) return;
+      const b = Blossom(list);
+      b.init();
+      api = b;
+      update();
+    }).catch(() => {});
+  });
+}
