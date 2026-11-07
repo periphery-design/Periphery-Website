@@ -46,8 +46,11 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
     position: relative;
     /* Fill the first screen minus a slice, so the top of the first case study peeks in */
     display: grid; place-items: center;
-    /* v2: compact, so the reel sits on the first screen right under the statement */
-    padding: clamp(3rem, 2rem + 6vh, 6.5rem) var(--gutter) clamp(2rem, 1.5rem + 3vh, 3.5rem);
+    /* v2: the statement fills the first screen and only the top 20% of the cards peeks in below it.
+       --home-card-h must match the card height in HomeReel.astro. */
+    --home-card-h: clamp(20rem, 10rem + 24vw, 34rem);
+    min-height: calc(100svh - var(--header-h) - var(--home-card-h) * 0.2);
+    padding: clamp(3rem, 2rem + 6vh, 6.5rem) var(--gutter);
     text-align: center;
   }
   .hero-inner { display: grid; justify-items: center; gap: clamp(1.25rem, 1rem + 1vw, 2rem); }
@@ -65,6 +68,8 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
   .js .hero-sub { opacity: 0; animation: fade 900ms var(--ease-out) 650ms forwards; }
   @keyframes rise { to { opacity: 1; transform: none; } }
   @keyframes fade { to { opacity: 1; } }
+
+  @media (max-width: 800px) { .hero { --home-card-h: 90vw; } }
 
   @media (prefers-reduced-motion: reduce) {
     .js .w, .js .hero-sub { opacity: 1; transform: none; animation: none; }
