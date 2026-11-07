@@ -126,6 +126,8 @@ const projects = defineCollection({
       theme: z.enum(['dark', 'light']).optional(),  // lock the project page to one theme (toggle hidden there)
       accent: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),  // project colour, e.g. the carousel bars
       carousel: z.array(image()).max(3).default([]),             // homepage card slideshow (up to 3; cover is used if empty)
+      // wireframe 2 homepage card: one vertical (4:5) image per campaign; focus = CSS object-position for the crop
+      homeCard: z.object({ image: image(), focus: z.string().default('50% 50%') }).optional(),
       // wireframe 2 homepage reel: images with a channel label, plus optional statement cards (one big line of copy)
       reel: z.array(z.union([
         z.object({ image: image(), label: z.string() }),

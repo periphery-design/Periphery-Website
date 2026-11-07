@@ -14,6 +14,9 @@ order: 3
 accent: "#ff7000"   # campaign orange, sampled from the boards
 cover: "../../assets/projects/simplereader/cover.jpg"
 coverAlt: "Key visual on Bio-Techne blue: the line “Plug In, Read, Discover” above the word SimpleReader in huge white letters, with the compact grey SimpleReader instrument rising in front of it."
+homeCard:   # wireframe 2: vertical card on the homepage reel
+  image: "../../assets/projects/simplereader/bus-shelter.jpg"
+  focus: "50% 50%"
 reel:   # wireframe 2: homepage reel (images with channel labels, one statement card from the campaign copy)
   - image: "../../assets/projects/simplereader/cover.jpg"
     label: "Key visual"

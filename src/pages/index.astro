@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import CampaignReels from '../components/CampaignReels.astro';
+import HomeReel from '../components/HomeReel.astro';
 import CapabilityPanel from '../components/CapabilityPanel.astro';
 import ProcessCards from '../components/ProcessCards.astro';
 import { capabilities, process } from '../data/site';
@@ -12,7 +12,7 @@ const headline = 'Vision Beyond the Center.';
 const subheading = 'We craft bold brand identities and high-impact visual strategies that capture attention from every angle.';
 ---
 <Base description={subheading}>
-  <!-- Brand statement front and centre (after Collins). The first case study peeks in below it. -->
+  <!-- Wireframe 2: the statement, then the work straight underneath as one draggable row of campaign cards -->
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-inner">
       <h1 id="hero-h" class="hero-h" aria-label={headline}>
@@ -20,16 +20,10 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
       </h1>
       <p class="hero-sub">{subheading}</p>
     </div>
-    <a class="scroll-cue" href="#work"><span class="visually-hidden">Skip to the work</span><span class="cue-line" aria-hidden="true"></span></a>
   </section>
 
-  <section id="work" class="work" aria-labelledby="work-h">
-    <div class="grid work-head">
-      <h2 id="work-h" class="label">Selected work</h2>
-      <p class="content meta">{projects.length} campaigns</p>
-    </div>
-    <CampaignReels projects={projects} />
-    <div class="grid all-work"><p class="content"><a class="pill ghost" href="/work/">All work <span class="arrow" aria-hidden="true">→</span></a></p></div>
+  <section id="work" class="work" aria-label="Selected work">
+    <HomeReel projects={projects} />
   </section>
 
   <section class="section" aria-labelledby="cap-h">
@@ -51,9 +45,9 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
   .hero {
     position: relative;
     /* Fill the first screen minus a slice, so the top of the first case study peeks in */
-    min-height: calc(100svh - var(--header-h) - clamp(4rem, 12svh, 8rem));
     display: grid; place-items: center;
-    padding: clamp(3rem, 8vh, 6rem) var(--gutter);
+    /* v2: compact, so the reel sits on the first screen right under the statement */
+    padding: clamp(3rem, 2rem + 6vh, 6.5rem) var(--gutter) clamp(2rem, 1.5rem + 3vh, 3.5rem);
     text-align: center;
   }
   .hero-inner { display: grid; justify-items: center; gap: clamp(1.25rem, 1rem + 1vw, 2rem); }
@@ -68,33 +62,14 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
   /* Entrance: words rise in one after another, then the subheading */
   .w { display: inline-block; margin-inline: 0.12em; }
   .js .w { opacity: 0; transform: translateY(0.35em); animation: rise 900ms var(--ease-out) forwards; animation-delay: calc(120ms + var(--d) * 90ms); }
-  .js .hero-sub, .js .scroll-cue { opacity: 0; animation: fade 900ms var(--ease-out) 650ms forwards; }
+  .js .hero-sub { opacity: 0; animation: fade 900ms var(--ease-out) 650ms forwards; }
   @keyframes rise { to { opacity: 1; transform: none; } }
   @keyframes fade { to { opacity: 1; } }
 
-  /* Scroll cue: a thin line that draws downward, pointing at the work */
-  .scroll-cue { position: absolute; left: 50%; bottom: 1.25rem; translate: -50% 0; padding: 0.5rem; }
-  .cue-line { display: block; width: 1px; height: 2.75rem; background: var(--line); position: relative; overflow: hidden; }
-  .cue-line::after {
-    content: ''; position: absolute; inset: 0; background: var(--fg);
-    transform: translateY(-100%); animation: cue 2.4s var(--ease-inout) 1.4s infinite;
-  }
-  @keyframes cue { 0% { transform: translateY(-100%); } 55% { transform: translateY(0); } 100% { transform: translateY(100%); } }
-
-  /* As you scroll, the statement fades and lifts away while the work comes up (where supported) */
-  @supports (animation-timeline: scroll()) {
-    .hero-inner { animation-name: hero-out; animation-timing-function: linear; animation-fill-mode: both; }
-    /* Kept in its own rule: the CSS minifier would otherwise fold it into an invalid shorthand */
-    .hero .hero-inner { animation-timeline: scroll(root); animation-range: 0 60svh; }
-    @keyframes hero-out { to { opacity: 0; transform: translateY(-6vh) scale(0.97); } }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .js .w, .js .hero-sub, .js .scroll-cue { opacity: 1; transform: none; animation: none; }
-    .cue-line::after, .hero-inner { animation: none; }
+    .js .w, .js .hero-sub { opacity: 1; transform: none; animation: none; }
+    .hero-inner { animation: none; }
   }
-  .work-head { padding-bottom: 0.75rem; }
-  .all-work { padding-top: 1.5rem; }
   .sec-head { margin-bottom: 2.5rem; }
   .full { grid-column: 1 / -1; }
 </style>

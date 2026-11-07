@@ -15,6 +15,9 @@ order: 1
 cover: "../../assets/projects/biotechne-multiomics/multiomics-cover.jpg"
 theme: dark         # the work is shot on black: this page always displays dark
 accent: "#7a1fd6"   # campaign purple, brightened so the thin carousel bars read over dark images
+homeCard:   # wireframe 2: vertical card on the homepage reel
+  image: "../../assets/projects/biotechne-multiomics/transit-poster.jpg"
+  focus: "46% 50%"
 reel:   # wireframe 2: homepage reel (images with channel labels, one statement card from the campaign copy)
   - image: "../../assets/projects/biotechne-multiomics/transit-poster.jpg"
     label: "Transit poster"

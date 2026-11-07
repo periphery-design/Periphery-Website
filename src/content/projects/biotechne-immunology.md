@@ -15,6 +15,9 @@ accent: "#0034B7"               # BT Blue (PMS 293 C), the campaign's primary co
 theme: light                    # the campaign is built on light grey and blue ink: this page always displays light
 cover: "../../assets/projects/biotechne-immunology/hero-lab.jpg"
 coverAlt: "Close-up of a scientist in a white lab coat writing in a notebook with a blue ballpoint pen at a bright lab bench, with the R&D Systems logo and the line “Redefining what scientists expect”, “Redefining” handwritten."
+homeCard:   # wireframe 2: vertical card on the homepage reel
+  image: "../../assets/projects/biotechne-immunology/billboards.jpg"
+  focus: "50% 50%"
 reel:   # wireframe 2: homepage reel (images with channel labels, one statement card from the campaign copy)
   - image: "../../assets/projects/biotechne-immunology/billboards.jpg"
     label: "Out of home"
