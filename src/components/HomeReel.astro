@@ -1,8 +1,8 @@
 ---
 // Wireframe 2 homepage: one row of vertical campaign cards straight under the headline.
-// Mouse: Blossom drag with momentum; the wheel / trackpad also moves it sideways (see site.ts).
+// Mouse: Blossom drag with momentum; sideways trackpad swipes move it too. The vertical wheel always scrolls the page.
 // Touch: the phone's own swipe. Keyboard: tab through the cards, or Previous / Next.
-// Hover: only the image grows a little inside its frame; the words stay put.
+// Hover: the whole image card grows a little and lifts on a very faint grey shadow; the words stay put.
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Placeholder from './Placeholder.astro';
@@ -13,7 +13,7 @@ const { projects } = Astro.props;
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 <div class="home-reel" data-reel>
-  <ul class="reel" blossom-carousel data-lenis-prevent-wheel aria-label="Selected work">
+  <ul class="reel" blossom-carousel aria-label="Selected work">
     {projects.map((p, i) => {
       const d = p.data;
       const img = d.homeCard?.image ?? d.cover;
@@ -55,21 +55,30 @@ const pad = (n: number) => String(n).padStart(2, '0');
     --card-h: clamp(20rem, 10rem + 24vw, 34rem);   /* image height; width follows at 4:5 */
     width: 100%; max-width: 100vw;
     padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
+    /* Room above and below so a grown card and its shadow aren't clipped by the scroller */
+    padding-block: 1.5rem 2rem; margin-block: -1.5rem -2rem;
     scroll-snap-type: x proximity; --snap-type: x proximity;
   }
-  /* Mouse / trackpad: free movement (drag momentum, wheel, trackpad) with no snapping back. Touch keeps snapping. */
+  /* Mouse / trackpad: free movement (drag momentum, trackpad) with no snapping back. Touch keeps snapping. */
   @media (pointer: fine) { .reel { scroll-snap-type: none; --snap-type: none; } }
   .card { width: calc(var(--card-h) * 0.8); margin-right: var(--gutter); scroll-snap-align: start; }
   .card:last-child { margin-right: 0; }
   .card-link { display: grid; gap: 0.9rem; }
 
-  /* The image frame. Only the image scales on hover; the frame and the words don't move. */
-  .card-media { height: var(--card-h); border-radius: var(--radius); overflow: hidden; background: var(--bg-raised); isolation: isolate; }
-  .card-media :global(img), .card-media :global(.ph) { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out); }
-  @media (hover: hover) and (pointer: fine) {
-    .card-link:hover .card-media :global(img), .card-link:hover .card-media :global(.ph) { transform: scale(1.04); }
+  /* The image card. On hover the whole frame grows slightly and lifts on a very faint light-grey shadow. */
+  .card-media {
+    position: relative; height: var(--card-h); border-radius: var(--radius); overflow: hidden;
+    background: var(--bg-raised); isolation: isolate;
+    box-shadow: 0 0.75rem 2rem -0.5rem rgb(0 0 0 / 0);
+    transition: transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out);
   }
-  .card-link:focus-visible .card-media :global(img) { transform: scale(1.04); }
+  .card-media :global(img), .card-media :global(.ph) { width: 100%; height: 100%; object-fit: cover; }
+  @media (hover: hover) and (pointer: fine) {
+    .card-link:hover .card-media { transform: scale(1.03); box-shadow: 0 0.75rem 2rem -0.5rem rgb(0 0 0 / 0.08); }
+  }
+  .card-link:focus-visible .card-media { transform: scale(1.03); box-shadow: 0 0.75rem 2rem -0.5rem rgb(0 0 0 / 0.08); }
+  .card-link:focus-visible { outline: none; }
+  .card-link:focus-visible .card-media { outline: 2px solid var(--fg); outline-offset: 3px; }
 
   .card-text { display: grid; gap: 0.2rem; }
   .card-title { font-size: var(--step-1); font-weight: var(--weight-sub); line-height: var(--leading-sub); }
@@ -94,7 +103,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 
   @media (prefers-reduced-motion: reduce) {
     .reel { scroll-behavior: auto !important; }
-    .card-media :global(img) { transition: none; }
+    .card-media { transition: none; }
   }
   @media (max-width: 800px) {
     .reel { --card-h: 90vw; }   /* cards ~72vw wide, so the next one peeks in */

@@ -270,7 +270,6 @@ if (reels.length) {
     const prev = wrap.querySelector<HTMLButtonElement>('[data-reel-prev]');
     const next = wrap.querySelector<HTMLButtonElement>('[data-reel-next]');
     let api: { prev: (o?: object) => void; next: (o?: object) => void } | null = null;
-    let wheelIdle = 0;
     const update = () => {
       const max = list.scrollWidth - list.clientWidth;
       const p = max > 0 ? list.scrollLeft / max : 1;
@@ -289,21 +288,6 @@ if (reels.length) {
     prev?.addEventListener('click', () => (api ? api.prev() : step(-1)));
     next?.addEventListener('click', () => (api ? api.next() : step(1)));
     list.addEventListener('scroll', update, { passive: true });
-    // Mouse wheel / vertical trackpad over the reel moves it sideways until it reaches an end,
-    // then lets the page scroll on as normal (so nobody gets stuck).
-    list.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;          // sideways trackpad swipes are native already
-      const max = list.scrollWidth - list.clientWidth;
-      const atStart = list.scrollLeft <= 1, atEnd = list.scrollLeft >= max - 1;
-      if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
-      e.preventDefault();
-      // Pause snapping while the wheel turns (small trackpad moves would otherwise snap back), resume after
-      list.style.setProperty('--snap-type', 'none');
-      clearTimeout(wheelIdle);
-      wheelIdle = window.setTimeout(() => list.style.removeProperty('--snap-type'), 180);
-      const dy = e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY;
-      list.scrollBy({ left: dy, behavior: 'instant' as ScrollBehavior });
-    }, { passive: false });
     window.addEventListener('resize', update);
     update();
     blossomReady.then((Blossom) => {
