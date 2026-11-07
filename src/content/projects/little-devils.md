@@ -15,8 +15,9 @@ accent: "#ed1f25"    # brand red, sampled from the logo suite
 cover: "../../assets/projects/little-devils/billboard-night.jpg"
 coverAlt: "A roadside billboard at night in the rain, steam rising off it: “raise a little hell” in yellow blackletter on red, beside red devil hands clutching a bottle of Little Devils Habanero Apple hot sauce."
 homeCard:   # wireframe 2: vertical card on the homepage reel
-  image: "../../assets/projects/little-devils/bottle-illustration.jpg"
+  image: "../../assets/projects/little-devils/card-still.jpg"   # first frame of the loop, shown until it plays
   focus: "50% 50%"
+  video: "/media/little-devils-card.mp4"   # floating habaneros, cropped to 4:5, silent
 reel:   # wireframe 2: homepage reel (images with channel labels, one statement card from the campaign copy)
   - image: "../../assets/projects/little-devils/billboard-night.jpg"
     label: "Out of home"
