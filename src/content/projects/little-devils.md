@@ -12,8 +12,8 @@ tags: ["Branding", "Illustration", "Campaign"]          # DRAFT
 order: 2
 theme: dark          # the red and yellow glow on black, and it matches the night billboard
 accent: "#ed1f25"    # brand red, sampled from the logo suite
-cover: "../../assets/projects/little-devils/billboard-night.jpg"
-coverAlt: "A roadside billboard at night in the rain, steam rising off it: “raise a little hell” in yellow blackletter on red, beside red devil hands clutching a bottle of Little Devils Habanero Apple hot sauce."
+cover: "../../assets/projects/little-devils/packaging.jpg"
+coverAlt: "Two bottles and two kraft boxes on yellow: Habanero Apple in red and yellow, Jalapeño Pineapple in green and yellow, each box printed with a huge black devil silhouette under the wordmark."
 homeCard:   # wireframe 2: vertical card on the homepage reel
   image: "../../assets/projects/little-devils/card-still.jpg"   # first frame of the loop, shown until it plays
   focus: "50% 50%"
@@ -46,9 +46,6 @@ gallery:
   - type: image
     image: "../../assets/projects/little-devils/colourways.jpg"
     alt: "The stacked wordmark in two flavour colourways: yellow and deep red on red for Habanero Apple, green on yellow with a jalapeño devil for Jalapeño Pineapple."
-  - type: image
-    image: "../../assets/projects/little-devils/packaging.jpg"
-    alt: "Two bottles and two kraft boxes on yellow: Habanero Apple in red and yellow, Jalapeño Pineapple in green and yellow, each box printed with a huge black devil silhouette under the wordmark."
   - type: sequence       # illustration: finished bottle (still) beside the process loop, sketch to final to in use
     interval: 1500
     ratio: "4 / 5"       # GIF is square for now; owner is re-exporting at 1200 x 1500
@@ -71,6 +68,9 @@ gallery:
         - "../../assets/projects/little-devils/illo/illo-10.jpg"
         - "../../assets/projects/little-devils/illo/illo-11.jpg"
         - "../../assets/projects/little-devils/illo/illo-12.jpg"
+  - type: image          # closer: the campaign out in the world
+    image: "../../assets/projects/little-devils/billboard-night.jpg"
+    alt: "A roadside billboard at night in the rain, steam rising off it: “raise a little hell” in yellow blackletter on red, beside red devil hands clutching a bottle of Little Devils Habanero Apple hot sauce."
 note: "Self-initiated: the sauce, the brand and the campaign are all my own work."   # DRAFT
 results: []
 ---
