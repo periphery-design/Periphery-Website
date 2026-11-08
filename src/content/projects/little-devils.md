@@ -46,6 +46,13 @@ gallery:
   - type: image
     image: "../../assets/projects/little-devils/colourways.jpg"
     alt: "The stacked wordmark in two flavour colourways: yellow and deep red on red for Habanero Apple, green on yellow with a jalapeño devil for Jalapeño Pineapple."
+  - type: grid           # the full wrap-around labels, each under its flavour colourway
+    ratio: "4 / 3"
+    images:
+      - image: "../../assets/projects/little-devils/label-habanero.jpg"
+        alt: "The flat Habanero Apple label on a bed of red apples and orange habaneros: a Heat Level panel with ingredients and a pitchfork on the left, the red-on-yellow wordmark in the centre, and a deep-red panel repeating “little devils hot sauce” on the right."
+      - image: "../../assets/projects/little-devils/label-jalapeno.jpg"
+        alt: "The flat Jalapeño Pineapple label on a bed of pineapples and green jalapeños: the same layout in green on yellow, with a dark-green repeat panel and jalapeño devils."
   - type: sequence       # illustration: finished bottle (still) beside the process loop, sketch to final to in use
     interval: 1500
     ratio: "4 / 5"       # GIF is square for now; owner is re-exporting at 1200 x 1500
