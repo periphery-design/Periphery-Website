@@ -37,6 +37,9 @@ gallery:
         alt: "The flat Habanero Apple label on a bed of red apples and orange habaneros: a Heat Level panel with ingredients and a pitchfork on the left, the red-on-yellow wordmark in the centre, and a deep-red panel repeating “little devils hot sauce” on the right."
       - image: "../../assets/projects/little-devils/label-jalapeno.jpg"
         alt: "The flat Jalapeño Pineapple label on a bed of pineapples and green jalapeños: the same layout in green on yellow, with a dark-green repeat panel and jalapeño devils."
+  - type: image          # lifestyle: the brand voice on a real moment, before the illustration
+    image: "../../assets/projects/little-devils/lifestyle-burn.jpg"
+    alt: "Close-up on red of someone biting into a sauce-covered piece of fried chicken, sauce on their fingers, with the line “it’s a good burn. we promise.” in yellow blackletter and the Little Devils Hot Sauce logo in the corner."
   - type: sequence       # illustration: finished bottle (still) beside the process loop, sketch to final to in use
     interval: 1500
     ratio: "4 / 5"       # GIF is square for now; owner is re-exporting at 1200 x 1500
@@ -59,6 +62,9 @@ gallery:
         - "../../assets/projects/little-devils/illo/illo-10.jpg"
         - "../../assets/projects/little-devils/illo/illo-11.jpg"
         - "../../assets/projects/little-devils/illo/illo-12.jpg"
+  - type: image          # out of home: three posters after the illustration
+    image: "../../assets/projects/little-devils/poster-trio.jpg"
+    alt: "Three posters on a tree-lined street: “feeds your hunger” over a slice of pizza pulling cheese, “tempts your soul” on red above a bottle of Habanero Apple, and “forgive us later” in red over stacked burgers."
   - type: image          # closer: the campaign out in the world
     image: "../../assets/projects/little-devils/billboard-night.jpg"
     alt: "A roadside billboard at night in the rain, steam rising off it: “raise a little hell” in yellow blackletter on red, beside red devil hands clutching a bottle of Little Devils Habanero Apple hot sauce."
