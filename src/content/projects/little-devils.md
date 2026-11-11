@@ -47,6 +47,13 @@ gallery:
         alt: "On red, a hand holds up a charred chicken wing while Little Devils Habanero Apple sauce pours over it from the bottle, running down the fingers."
       - image: "../../assets/projects/little-devils/bottles-floating.jpg"
         alt: "Three bottles of Habanero Apple floating on yellow, showing the back panel with heat level and ingredients, the front wordmark, and the deep-red repeat pattern."
+  - type: grid           # Jalapeño Pineapple pair, under the Habanero pair (2:3, so neither bottle is cut)
+    ratio: "2 / 3"
+    images:
+      - image: "../../assets/projects/little-devils/taco-jalapeno.jpg"
+        alt: "On yellow, a hand lifts a pulled-pork taco dripping green Jalapeño Pineapple sauce off a dark plate, the bottle and sliced jalapeños behind it."
+      - image: "../../assets/projects/little-devils/bottles-green.jpg"
+        alt: "Two bottles of Jalapeño Pineapple floating on green: one showing the front wordmark, the other the dark-green repeat panel."
   - type: image          # out of home: three posters after the illustration
     image: "../../assets/projects/little-devils/poster-trio.jpg"
     alt: "Three posters on a tree-lined street: “feeds your hunger” over a slice of pizza pulling cheese, “tempts your soul” on red above a bottle of Habanero Apple, and “forgive us later” in red over stacked burgers."
