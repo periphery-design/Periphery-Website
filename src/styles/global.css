@@ -19,6 +19,7 @@
   --font-display: var(--font-sans);
   --weight-headline: 800;  /* ExtraBold: the hero line, page titles, big display names */
   --weight-sub: 700;       /* Bold: subheadings, section statements, card and list titles */
+  --weight-semi: 600;      /* SemiBold: header navigation */
   --weight-body: 400;      /* Regular: nav, labels, body copy */
   --leading-sub: 1.2;      /* line spacing for subheadings and statements */
   --leading-body: 1.4;     /* line spacing for body copy */

@@ -56,7 +56,7 @@ const links = [
   .nav ul { display: flex; gap: clamp(1.25rem, 1rem + 1vw, 2.25rem); }
   .nav a {
     display: inline-block; color: var(--fg-muted);
-    font-size: calc(var(--step--1) + 2px); text-transform: uppercase; letter-spacing: 0.06em;
+    font-size: calc(var(--step--1) + 2px); font-weight: var(--weight-semi); text-transform: uppercase; letter-spacing: 0.06em;
     transition: color var(--dur-fast) var(--ease-out);
   }
   .nav a:hover, .nav a:focus-visible, .nav a[aria-current='page'] { color: var(--fg); }

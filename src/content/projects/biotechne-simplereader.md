@@ -17,7 +17,6 @@ coverAlt: "Key visual on Bio-Techne blue: the line “Plug In, Read, Discover”
 homeCard:   # wireframe 2: vertical card on the homepage reel
   image: "../../assets/projects/simplereader/bus-shelter.jpg"
   focus: "50% 50%"
-  video: "/media/simplereader-card.mp4"   # demo loop cut from the product video; replace with the final card loop
 reel:   # wireframe 2: homepage reel (images with channel labels, one statement card from the campaign copy)
   - image: "../../assets/projects/simplereader/cover.jpg"
     label: "Key visual"

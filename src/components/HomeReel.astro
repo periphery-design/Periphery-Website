@@ -19,17 +19,12 @@ const pad = (n: number) => String(n).padStart(2, '0');
       const img = d.homeCard?.image ?? d.cover;
       return (
         <li class="card">
-          <a href={`/work/${p.id}/`} class="card-link">
+          <a href={`/work/${p.id}/`} class="card-link" aria-label={`${d.title} — ${d.client}`}>
             <div class="card-media">
               {img
                 ? <Image src={img} alt="" widths={[400, 640, 900]} sizes="(min-width: 800px) 30vw, 72vw" loading={i < 3 ? 'eager' : 'lazy'} style={`object-position: ${d.homeCard?.focus ?? '50% 50%'}`} />
                 : <Placeholder label={`${d.client} — key visual`} ratio="4 / 5" />}
               {d.homeCard?.video && <video class="card-video" src={d.homeCard.video} muted loop playsinline preload="none" aria-hidden="true" data-card-video></video>}
-            </div>
-            <div class="card-text">
-              <span class="meta">{pad(i + 1)}</span>
-              <h2 class="card-title">{d.title}</h2>
-              <span class="meta card-client">{d.client}</span>
             </div>
           </a>
         </li>
@@ -64,7 +59,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   @media (pointer: fine) { .reel { scroll-snap-type: none; --snap-type: none; } }
   .card { width: calc(var(--card-h) * 0.8); margin-right: var(--gutter); scroll-snap-align: start; }
   .card:last-child { margin-right: 0; }
-  .card-link { display: grid; gap: 0.9rem; }
+  .card-link { display: block; }
 
   /* The image card. On hover the whole frame grows slightly and lifts on a very faint light-grey shadow. */
   .card-media {
@@ -83,10 +78,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .card-link:focus-visible .card-media { transform: scale(1.03); box-shadow: 0 0.75rem 2rem -0.5rem rgb(0 0 0 / 0.08); }
   .card-link:focus-visible { outline: none; }
   .card-link:focus-visible .card-media { outline: 2px solid var(--fg); outline-offset: 3px; }
-
-  .card-text { display: grid; gap: 0.2rem; }
-  .card-title { font-size: var(--step-1); font-weight: var(--weight-sub); line-height: var(--leading-sub); }
-  .card-client { color: var(--fg-muted); }
 
   /* Last card: the way into the full list */
   .card-end { width: calc(var(--card-h) * 0.55); }
