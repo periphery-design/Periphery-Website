@@ -63,8 +63,8 @@ gallery:
         alt: "On red, a hand holds up a charred chicken wing while Little Devils Habanero Apple sauce pours over it from the bottle, running down the fingers."
       - image: "../../assets/projects/little-devils/bottles-floating.jpg"
         alt: "Three bottles of Habanero Apple floating on yellow, showing the back panel with heat level and ingredients, the front wordmark, and the deep-red repeat pattern."
-  - type: grid           # Jalapeño Pineapple pair, under the Habanero pair (2:3, so neither bottle is cut)
-    ratio: "2 / 3"
+  - type: grid           # Jalapeño Pineapple pair, under the Habanero pair
+    ratio: "4 / 5"
     images:
       - image: "../../assets/projects/little-devils/taco-jalapeno.jpg"
         alt: "On yellow, a hand lifts a pulled-pork taco dripping green Jalapeño Pineapple sauce off a dark plate, the bottle and sliced jalapeños behind it."
