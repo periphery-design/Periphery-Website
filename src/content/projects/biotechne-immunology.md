@@ -1,8 +1,8 @@
 ---
-# R&D Systems (a Bio-Techne brand) — "Redefining" immunology campaign.
+# R&D Systems, a Bio-Techne brand — "Redefining" immunology campaign.
 # Body copy is transcribed word for word from the owner's setup board. Lines marked DRAFT need the owner's check.
 title: "Redefining immunology."
-client: "R&D Systems (a Bio-Techne brand)"
+client: "R&D Systems, a Bio-Techne brand"
 product: "Immunology"           # DRAFT: confirm product / line name
 year: 2025
 sector: "Life sciences"
