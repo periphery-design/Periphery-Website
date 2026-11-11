@@ -1,8 +1,8 @@
 ---
-# R&D Systems (a Bio-Techne brand) — "Redefining" immunology campaign.
+# R&D Systems, a Bio-Techne brand — "Redefining" immunology campaign.
 # Body copy is transcribed word for word from the owner's setup board. Lines marked DRAFT need the owner's check.
 title: "Redefining immunology."
-client: "R&D Systems (a Bio-Techne brand)"
+client: "R&D Systems, a Bio-Techne brand"
 product: "Immunology"           # DRAFT: confirm product / line name
 year: 2025
 sector: "Life sciences"
@@ -16,7 +16,7 @@ theme: light                    # the campaign is built on light grey and blue i
 cover: "../../assets/projects/biotechne-immunology/hero-lab.jpg"
 coverAlt: "Close-up of a scientist in a white lab coat writing in a notebook with a blue ballpoint pen at a bright lab bench, with the R&D Systems logo and the line “Redefining what scientists expect”, “Redefining” handwritten."
 homeCard:   # wireframe 2: vertical card on the homepage reel
-  image: "../../assets/projects/biotechne-immunology/billboards.jpg"
+  image: "../../assets/projects/biotechne-immunology/card-poster.jpg"   # tight on the blue poster
   focus: "50% 50%"
 reel:   # wireframe 2: homepage reel (images with channel labels, one statement card from the campaign copy)
   - image: "../../assets/projects/biotechne-immunology/billboards.jpg"

@@ -71,6 +71,15 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
 
   @media (max-width: 800px) { .hero { --home-card-h: 90vw; } }
 
+  /* As the statement scrolls up toward the header it fades and lifts away, so it never sits under the nav */
+  @supports (animation-timeline: view()) {
+    .hero-inner { animation-name: hero-out; animation-timing-function: linear; animation-fill-mode: both; }
+    /* Kept in its own rule: the CSS minifier would otherwise fold it into an invalid shorthand */
+    .hero .hero-inner { animation-timeline: view(block 15rem 0); animation-range: exit 0% exit 55%; }
+    /* 15rem top inset: the fade runs while the statement crosses the band just below the header, so it is gone before reaching the nav */
+    @keyframes hero-out { to { opacity: 0; transform: translateY(-1.5rem); } }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .js .w, .js .hero-sub { opacity: 1; transform: none; animation: none; }
     .hero-inner { animation: none; }

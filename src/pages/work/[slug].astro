@@ -266,6 +266,7 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
 
   .facts { margin-top: var(--flow); row-gap: 1.5rem; }
   .facts > div { grid-column: span 3; border-top: 1px solid var(--line); padding-top: 0.75rem; }
+  .facts dt { font-weight: var(--weight-semi); }   /* labels: semibold, same size */
   .facts dd { margin-top: 0.25rem; }
   @media (max-width: 800px) { .facts > div { grid-column: span 6; } }
 
