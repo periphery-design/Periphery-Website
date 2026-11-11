@@ -19,7 +19,7 @@ homeCard:   # wireframe 2: vertical card on the homepage reel
   focus: "50% 50%"
   video: "/media/little-devils-card.mp4"   # rotating bottle loop, cropped to 4:5, silent
 reel:   # wireframe 2: homepage reel (images with channel labels, one statement card from the campaign copy)
-  - image: "../../assets/projects/little-devils/billboard-night.jpg"
+  - image: "../../assets/projects/little-devils/poster-trio.jpg"
     label: "Out of home"
   - image: "../../assets/projects/little-devils/packaging.jpg"
     label: "Packaging"
@@ -31,7 +31,7 @@ reel:   # wireframe 2: homepage reel (images with channel labels, one statement 
   - image: "../../assets/projects/little-devils/bottle-illustration.jpg"
     label: "Illustration"
 carousel:
-  - "../../assets/projects/little-devils/billboard-night.jpg"
+  - "../../assets/projects/little-devils/poster-trio.jpg"
   - "../../assets/projects/little-devils/packaging.jpg"
   - "../../assets/projects/little-devils/logo-suite.jpg"
 
@@ -70,12 +70,9 @@ gallery:
         alt: "On yellow, a hand lifts a pulled-pork taco dripping green Jalapeño Pineapple sauce off a dark plate, the bottle and sliced jalapeños behind it."
       - image: "../../assets/projects/little-devils/bottles-green.jpg"
         alt: "Two bottles of Jalapeño Pineapple floating on green: one showing the front wordmark, the other the dark-green repeat panel."
-  - type: image          # out of home: three posters after the illustration
+  - type: image          # out of home: three posters, closing the page
     image: "../../assets/projects/little-devils/poster-trio.jpg"
     alt: "Three posters on a tree-lined street: “feeds your hunger” over a slice of pizza pulling cheese, “tempts your soul” on red above a bottle of Habanero Apple, and “forgive us later” in red over stacked burgers."
-  - type: image          # closer: the campaign out in the world
-    image: "../../assets/projects/little-devils/billboard-night.jpg"
-    alt: "A roadside billboard at night in the rain, steam rising off it: “raise a little hell” in yellow blackletter on red, beside red devil hands clutching a bottle of Little Devils Habanero Apple hot sauce."
 note: "Self-initiated: the sauce, the brand and the campaign are all my own work."   # DRAFT
 results: []
 ---
