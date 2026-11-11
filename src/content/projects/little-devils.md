@@ -40,28 +40,13 @@ gallery:
   - type: image          # lifestyle: the brand voice on a real moment, before the illustration
     image: "../../assets/projects/little-devils/lifestyle-burn.jpg"
     alt: "Close-up on red of someone biting into a sauce-covered piece of fried chicken, sauce on their fingers, with the line “it’s a good burn. we promise.” in yellow blackletter and the Little Devils Hot Sauce logo in the corner."
-  - type: sequence       # illustration: finished bottle (still) beside the process loop, sketch to final to in use
-    interval: 1500
-    ratio: "4 / 5"       # GIF is square for now; owner is re-exporting at 1200 x 1500
-    left:
-      alt: "Illustrated Little Devils Habanero Apple bottle on red, the cap flying off as orange sauce splashes out of the neck."
-      frames:
-        - "../../assets/projects/little-devils/bottle-illustration.jpg"
-    right:
-      alt: "Illustration process loop: pencil sketches becoming finished characters (a goat with a lolling tongue, praying hands dripping sauce, a flaming tongue pierced by a pitchfork) and then in use as a tattoo, a “Pray for wet naps” T-shirt, stickers and a billboard reading “it’s a good burn”."
-      frames:
-        - "../../assets/projects/little-devils/illo/illo-01.jpg"
-        - "../../assets/projects/little-devils/illo/illo-02.jpg"
-        - "../../assets/projects/little-devils/illo/illo-03.jpg"
-        - "../../assets/projects/little-devils/illo/illo-04.jpg"
-        - "../../assets/projects/little-devils/illo/illo-05.jpg"
-        - "../../assets/projects/little-devils/illo/illo-06.jpg"
-        - "../../assets/projects/little-devils/illo/illo-07.jpg"
-        - "../../assets/projects/little-devils/illo/illo-08.jpg"
-        - "../../assets/projects/little-devils/illo/illo-09.jpg"
-        - "../../assets/projects/little-devils/illo/illo-10.jpg"
-        - "../../assets/projects/little-devils/illo/illo-11.jpg"
-        - "../../assets/projects/little-devils/illo/illo-12.jpg"
+  - type: grid           # product photography pair (replaces the illustration pair)
+    ratio: "4 / 5"
+    images:
+      - image: "../../assets/projects/little-devils/pour-wing.jpg"
+        alt: "On red, a hand holds up a charred chicken wing while Little Devils Habanero Apple sauce pours over it from the bottle, running down the fingers."
+      - image: "../../assets/projects/little-devils/bottles-floating.jpg"
+        alt: "Three bottles of Habanero Apple floating on yellow, showing the back panel with heat level and ingredients, the front wordmark, and the deep-red repeat pattern."
   - type: image          # out of home: three posters after the illustration
     image: "../../assets/projects/little-devils/poster-trio.jpg"
     alt: "Three posters on a tree-lined street: “feeds your hunger” over a slice of pizza pulling cheese, “tempts your soul” on red above a bottle of Habanero Apple, and “forgive us later” in red over stacked burgers."
