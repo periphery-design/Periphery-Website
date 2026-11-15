@@ -69,8 +69,8 @@ gallery:
   - type: grid           # Jalapeño Pineapple pair, closing the page after the poster trio
     ratio: "4 / 5"
     images:
-      - image: "../../assets/projects/little-devils/taco-jalapeno.jpg"
-        alt: "On yellow, a hand lifts a pulled-pork taco dripping green Jalapeño Pineapple sauce off a dark plate, the bottle and sliced jalapeños behind it."
+      - image: "../../assets/projects/little-devils/salsa-jalapeno.jpg"
+        alt: "Top-down in hard sunlight on yellow: a hand dips a tortilla chip into a bowl of red salsa drizzled with green Jalapeño Pineapple sauce, the bottle standing beside it."
       - image: "../../assets/projects/little-devils/bottles-green.jpg"
         alt: "Two bottles of Jalapeño Pineapple floating on green: one showing the front wordmark, the other the dark-green repeat panel."
 note: "Self-initiated: the sauce, the brand and the campaign are all my own work."   # DRAFT
