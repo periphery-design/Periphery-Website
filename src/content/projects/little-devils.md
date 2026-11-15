@@ -60,6 +60,9 @@ gallery:
         alt: "Top-down in hard sunlight on yellow: a hand dips a tortilla chip into a bowl of red salsa drizzled with green Jalapeño Pineapple sauce, the bottle standing beside it."
       - image: "../../assets/projects/little-devils/bottles-green.jpg"
         alt: "Two bottles of Jalapeño Pineapple floating on green: one showing the front wordmark, the other the dark-green repeat panel."
+  - type: image          # closer: the Jalapeño Pineapple carrier
+    image: "../../assets/projects/little-devils/carrier-jalapeno.jpg"
+    alt: "A kraft-paper three-bottle carrier of Jalapeño Pineapple on orange: green flames and huge stacked “Jalapeño Pineapple” type on the front, the wordmark in the middle, and a Heat Level panel with ingredients on the side."
 note: "Self-initiated: the sauce, the brand and the campaign are all my own work."   # DRAFT
 results: []
 ---
