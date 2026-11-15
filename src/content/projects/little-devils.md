@@ -66,6 +66,9 @@ gallery:
   - type: image          # out of home: three posters, closing the page
     image: "../../assets/projects/little-devils/poster-trio.jpg"
     alt: "Three posters on a tree-lined street: “feeds your hunger” over a slice of pizza pulling cheese, “tempts your soul” on red above a bottle of Habanero Apple, and “forgive us later” in red over stacked burgers."
+  - type: image          # Jalapeño lifestyle: mirrors "it's a good burn" ahead of the Habanero pair
+    image: "../../assets/projects/little-devils/lifestyle-wake-up.jpg"
+    alt: "Close-up on yellow of a bearded man in a green shirt biting into a breakfast sandwich of egg, bacon, sausage and melted cheese covered in green Jalapeño Pineapple sauce, with the line “wake up. raise hell.” in yellow blackletter and the Little Devils Hot Sauce logo in the corner."
   - type: grid           # Jalapeño Pineapple pair, closing the page after the poster trio
     ratio: "4 / 5"
     images:
