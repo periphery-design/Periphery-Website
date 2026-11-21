@@ -31,7 +31,7 @@ const links = [
   </nav>
   <div class="tools">
     {!themeLocked && <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false">
-      <span class="visually-hidden">Dark mode</span>
+      <span class="visually-hidden">Yellow mode</span>
       <span class="toggle-track" aria-hidden="true"><span class="toggle-dot"></span></span>
       <span data-theme-label aria-hidden="true">Light</span>
     </button>}
@@ -93,9 +93,9 @@ const links = [
     border-radius: 50%; background: var(--fg);
     transition: transform var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
   }
-  /* Dark mode: the toggle becomes the logo's eye, a black pupil on the yellow iris */
-  :global([data-theme='dark']) .toggle-track { background: #e5d838; box-shadow: none; }
-  :global([data-theme='dark']) .toggle-dot { transform: translateX(0.8rem); background: #111; }
+  /* Switched on (yellow page, or a case study locked dark): the dot slides across */
+  :global([data-theme='yellow']) .toggle-dot, :global([data-theme='dark']) .toggle-dot { transform: translateX(0.8rem); }
+  :global([data-theme='yellow']) .toggle-track { box-shadow: inset 0 0 0 1.5px var(--fg); }
 
   @media (max-width: 800px) {
     .logo span:last-child { display: none; }   /* logo mark only, so the centred nav fits */

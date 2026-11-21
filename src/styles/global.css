@@ -63,6 +63,20 @@
   color-scheme: light;
 }
 
+/* Yellow theme (wireframe 3's second toggle option): the page takes the logo's iris yellow, text stays black */
+:root[data-theme="yellow"] {
+  --bg: #e5d838;
+  --bg-raised: #d9cc2e;
+  --fg: #111111;
+  --fg-muted: #4a4517;
+  --line: #c2b52c;
+  --placeholder: #d4c72a;
+  --placeholder-ink: #6b651e;
+  --invert-bg: #111111;
+  --invert-fg: #e5d838;
+  color-scheme: light;
+}
+
 :root[data-theme="dark"] {
   --bg: #070707;
   --bg-raised: #141414;

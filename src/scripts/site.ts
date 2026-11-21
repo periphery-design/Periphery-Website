@@ -35,20 +35,14 @@ const store = {
 const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
 const syncToggle = () => {
   if (!toggle) return;
-  const dark = root.dataset.theme === 'dark';
-  toggle.setAttribute('aria-pressed', String(dark));
-  toggle.querySelector('[data-theme-label]')!.textContent = dark ? 'Dark' : 'Light';
+  const on = root.dataset.theme === 'yellow';
+  toggle.setAttribute('aria-pressed', String(on));
+  toggle.querySelector('[data-theme-label]')!.textContent = on ? 'Yellow' : 'Light';
 };
 syncToggle();
 toggle?.addEventListener('click', () => {
-  root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  root.dataset.theme = root.dataset.theme === 'yellow' ? 'light' : 'yellow';
   store.set('theme', root.dataset.theme!);
-  syncToggle();
-});
-// Follow device changes until the visitor makes an explicit choice.
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-  if (store.get('theme') || root.dataset.forceTheme) return;
-  root.dataset.theme = e.matches ? 'dark' : 'light';
   syncToggle();
 });
 

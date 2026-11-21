@@ -17,15 +17,15 @@ const fullTitle = title ? `${title} — Periphery Design` : 'Periphery Design';
     <meta name="description" content={description} />
     <meta name="color-scheme" content={forceTheme ?? 'light dark'} />
     <link rel="preload" href={syneUrl} as="font" type="font/woff2" crossorigin />
-    <!-- Theme before first paint: saved choice > device preference > light. -->
+    <!-- Theme before first paint: page lock > saved choice (light / yellow) > light. -->
     <script is:inline>
       (() => {
         let saved = null;
         try { saved = localStorage.getItem('theme'); } catch (e) {}
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // Wireframe 3: the toggle switches between light and yellow; anything else saved starts on light.
         // A page can lock its theme (e.g. a project shot on black). The visitor's saved choice is untouched.
         const forced = document.documentElement.dataset.forceTheme;
-        document.documentElement.dataset.theme = forced || saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.dataset.theme = forced || (saved === 'yellow' ? 'yellow' : 'light');
         document.documentElement.classList.add('js');
       })();
     </script>

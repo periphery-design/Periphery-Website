@@ -46,6 +46,7 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
     line-height: 0.92; letter-spacing: -0.035em; text-wrap: balance;
   }
   .st-dot { color: #e5d838; }
+  :global([data-theme='yellow']) .st-dot { color: var(--fg); }   /* on the yellow page the full stop turns black */
   .st-sub { grid-column: 7 / -1; font-size: var(--step-1); line-height: var(--leading-body); color: var(--fg-muted); max-width: 34ch; }
   @media (max-width: 800px) { .st-sub { grid-column: 1 / -1; } }
   .sec-head { margin-bottom: 2.5rem; }
