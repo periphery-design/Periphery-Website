@@ -13,9 +13,9 @@ const { projects, headline, subheading } = Astro.props;
 const cards = projects.filter((p) => p.data.homeCard).slice(0, 6);
 // Spots around the edge of the screen: [css position, tilt in degrees, float duration s, float delay s]
 const spots: [string, number, number, number][] = [
-  ['top: 5%; left: 4%;', -4, 9, 0],
+  ['bottom: 7%; left: 10%;', 3, 10, -6],      // 1st project (Multiomics) bottom left, off the wordmark
   ['top: 8%; right: 5%;', 3, 11, -3],
-  ['bottom: 7%; left: 10%;', 3, 10, -6],
+  ['top: 5%; left: 4%;', -4, 9, 0],
   ['bottom: 4%; right: 9%;', -3, 12, -2],
   ['top: 40%; left: 1.5%;', 2, 13, -8],
   ['top: 42%; right: 1.5%;', -2, 10.5, -4],
