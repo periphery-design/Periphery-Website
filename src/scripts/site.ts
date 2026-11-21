@@ -321,29 +321,33 @@ if (cardVideos.length && !reduceMotion) {
 }
 
 /* ---------- Wireframe 3: the eye follows the cursor, and locks onto a project on hover ----------
-   The iris (with its pupil) eases toward the pointer inside the eye; the loop sleeps once it settles.
-   Hovering or focusing a project card aims it at that card's centre. Reduced motion: the eye stays still. */
+   The pupil eases toward the pointer inside the eyeball; the loop sleeps once it settles. Hovering or focusing
+   a project aims it at that card and the lids close slightly into a squint (CSS). Reduced motion: still. */
 const pf = document.querySelector<HTMLElement>('[data-pf]');
-const eye = pf?.querySelector<SVGSVGElement>('[data-eye]');
-const iris = eye?.querySelector<SVGGElement>('[data-eye-iris]');
-if (pf && eye && iris && !reduceMotion) {
-  const MAX_X = 30, MAX_Y = 12;                  // how far the iris can travel, in the eye's own units
+const eye = pf?.querySelector<HTMLElement>('[data-eye]');
+const pupil = eye?.querySelector<HTMLElement>('[data-eye-pupil]');
+if (pf && eye && pupil && !reduceMotion) {
+  const MAX_X = 0.075, MAX_Y = 0.05;            // travel as a fraction of the eye's width / height
   let tx = 0, ty = 0, cx = 0, cy = 0, running = false, locked: HTMLElement | null = null;
   const aimAt = (x: number, y: number) => {
     const r = eye.getBoundingClientRect();
     const dx = x - (r.left + r.width / 2), dy = y - (r.top + r.height / 2);
     const dist = Math.hypot(dx, dy) || 1;
-    const reach = Math.min(1, dist / 380);        // looks further across as the target moves away
-    tx = (dx / dist) * MAX_X * reach; ty = (dy / dist) * MAX_Y * reach * 1.6;
-    tx = Math.max(-MAX_X, Math.min(MAX_X, tx)); ty = Math.max(-MAX_Y, Math.min(MAX_Y, ty));
+    const reach = Math.min(1, dist / 420);        // looks further across as the target moves away
+    tx = (dx / dist) * reach * MAX_X * r.width;
+    ty = (dy / dist) * reach * MAX_Y * r.height * 1.6;
+    tx = Math.max(-MAX_X * r.width, Math.min(MAX_X * r.width, tx));
+    ty = Math.max(-MAX_Y * r.height, Math.min(MAX_Y * r.height, ty));
     if (!running) { running = true; requestAnimationFrame(tick); }
   };
   const tick = () => {
-    cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
-    iris.setAttribute('transform', `translate(${cx.toFixed(2)} ${cy.toFixed(2)})`);
+    cx += (tx - cx) * 0.1; cy += (ty - cy) * 0.1;
+    pupil.style.transform = `translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0)`;
     if (Math.abs(tx - cx) + Math.abs(ty - cy) > 0.05) requestAnimationFrame(tick); else running = false;
   };
   const aimAtCard = (c: HTMLElement) => { const r = c.getBoundingClientRect(); aimAt(r.left + r.width / 2, r.top + r.height / 2); };
+  // Cards drift, so keep re-aiming while one is locked (the loop stops when nothing is)
+  function follow() { if (locked) { aimAtCard(locked); requestAnimationFrame(follow); } }
   window.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' && !locked) aimAt(e.clientX, e.clientY); }, { passive: true });
   pf.querySelectorAll<HTMLElement>('[data-pf-card]').forEach((c) => {
     const lock = () => { const was = locked; locked = c; pf.classList.add('is-looking'); aimAtCard(c); if (!was) requestAnimationFrame(follow); };
@@ -351,6 +355,4 @@ if (pf && eye && iris && !reduceMotion) {
     c.addEventListener('mouseenter', lock); c.addEventListener('mouseleave', unlock);
     c.addEventListener('focus', lock); c.addEventListener('blur', unlock);
   });
-  // Cards drift, so keep re-aiming while one is locked (the loop stops when nothing is)
-  function follow() { if (locked) { aimAtCard(locked); requestAnimationFrame(follow); } }
 }

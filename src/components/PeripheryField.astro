@@ -2,7 +2,7 @@
 // Wireframe 3 homepage hero: the statement and a goat eye in the centre, the campaigns floating at the
 // edges of the screen. Each card drifts slowly on its own rhythm; on hover (or keyboard focus) it grows a
 // little, lifts on a soft shadow and shows its title, and the eye turns to look at it.
-// The eye here is a code-drawn placeholder (horizontal goat pupil) until the final artwork arrives.
+// The eye is layered from the owner's goat-eye photo (public/eye): base, moving pupil, and lids for the squint.
 // Phones: eye and statement on top, the cards in a gently floating two-column grid underneath.
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
@@ -22,22 +22,14 @@ const spots: [string, number, number, number][] = [
 ---
 <section class="pf" aria-labelledby="hero-h" data-pf>
   <div class="pf-centre">
-    <!-- Placeholder eye: swap for the final layered SVG (white/mask, iris, pupil, highlight, lids) -->
-    <svg class="pf-eye" viewBox="0 0 200 110" aria-hidden="true" data-eye>
-      <defs>
-        <clipPath id="pf-eye-clip"><path d="M8 55 Q100 -18 192 55 Q100 128 8 55 Z" /></clipPath>
-      </defs>
-      <path class="eye-white" d="M8 55 Q100 -18 192 55 Q100 128 8 55 Z" />
-      <g clip-path="url(#pf-eye-clip)">
-        <g data-eye-iris>
-          <circle class="eye-iris" cx="100" cy="55" r="38" />
-          <circle class="eye-iris-ring" cx="100" cy="55" r="38" />
-          <rect class="eye-pupil" data-eye-pupil x="74" y="47" width="52" height="16" rx="8" />
-        </g>
-      </g>
-      <circle class="eye-glint" cx="114" cy="40" r="5" />
-      <path class="eye-line" d="M8 55 Q100 -18 192 55 Q100 128 8 55 Z" />
-    </svg>
+    <!-- The eye, in four layers cut from one photo: the empty eye, the pupil (moves), and the fur above and
+         below (the lids, which close slightly into a squint when the eye settles on a project) -->
+    <div class="pf-eye" aria-hidden="true" data-eye>
+      <img class="eye-base" src="/eye/eye.webp" alt="" width="1400" height="781" />
+      <div class="eye-ball"><img class="eye-pupil" src="/eye/pupil.webp" alt="" data-eye-pupil /></div>
+      <img class="eye-lid eye-lid-top" src="/eye/lid-top.webp" alt="" />
+      <img class="eye-lid eye-lid-bottom" src="/eye/lid-bottom.webp" alt="" />
+    </div>
     <h1 id="hero-h" class="hero-h" aria-label={headline}>
       {headline.split(' ').map((w, i) => <span class="w" style={`--d: ${i}`} aria-hidden="true">{w}</span>)}
     </h1>
@@ -72,14 +64,25 @@ const spots: [string, number, number, number][] = [
 
   /* ---------- Centre: eye + statement ---------- */
   .pf-centre { position: relative; z-index: 1; display: grid; justify-items: center; gap: clamp(1rem, 0.75rem + 1vw, 1.75rem); text-align: center; max-width: 34rem; }
-  .pf-eye { width: clamp(7rem, 5rem + 6vw, 11rem); height: auto; overflow: visible; }
-  .eye-white { fill: color-mix(in srgb, var(--fg) 4%, var(--bg)); }
-  .eye-iris { fill: #c89a2e; }   /* goat amber: placeholder colour */
-  .eye-iris-ring { fill: none; stroke: color-mix(in srgb, #000 35%, #c89a2e); stroke-width: 3; }
-  .eye-pupil { fill: #111; transform-box: fill-box; transform-origin: center; transition: transform 350ms var(--ease-out); }
-  .eye-glint { fill: #fff; opacity: 0.85; }
-  .eye-line { fill: none; stroke: var(--fg); stroke-width: 3; stroke-linejoin: round; }
-  [data-pf].is-looking .eye-pupil { transform: scaleY(1.35) scaleX(0.92); }   /* pupil opens a little when it locks onto a project */
+  /* Eye: fades out on every side (top and bottom especially) and multiplies its white into the page */
+  .pf-eye {
+    position: relative; width: clamp(18rem, 10rem + 28vw, 40rem); aspect-ratio: 1400 / 781;
+    overflow: hidden; mix-blend-mode: multiply;
+    --fade: linear-gradient(to bottom, transparent 0%, #000 24%, #000 76%, transparent 100%),
+            linear-gradient(to right, transparent 4%, #000 26%, #000 74%, transparent 96%);
+    -webkit-mask-image: var(--fade); mask-image: var(--fade);
+    -webkit-mask-composite: source-in; mask-composite: intersect;
+  }
+  :global([data-theme='dark']) .pf-eye { mix-blend-mode: normal; }
+  .pf-eye img { position: absolute; display: block; }
+  .eye-base, .eye-lid { inset: 0; width: 100%; height: 100%; }
+  /* The pupil can only move inside the eyeball */
+  .eye-ball { position: absolute; inset: 0; clip-path: ellipse(18% 22% at 50% 50.2%); }
+  .eye-pupil { left: 40.75%; top: 41.94%; width: 19.5%; height: auto; will-change: transform; }
+  /* Squint: the fur above and below closes in a little */
+  .eye-lid { transition: transform 450ms var(--ease-out); }
+  [data-pf].is-looking .eye-lid-top { transform: translateY(5%); }
+  [data-pf].is-looking .eye-lid-bottom { transform: translateY(-3.5%); }
 
   .hero-h {
     font-family: var(--font-display);
