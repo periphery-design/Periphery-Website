@@ -49,7 +49,10 @@ const { label = 'Periphery Studio' } = Astro.props;
   .lg-letters path, .lg-ring, .lg-lid { fill: currentColor; }
   .lg-pupil path { fill: #111; }   /* the pupil stays black in both themes */
   .lg-reg { fill: currentColor; font-family: var(--font-sans); font-size: 166.17px; font-weight: var(--weight-headline); }
-  .lg-iris { fill: #e5d838; }
+  /* A hairline stroke in the letter colour seals the joins between the ring, the p's stem and the lids
+     (browsers anti-alias abutting shapes separately, which leaves a faint light seam) */
+  .lg-ring { stroke: currentColor; stroke-width: 3; }
+  .lg-iris { fill: #e5d838; stroke: transparent; stroke-width: 6; transition: fill 90ms ease-in, stroke 90ms ease-in; }
   .lg-glint { fill: #fff; transition: opacity 120ms ease; }
   /* Lids rest just outside the eye; squint closes them a little, a blink closes them fully */
   .lg-lid { transition: transform 220ms var(--ease-out); }
@@ -59,5 +62,7 @@ const { label = 'Periphery Studio' } = Astro.props;
   .logo-eye:global(.is-blinking) .lg-lid-top { transform: translateY(62px); }
   .logo-eye:global(.is-blinking) .lg-lid-bottom { transform: translateY(-50px); }
   .logo-eye:global(.is-blinking) .lg-glint { opacity: 0; }
+  /* While shut, the whole eye is one solid shape in the letter colour, so no seam can show */
+  .logo-eye:global(.is-blinking) .lg-iris { fill: currentColor; stroke: currentColor; }
   @media (prefers-reduced-motion: reduce) { .lg-lid, .lg-glint { transition: none; } }
 </style>
