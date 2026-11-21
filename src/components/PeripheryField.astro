@@ -1,0 +1,143 @@
+---
+// Wireframe 3 homepage hero: the statement and a goat eye in the centre, the campaigns floating at the
+// edges of the screen. Each card drifts slowly on its own rhythm; on hover (or keyboard focus) it grows a
+// little, lifts on a soft shadow and shows its title, and the eye turns to look at it.
+// The eye here is a code-drawn placeholder (horizontal goat pupil) until the final artwork arrives.
+// Phones: eye and statement on top, the cards in a gently floating two-column grid underneath.
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+interface Props { projects: CollectionEntry<'projects'>[]; headline: string; subheading: string; }
+const { projects, headline, subheading } = Astro.props;
+const cards = projects.filter((p) => p.data.homeCard).slice(0, 6);
+// Spots around the edge of the screen: [css position, tilt in degrees, float duration s, float delay s]
+const spots: [string, number, number, number][] = [
+  ['top: 5%; left: 4%;', -4, 9, 0],
+  ['top: 8%; right: 5%;', 3, 11, -3],
+  ['bottom: 7%; left: 10%;', 3, 10, -6],
+  ['bottom: 4%; right: 9%;', -3, 12, -2],
+  ['top: 40%; left: 1.5%;', 2, 13, -8],
+  ['top: 42%; right: 1.5%;', -2, 10.5, -4],
+];
+---
+<section class="pf" aria-labelledby="hero-h" data-pf>
+  <div class="pf-centre">
+    <!-- Placeholder eye: swap for the final layered SVG (white/mask, iris, pupil, highlight, lids) -->
+    <svg class="pf-eye" viewBox="0 0 200 110" aria-hidden="true" data-eye>
+      <defs>
+        <clipPath id="pf-eye-clip"><path d="M8 55 Q100 -18 192 55 Q100 128 8 55 Z" /></clipPath>
+      </defs>
+      <path class="eye-white" d="M8 55 Q100 -18 192 55 Q100 128 8 55 Z" />
+      <g clip-path="url(#pf-eye-clip)">
+        <g data-eye-iris>
+          <circle class="eye-iris" cx="100" cy="55" r="38" />
+          <circle class="eye-iris-ring" cx="100" cy="55" r="38" />
+          <rect class="eye-pupil" data-eye-pupil x="74" y="47" width="52" height="16" rx="8" />
+        </g>
+      </g>
+      <circle class="eye-glint" cx="114" cy="40" r="5" />
+      <path class="eye-line" d="M8 55 Q100 -18 192 55 Q100 128 8 55 Z" />
+    </svg>
+    <h1 id="hero-h" class="hero-h" aria-label={headline}>
+      {headline.split(' ').map((w, i) => <span class="w" style={`--d: ${i}`} aria-hidden="true">{w}</span>)}
+    </h1>
+    <p class="hero-sub">{subheading}</p>
+  </div>
+
+  <ul class="pf-cards" aria-label="Selected work">
+    {cards.map((p, i) => {
+      const d = p.data;
+      const [pos, tilt, dur, delay] = spots[i % spots.length];
+      return (
+        <li class="pf-spot" style={`${pos} --tilt: ${tilt}deg; --dur: ${dur}s; --delay: ${delay}s;`}>
+          <a href={`/work/${p.id}/`} class="pf-card" aria-label={`${d.title} — ${d.client}`} data-pf-card>
+            <Image src={d.homeCard!.image} alt="" widths={[300, 500, 700]} sizes="(min-width: 900px) 16vw, 45vw" loading="eager" style={`object-position: ${d.homeCard!.focus}`} />
+            {d.homeCard!.video && <video class="card-video" src={d.homeCard!.video} muted loop playsinline preload="none" aria-hidden="true" data-card-video></video>}
+            <span class="pf-title" aria-hidden="true">{d.title}</span>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</section>
+
+<style>
+  .pf {
+    position: relative;
+    min-height: calc(100svh - var(--header-h));
+    display: grid; place-items: center;
+    padding: 2rem var(--gutter);
+    overflow: hidden;
+  }
+
+  /* ---------- Centre: eye + statement ---------- */
+  .pf-centre { position: relative; z-index: 1; display: grid; justify-items: center; gap: clamp(1rem, 0.75rem + 1vw, 1.75rem); text-align: center; max-width: 34rem; }
+  .pf-eye { width: clamp(7rem, 5rem + 6vw, 11rem); height: auto; overflow: visible; }
+  .eye-white { fill: color-mix(in srgb, var(--fg) 4%, var(--bg)); }
+  .eye-iris { fill: #c89a2e; }   /* goat amber: placeholder colour */
+  .eye-iris-ring { fill: none; stroke: color-mix(in srgb, #000 35%, #c89a2e); stroke-width: 3; }
+  .eye-pupil { fill: #111; transform-box: fill-box; transform-origin: center; transition: transform 350ms var(--ease-out); }
+  .eye-glint { fill: #fff; opacity: 0.85; }
+  .eye-line { fill: none; stroke: var(--fg); stroke-width: 3; stroke-linejoin: round; }
+  [data-pf].is-looking .eye-pupil { transform: scaleY(1.35) scaleX(0.92); }   /* pupil opens a little when it locks onto a project */
+
+  .hero-h {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 0.8rem + 2.6vw, 3.25rem);
+    line-height: 1; letter-spacing: -0.03em; font-weight: var(--weight-headline);
+    max-width: 14ch;
+  }
+  .hero-sub { font-size: clamp(0.8125rem, 0.75rem + 0.25vw, 0.9375rem); font-weight: var(--weight-sub); color: var(--fg-muted); max-width: 36ch; line-height: var(--leading-sub); }
+  .w { display: inline-block; margin-inline: 0.12em; }
+  .js .w { opacity: 0; transform: translateY(0.35em); animation: rise 900ms var(--ease-out) forwards; animation-delay: calc(120ms + var(--d) * 90ms); }
+  .js .hero-sub { opacity: 0; animation: fade 900ms var(--ease-out) 650ms forwards; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @keyframes fade { to { opacity: 1; } }
+
+  /* ---------- The cards at the edges ---------- */
+  .pf-cards { position: absolute; inset: 0; }
+  .pf-spot {
+    position: absolute; width: clamp(8.5rem, 3rem + 11vw, 15rem);
+    rotate: var(--tilt);
+    animation: drift var(--dur) ease-in-out var(--delay) infinite alternate;   /* slow float, each on its own rhythm */
+  }
+  @keyframes drift {
+    0%   { translate: 0 0; }
+    50%  { translate: 6px -12px; }
+    100% { translate: -5px 8px; }
+  }
+  .pf-card {
+    position: relative; display: block; aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden;
+    background: var(--bg-raised);
+    box-shadow: 0 0.75rem 2rem -0.75rem rgb(0 0 0 / 0.12);
+    transition: transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out), rotate 500ms var(--ease-out);
+  }
+  .pf-card :global(img), .card-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .card-video { opacity: 0; transition: opacity 400ms ease; }
+  .card-video:global(.is-playing) { opacity: 1; }
+  /* Hover / focus: grows a little, straightens, lifts, shows the title */
+  .pf-card:hover, .pf-card:focus-visible { transform: scale(1.08); rotate: calc(var(--tilt) * -1); box-shadow: 0 1.25rem 2.5rem -0.75rem rgb(0 0 0 / 0.18); z-index: 2; }
+  .pf-spot:has(.pf-card:hover), .pf-spot:has(.pf-card:focus-visible) { z-index: 2; }
+  .pf-title {
+    position: absolute; inset: auto 0 0 0; padding: 2.5rem 0.9rem 0.9rem;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.55), rgb(0 0 0 / 0));
+    color: #fff; font-size: var(--step-0); font-weight: var(--weight-sub); line-height: var(--leading-sub);
+    opacity: 0; transform: translateY(0.5rem); transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+  }
+  .pf-card:hover .pf-title, .pf-card:focus-visible .pf-title { opacity: 1; transform: none; }
+  @media (hover: none) { .pf-title { opacity: 1; transform: none; } }
+
+  /* ---------- Phones / narrow: statement on top, cards in a floating grid below ---------- */
+  @media (max-width: 900px) {
+    .pf { min-height: 0; display: block; padding-block: 2.5rem 3rem; }
+    .pf-centre { margin-inline: auto; margin-bottom: 2.5rem; }
+    .pf-cards { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: var(--gutter); width: 100%; }
+    .pf-spot { position: static; width: auto; }
+    .pf-spot:nth-child(even) { margin-top: 2rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pf-spot { animation: none; }
+    .js .w, .js .hero-sub { opacity: 1; transform: none; animation: none; }
+  }
+</style>
