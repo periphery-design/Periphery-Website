@@ -8,27 +8,23 @@ import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import LogoEye from './LogoEye.astro';
 
-interface Props { projects: CollectionEntry<'projects'>[]; headline: string; subheading: string; }
-const { projects, headline, subheading } = Astro.props;
+interface Props { projects: CollectionEntry<'projects'>[]; }
+const { projects } = Astro.props;
 const cards = projects.filter((p) => p.data.homeCard).slice(0, 6);
 // Spots around the edge of the screen: [css position, tilt in degrees, float duration s, float delay s]
 const spots: [string, number, number, number][] = [
-  ['bottom: 7%; left: 10%;', 3, 10, -6],      // 1st project (Multiomics) bottom left, off the wordmark
+  ['bottom: 2%; left: 10%;', 3, 10, -6],      // 1st project (Multiomics) bottom left, off the wordmark
   ['top: 8%; right: 5%;', 3, 11, -3],
   ['top: 5%; left: 4%;', -4, 9, 0],
-  ['bottom: 4%; right: 9%;', -3, 12, -2],
+  ['bottom: 1%; right: 9%;', -3, 12, -2],
   ['top: 40%; left: 1.5%;', 2, 13, -8],
   ['top: 42%; right: 1.5%;', -2, 10.5, -4],
 ];
 ---
-<section class="pf" aria-labelledby="hero-h" data-pf>
+<section class="pf" aria-label="Periphery Studio — selected work" data-pf>
   <div class="pf-centre">
     <!-- The wordmark: the bowl of the "p" is the eye, it follows the cursor, squints at a project, blinks -->
-    <div class="pf-logo"><LogoEye /></div>
-    <h1 id="hero-h" class="hero-h" aria-label={headline}>
-      {headline.split(' ').map((w, i) => <span class="w" style={`--d: ${i}`} aria-hidden="true">{w}</span>)}
-    </h1>
-    <p class="hero-sub">{subheading}</p>
+    <h1 class="pf-logo"><LogoEye /></h1>
   </div>
 
   <ul class="pf-cards" aria-label="Selected work">
@@ -53,7 +49,7 @@ const spots: [string, number, number, number][] = [
     position: relative;
     min-height: calc(100svh - var(--header-h));
     display: grid; place-items: center;
-    padding: 2rem var(--gutter);
+    padding: 1rem var(--gutter) 6rem;   /* sits the wordmark a little above centre, clear of the bottom cards */
     overflow: hidden;
   }
 
@@ -64,18 +60,6 @@ const spots: [string, number, number, number][] = [
   .pf-centre { width: 100%; }
   .pf-centre { max-width: none; }
 
-  .hero-h {
-    font-family: var(--font-display);
-    font-size: clamp(1.1rem, 0.7rem + 1.6vw, 2.25rem);
-    line-height: 1; letter-spacing: -0.03em; font-weight: var(--weight-headline);
-    max-width: 14ch;
-  }
-  .hero-sub { font-size: clamp(0.8125rem, 0.75rem + 0.25vw, 0.9375rem); font-weight: var(--weight-sub); color: var(--fg-muted); max-width: 36ch; line-height: var(--leading-sub); }
-  .w { display: inline-block; margin-inline: 0.12em; }
-  .js .w { opacity: 0; transform: translateY(0.35em); animation: rise 900ms var(--ease-out) forwards; animation-delay: calc(120ms + var(--d) * 90ms); }
-  .js .hero-sub { opacity: 0; animation: fade 900ms var(--ease-out) 650ms forwards; }
-  @keyframes rise { to { opacity: 1; transform: none; } }
-  @keyframes fade { to { opacity: 1; } }
 
   /* ---------- The cards at the edges ---------- */
   .pf-cards { position: absolute; inset: 0; z-index: 2; }   /* cards float over the wordmark */
@@ -121,6 +105,5 @@ const spots: [string, number, number, number][] = [
 
   @media (prefers-reduced-motion: reduce) {
     .pf-spot { animation: none; }
-    .js .w, .js .hero-sub { opacity: 1; transform: none; animation: none; }
   }
 </style>

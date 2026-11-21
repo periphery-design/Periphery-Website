@@ -327,6 +327,7 @@ if (cardVideos.length && !reduceMotion) {
 const pf = document.querySelector<HTMLElement>('[data-pf]');
 const logo = document.querySelector<SVGSVGElement>('[data-logo-eye]');
 const pupil = logo?.querySelector<SVGGElement>('[data-eye-pupil]');
+const glint = logo?.querySelector<SVGCircleElement>('[data-eye-glint]');
 if (logo && pupil && !reduceMotion) {
   const EYE = { x: 1505, y: 842 };              // centre of the iris, in logo units
   const MAX_X = 18, MAX_Y = 11;
@@ -345,6 +346,8 @@ if (logo && pupil && !reduceMotion) {
   const tick = () => {
     cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
     pupil.setAttribute('transform', `translate(${cx.toFixed(2)} ${cy.toFixed(2)})`);
+    // The highlight is a reflection of a fixed light, so it travels the same way but only about a third as far
+    glint?.setAttribute('transform', `translate(${(cx * 0.35).toFixed(2)} ${(cy * 0.3).toFixed(2)})`);
     if (Math.abs(tx - cx) + Math.abs(ty - cy) > 0.05) requestAnimationFrame(tick); else running = false;
   };
   const aimAtCard = (c: HTMLElement) => { const r = c.getBoundingClientRect(); aimAt(r.left + r.width / 2, r.top + r.height / 2); };
