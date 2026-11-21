@@ -86,13 +86,16 @@ const links = [
   .toggle-track {
     width: 1.9rem; height: 1.1rem; border-radius: var(--radius-pill);
     box-shadow: inset 0 0 0 1px var(--line); position: relative;
+    transition: background-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
   }
   .toggle-dot {
     position: absolute; top: 3px; left: 3px; width: calc(1.1rem - 6px); height: calc(1.1rem - 6px);
     border-radius: 50%; background: var(--fg);
-    transition: transform var(--dur-fast) var(--ease-out);
+    transition: transform var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
   }
-  :global([data-theme='dark']) .toggle-dot { transform: translateX(0.8rem); }
+  /* Dark mode: the toggle becomes the logo's eye, a black pupil on the yellow iris */
+  :global([data-theme='dark']) .toggle-track { background: #e5d838; box-shadow: none; }
+  :global([data-theme='dark']) .toggle-dot { transform: translateX(0.8rem); background: #111; }
 
   @media (max-width: 800px) {
     .logo span:last-child { display: none; }   /* logo mark only, so the centred nav fits */
