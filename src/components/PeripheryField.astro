@@ -59,7 +59,9 @@ const spots: [string, number, number, number][] = [
 
   /* ---------- Centre: eye + statement ---------- */
   .pf-centre { position: relative; z-index: 1; display: grid; justify-items: center; gap: clamp(1rem, 0.75rem + 1vw, 1.75rem); text-align: center; max-width: 34rem; }
-  .pf-logo { width: min(52vw, 46rem); }
+  /* Full bleed: the wordmark runs edge to edge of the window */
+  .pf-logo { width: calc(100% + 2 * var(--gutter)); margin-inline: calc(var(--gutter) * -1); }
+  .pf-centre { width: 100%; }
   .pf-centre { max-width: none; }
 
   .hero-h {
@@ -76,7 +78,7 @@ const spots: [string, number, number, number][] = [
   @keyframes fade { to { opacity: 1; } }
 
   /* ---------- The cards at the edges ---------- */
-  .pf-cards { position: absolute; inset: 0; }
+  .pf-cards { position: absolute; inset: 0; z-index: 2; }   /* cards float over the wordmark */
   .pf-spot {
     position: absolute; width: clamp(8.5rem, 3rem + 11vw, 15rem);
     rotate: var(--tilt);

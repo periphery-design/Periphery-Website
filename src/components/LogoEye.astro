@@ -52,8 +52,8 @@ const { label = 'Periphery Studio' } = Astro.props;
   .lg-glint { fill: #fff; transition: opacity 120ms ease; }
   /* Lids rest just outside the eye; squint closes them a little, a blink closes them fully */
   .lg-lid { transition: transform 220ms var(--ease-out); }
-  :global([data-pf].is-looking) .lg-lid-top { transform: translateY(34px); }
-  :global([data-pf].is-looking) .lg-lid-bottom { transform: translateY(-22px); }
+  :global([data-pf].is-looking) .lg-lid-top { transform: translateY(16px); }   /* light squint: stops above the pupil, even when it looks up */
+  :global([data-pf].is-looking) .lg-lid-bottom { transform: translateY(-11px); }
   .logo-eye:global(.is-blinking) .lg-lid { transition-duration: 90ms; transition-timing-function: ease-in; }
   .logo-eye:global(.is-blinking) .lg-lid-top { transform: translateY(62px); }
   .logo-eye:global(.is-blinking) .lg-lid-bottom { transform: translateY(-50px); }
