@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import HeroDock from '../components/HeroDock.astro';
+import { Image } from 'astro:assets';
+import glow from '../assets/backgrounds/glow.jpg';
 import CapabilityPanel from '../components/CapabilityPanel.astro';
 import ProcessCards from '../components/ProcessCards.astro';
 import { capabilities, process } from '../data/site';
@@ -15,6 +17,11 @@ const subheading = 'Goats take in nearly 320° of the world at a glance. They’
   <!-- Wireframe 4: the wordmark under the nav, the campaigns in a sideways reel below it; on scroll the
        wordmark docks into the header as the logo -->
   <HeroDock projects={projects} />
+
+  <!-- Everything after the work sits on a soft colour field (peach into lime into the iris yellow) that fades in
+       from the plain page once the reel is passed, and melts back into the page before the footer -->
+  <div class="glow-zone">
+  <div class="glow" aria-hidden="true"><Image src={glow} alt="" widths={[1125]} sizes="100vw" format="jpg" quality={88} loading="lazy" /></div>
 
   <!-- The statement, just below the fold: big editorial line across the page, the subheading on the copy line -->
   <section class="grid statement-band" aria-labelledby="st-h">
@@ -38,9 +45,26 @@ const subheading = 'Goats take in nearly 320° of the world at a glance. They’
     <div class="grid sec-head"><h2 id="proc-h" class="label">Process</h2></div>
     <ProcessCards items={process} statement="How an idea gets from brief to the street." sub="Placeholder: a line on why the process is kept simple." />
   </section>
+  </div>
 </Base>
 
 <style>
+  /* ---------- The colour field behind the rest of the page ---------- */
+  .glow-zone { position: relative; isolation: isolate; }
+  .glow {
+    position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+    /* fade in from the plain page at the top, full strength through the middle, back to plain before the footer */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 min(55vh, 22%), #000 82%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0, #000 min(55vh, 22%), #000 82%, transparent 100%);
+  }
+  .glow :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+  /* The yellow page already has its colour, so the field steps aside there */
+  :global([data-theme='yellow']) .glow { display: none; }
+  /* Panels and cards on the colour turn to frosted glass, so the field shows through instead of flat grey boxes */
+  :global(html:not([data-theme='yellow'])) .glow-zone :global(:is(.cap-panel, .proc-card)) {
+    background: rgb(255 255 255 / 0.5); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  }
+
   /* Statement band: ExtraBold line at near-display size, left-aligned on the grid; the full stop is the iris yellow */
   .statement-band { padding-block: clamp(4rem, 3rem + 6vw, 9rem) clamp(2rem, 1rem + 3vw, 4rem); row-gap: clamp(1.25rem, 1rem + 1vw, 2rem); align-items: end; }
   .st-label { grid-column: 1 / -1; }
