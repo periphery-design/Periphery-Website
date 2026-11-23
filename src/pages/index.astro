@@ -36,7 +36,7 @@ const subheading = 'Goats take in nearly 320° of the world at a glance. They’
         <div class="cap-frame" data-reveal>
           {capabilities.map((c, i) => (
             <div class:list={['cap-shot', { 'is-on': i === 0 }]} data-cap-shot>
-              <Image src={c.image} alt="" widths={[480, 800, 1100]} sizes="(min-width: 800px) 40vw, 92vw" loading="lazy" />
+              <Image src={c.image} alt="" widths={[1200, 2000]} sizes="(min-width: 800px) 1200px, 800px" quality={85} loading="lazy" />
             </div>
           ))}
           <span class="cap-tag" data-cap-tag>{capabilities[0].name}</span>
