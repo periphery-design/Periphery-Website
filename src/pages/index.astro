@@ -9,7 +9,7 @@ import { capabilities, process } from '../data/site';
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 
 const headline = 'Vision Beyond the Center.';
-const subheading = 'We craft bold brand identities and high-impact visual strategies that capture attention from every angle.';
+const subheading = 'A goat can see almost 320° without turning its head. It’s also stubborn, curious and a little odd. We work the same way: take in the whole picture, notice what everyone else walks past, and make brands that are impossible to look away from.';
 ---
 <Base description={subheading} dock>
   <!-- Wireframe 4: the wordmark under the nav, the campaigns in a sideways reel below it; on scroll the
@@ -44,10 +44,10 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
   /* Statement band: ExtraBold line at near-display size, left-aligned on the grid; the full stop is the iris yellow */
   .statement-band { padding-block: clamp(4rem, 3rem + 6vw, 9rem) clamp(2rem, 1rem + 3vw, 4rem); row-gap: clamp(1.25rem, 1rem + 1vw, 2rem); align-items: end; }
   .st-label { grid-column: 1 / -1; }
-  /* One statement across three quarters of the page (9 of 12 columns), about 40% of the old headline size */
+  /* One statement across three quarters of the page (9 of 12 columns) */
   .st-text {
     grid-column: 1 / span 9;
-    font-size: clamp(1.4rem, 0.4rem + 2.96vw, 3.4rem); font-weight: var(--weight-headline);
+    font-size: clamp(1.2rem, 2.96vw - 0.02rem, 2.98rem); font-weight: var(--weight-sub);   /* Bold, 5pt under the last size */
     line-height: 1.05; letter-spacing: -0.025em; text-wrap: pretty;
   }
   .st-h, .st-sub { display: inline; font: inherit; letter-spacing: inherit; color: var(--fg); }
