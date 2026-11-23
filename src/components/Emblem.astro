@@ -1,11 +1,12 @@
 ---
 // The emblem: the eye "o" on its own, for the header lockup, favicon-sized places and avatars.
-// Same shapes as the big wordmark's eye, so the emblem is literally that letter.
+// Same shapes as the big wordmark's eye, so the emblem is literally that letter. It blinks now and then
+// (site.ts, [data-blink-eye]).
 import { o, counter, oViewBox } from '../lib/logo';
 interface Props { class?: string; }
 const { class: cls } = Astro.props;
 ---
-<svg class:list={['emblem', cls]} viewBox={oViewBox} aria-hidden="true" focusable="false">
+<svg class:list={['emblem', cls]} viewBox={oViewBox} aria-hidden="true" focusable="false" data-blink-eye>
   <path class="em-iris" d={counter} />
   <clipPath id="em-clip"><path d={counter} /></clipPath>
   <g clip-path="url(#em-clip)"><rect class="em-pupil" x="676" y="247" width="34" height="6.2" rx="3.1" /></g>
@@ -16,7 +17,10 @@ const { class: cls } = Astro.props;
 <style>
   .emblem { display: block; height: 100%; width: auto; color: var(--fg); overflow: visible; }
   .em-o { fill: currentColor; stroke: currentColor; stroke-width: 0.8; }
-  .em-iris { fill: #e5d838; }
+  .em-iris { fill: #e5d838; transition: fill 70ms ease-in; }
   .em-pupil { fill: #111; }
-  .em-glint { fill: #fff; }
+  .em-glint { fill: #fff; transition: opacity 70ms ease-in; }
+  /* Blink: for a moment the eye closes to one solid shape in the letter colour */
+  .emblem:global(.is-blinking) .em-iris { fill: currentColor; stroke: currentColor; stroke-width: 2; }   /* stroke seals the seam */
+  .emblem:global(.is-blinking) :is(.em-pupil, .em-glint) { opacity: 0; }
 </style>

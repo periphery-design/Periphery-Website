@@ -386,3 +386,20 @@ if (bigMark && document.documentElement.hasAttribute('data-dock')) {
   watch();
   window.addEventListener('resize', watch);
 }
+
+/* ---------- The small eye in the header blinks too ----------
+   Every 3–8 seconds, now and then twice in a row. Skips while the tab is hidden or the logo is tucked away
+   (homepage, before it drops in). Reduced motion: no blinking. */
+const smallEye = document.querySelector<SVGSVGElement>('[data-blink-eye]');
+if (smallEye && !reduceMotion) {
+  const shown = () => !document.documentElement.hasAttribute('data-dock') || document.documentElement.classList.contains('logo-in');
+  const blinkOnce = (then?: () => void) => {
+    smallEye.classList.add('is-blinking');
+    setTimeout(() => { smallEye.classList.remove('is-blinking'); then?.(); }, 130);
+  };
+  const next = () => setTimeout(() => {
+    if (!document.hidden && shown()) blinkOnce(Math.random() < 0.25 ? () => setTimeout(() => blinkOnce(), 170) : undefined);
+    next();
+  }, 3000 + Math.random() * 5000);
+  next();
+}
