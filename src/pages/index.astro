@@ -18,8 +18,11 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
   <!-- The statement, just below the fold: big editorial line across the page, the subheading on the copy line -->
   <section class="grid statement-band" aria-labelledby="st-h">
     <p class="label st-label" data-reveal>Periphery Studio</p>
-    <h2 id="st-h" class="st-h" data-reveal>Vision Beyond<br />the Center<span class="st-dot" aria-hidden="true">.</span></h2>
-    <p class="st-sub" data-reveal>{subheading}</p>
+    <!-- Headline and subheading set as one statement in the same style, running on from each other -->
+    <div class="st-text" data-reveal>
+      <h2 id="st-h" class="st-h">Vision Beyond the Center<span class="st-dot" aria-hidden="true">.</span></h2>
+      <p class="st-sub">{subheading}</p>
+    </div>
   </section>
 
   <section class="section" aria-labelledby="cap-h">
@@ -40,15 +43,17 @@ const subheading = 'We craft bold brand identities and high-impact visual strate
   /* Statement band: ExtraBold line at near-display size, left-aligned on the grid; the full stop is the iris yellow */
   .statement-band { padding-block: clamp(4rem, 3rem + 6vw, 9rem) clamp(2rem, 1rem + 3vw, 4rem); row-gap: clamp(1.25rem, 1rem + 1vw, 2rem); align-items: end; }
   .st-label { grid-column: 1 / -1; }
-  .st-h {
-    grid-column: 1 / -1;
-    font-size: clamp(2.75rem, 1rem + 7.4vw, 8.5rem); font-weight: var(--weight-headline);
-    line-height: 0.92; letter-spacing: -0.035em; text-wrap: balance;
+  /* One statement across three quarters of the page (9 of 12 columns), about 40% of the old headline size */
+  .st-text {
+    grid-column: 1 / span 9;
+    font-size: clamp(1.4rem, 0.4rem + 2.96vw, 3.4rem); font-weight: var(--weight-headline);
+    line-height: 1.05; letter-spacing: -0.025em; text-wrap: pretty;
   }
+  .st-h, .st-sub { display: inline; font: inherit; letter-spacing: inherit; color: var(--fg); }
+  .st-h::after { content: ' '; }
   .st-dot { color: #e5d838; }
   :global([data-theme='yellow']) .st-dot { color: var(--fg); }   /* on the yellow page the full stop turns black */
-  .st-sub { grid-column: 7 / -1; font-size: var(--step-1); line-height: var(--leading-body); color: var(--fg-muted); max-width: 34ch; }
-  @media (max-width: 800px) { .st-sub { grid-column: 1 / -1; } }
+  @media (max-width: 800px) { .st-text { grid-column: 1 / -1; } }
   .sec-head { margin-bottom: 2.5rem; }
   .full { grid-column: 1 / -1; }
 </style>
