@@ -1,4 +1,6 @@
 ---
+import Emblem from './Emblem.astro';
+import Wordmark from './Wordmark.astro';
 const path = Astro.url.pathname;
 const { themeLocked = false } = Astro.props as { themeLocked?: boolean };
 const links = [
@@ -9,10 +11,11 @@ const links = [
 ---
 <!-- Three columns: logo left, navigation centred on the page, theme toggle right -->
 <header class="site-header">
-  <a href="/" class="logo" aria-label="Periphery Design, home">
-    <!-- Logo placeholder: swap for the final SVG logo -->
-    <span class="logo-mark" aria-hidden="true"></span>
-    <span>Periphery Design</span>
+  <!-- Lockup: the eye emblem beside the stacked wordmark. On the homepage the big wordmark shrinks onto
+       this spot as you scroll (site.ts, [data-dock]); until then the header lockup stays hidden there. -->
+  <a href="/" class="logo" aria-label="Periphery Studio, home" data-dock-logo>
+    <Emblem class="logo-emblem" />
+    <span class="logo-word" data-dock-target><Wordmark /></span>
   </a>
   <nav class="nav" aria-label="Main">
     <ul>
@@ -48,8 +51,12 @@ const links = [
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
-  .logo { justify-self: start; display: inline-flex; align-items: center; gap: 0.6rem; font-weight: var(--weight-sub); }
-  .logo-mark { width: 1.1rem; height: 1.1rem; border-radius: 50%; border: 1.5px solid currentColor; }
+  .logo { justify-self: start; display: inline-flex; align-items: center; gap: 0.5rem; height: 2rem; }
+  .logo :global(.logo-emblem) { height: 1.75rem; }
+  .logo-word { display: block; height: 100%; }
+  /* Homepage: the big wordmark is the logo until it docks here, so the lockup waits, then fades in */
+  :global(html[data-dock]) .logo-word { opacity: var(--dock-done, 0); }
+  :global(html[data-dock]) .logo :global(.logo-emblem) { opacity: var(--dock-p, 0); transform: scale(calc(0.6 + 0.4 * var(--dock-p, 0))); transform-origin: 0 50%; }
   .tools { justify-self: end; display: flex; align-items: center; }
 
   /* Centred nav: all caps, semibold */
@@ -98,7 +105,7 @@ const links = [
   :global([data-theme='yellow']) .toggle-track { box-shadow: inset 0 0 0 1.5px var(--fg); }
 
   @media (max-width: 800px) {
-    .logo span:last-child { display: none; }   /* logo mark only, so the centred nav fits */
+    .logo-word { display: none; }   /* emblem only, so the centred nav fits */
     .nav ul { gap: 1rem; }
     .theme-toggle [data-theme-label] { display: none; }
   }

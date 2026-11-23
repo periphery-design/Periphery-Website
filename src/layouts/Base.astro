@@ -4,12 +4,12 @@ import syneUrl from '../assets/fonts/syne-variable.woff2?url';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-interface Props { title?: string; description?: string; forceTheme?: 'dark' | 'light'; }
-const { title, description = 'Periphery Design — campaigns and ideas for brands.', forceTheme } = Astro.props;
-const fullTitle = title ? `${title} — Periphery Design` : 'Periphery Design';
+interface Props { title?: string; description?: string; forceTheme?: 'dark' | 'light'; dock?: boolean; }
+const { title, description = 'Periphery Studio — campaigns and ideas for brands.', forceTheme, dock = false } = Astro.props;
+const fullTitle = title ? `${title} — Periphery Studio` : 'Periphery Studio';
 ---
 <!doctype html>
-<html lang="en" data-force-theme={forceTheme}>
+<html lang="en" data-force-theme={forceTheme} data-dock={dock ? "" : undefined}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

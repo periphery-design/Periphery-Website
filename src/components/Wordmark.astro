@@ -1,0 +1,15 @@
+---
+// The plain Periphery Studio wordmark (no eye), for the header lockup. Same crop as the big homepage wordmark,
+// so on the homepage the big one can shrink exactly onto this one.
+import { letters, o, wordViewBox } from '../lib/logo';
+interface Props { class?: string; }
+const { class: cls } = Astro.props;
+---
+<svg class:list={['wordmark-svg', cls]} viewBox={wordViewBox} aria-hidden="true" focusable="false">
+  {letters.map((d) => <path d={d} />)}
+  <path d={o} />
+</svg>
+
+<style>
+  .wordmark-svg { display: block; height: 100%; width: auto; fill: currentColor; overflow: visible; }
+</style>

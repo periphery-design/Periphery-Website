@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import PeripheryField from '../components/PeripheryField.astro';
+import HeroDock from '../components/HeroDock.astro';
 import CapabilityPanel from '../components/CapabilityPanel.astro';
 import ProcessCards from '../components/ProcessCards.astro';
 import { capabilities, process } from '../data/site';
@@ -11,9 +11,10 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 const headline = 'Vision Beyond the Center.';
 const subheading = 'We craft bold brand identities and high-impact visual strategies that capture attention from every angle.';
 ---
-<Base description={subheading}>
-  <!-- Wireframe 3: the eye and the statement in the centre, the campaigns floating at the edges (the periphery) -->
-  <PeripheryField projects={projects} />
+<Base description={subheading} dock>
+  <!-- Wireframe 4: the wordmark under the nav, the campaigns in a sideways reel below it; on scroll the
+       wordmark docks into the header as the logo -->
+  <HeroDock projects={projects} />
 
   <!-- The statement, just below the fold: big editorial line across the page, the subheading on the copy line -->
   <section class="grid statement-band" aria-labelledby="st-h">

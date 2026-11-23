@@ -1,0 +1,34 @@
+---
+// Wireframe 4 homepage hero: the big Periphery Studio wordmark (with the living eye in the "o") straight under
+// the navigation, and the campaigns in a sideways reel underneath. As you scroll down, the wordmark shrinks and
+// glides into the header's top-left corner, where it lands exactly on the small lockup (emblem + wordmark),
+// which then takes over. Scroll back up and it grows back out. Motion lives in site.ts ([data-dock-mover]).
+// Reduced motion / no JS: the wordmark simply scrolls away and the header lockup is shown from the start.
+// Phones: the header only has room for the emblem, so the wordmark shrinks toward it and fades as it arrives.
+import type { CollectionEntry } from 'astro:content';
+import LogoEye from './LogoEye.astro';
+import HomeReel from './HomeReel.astro';
+
+interface Props { projects: CollectionEntry<'projects'>[]; }
+const { projects } = Astro.props;
+---
+<section class="hd" aria-label="Periphery Studio — selected work" data-pf>
+  <h1 class="hd-mark">
+    <!-- The space keeps the layout; the mover inside is what travels up into the header -->
+    <span class="dock-space"><span class="dock-mover" data-dock-mover><LogoEye /></span></span>
+  </h1>
+  <div class="hd-reel"><HomeReel projects={projects} /></div>
+</section>
+
+<style>
+  .hd { padding-top: clamp(0.25rem, 0.5vw, 0.75rem); overflow-x: clip; }
+  /* Full bleed: the wordmark runs edge to edge, a hair inside the window */
+  .hd-mark { margin-inline: calc(var(--gutter) * -0.4); }
+  .dock-space { display: block; position: relative; aspect-ratio: 950 / 222; }
+  .dock-mover { position: absolute; inset: 0; z-index: 60; transform-origin: 0 0; pointer-events: none; }
+  .dock-mover:global(.is-fixed) { position: fixed; inset: auto; will-change: transform; }
+  .hd-reel { margin-top: clamp(1rem, 0.5rem + 1.5vw, 2rem); }
+  /* A slightly shorter reel than wireframe 2, so wordmark + cards fit one laptop screen */
+  .hd-reel :global(.reel) { --card-h: clamp(16rem, 6rem + 22vw, 28rem); }
+  @media (max-width: 800px) { .hd-reel :global(.reel) { --card-h: 90vw; } }
+</style>
