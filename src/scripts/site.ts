@@ -323,8 +323,10 @@ const logo = document.querySelector<SVGSVGElement>('[data-logo-eye]');
 const pupil = logo?.querySelector<SVGGElement>('[data-eye-pupil]');
 const glint = logo?.querySelector<SVGCircleElement>('[data-eye-glint]');
 if (logo && pupil && !reduceMotion) {
-  const EYE = { x: 1505, y: 842 };              // centre of the iris, in logo units
-  const MAX_X = 18, MAX_Y = 11;
+  // Centre of the iris and how far the pupil can travel, in the logo's own units (set on the SVG)
+  const d = logo.dataset;
+  const EYE = { x: Number(d.eyeX ?? 1505), y: Number(d.eyeY ?? 842) };
+  const MAX_X = Number(d.eyeMaxX ?? 18), MAX_Y = Number(d.eyeMaxY ?? 11);
   let tx = 0, ty = 0, cx = 0, cy = 0, running = false, locked: HTMLElement | null = null;
   const toScreen = () => {
     const r = logo.getBoundingClientRect(), vb = logo.viewBox.baseVal, k = r.width / vb.width;
