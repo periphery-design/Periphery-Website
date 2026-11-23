@@ -403,3 +403,23 @@ if (smallEye && !reduceMotion) {
   }, 3000 + Math.random() * 5000);
   next();
 }
+
+/* ---------- Wireframe 4: capabilities image follows the list ----------
+   Hovering, focusing or opening a capability crossfades the sticky image to that discipline's work and updates
+   the little name tag. Touch: rows open as they scroll into view (see above), so the image follows that too. */
+document.querySelectorAll<HTMLElement>('[data-cap-show]').forEach((sec) => {
+  const shots = [...sec.querySelectorAll<HTMLElement>('[data-cap-shot]')];
+  const tag = sec.querySelector<HTMLElement>('[data-cap-tag]');
+  const items = [...sec.querySelectorAll<HTMLElement>('[data-expand-item]')];
+  let current = 0;
+  const show = (i: number) => {
+    if (i === current || !shots[i]) return;
+    shots[current]?.classList.remove('is-on'); shots[i].classList.add('is-on'); current = i;
+    if (tag) tag.textContent = items[i]?.querySelector('.cap-name')?.textContent ?? '';
+  };
+  items.forEach((item, i) => {
+    item.addEventListener('mouseenter', () => show(i));
+    item.addEventListener('focusin', () => show(i));
+    new MutationObserver(() => { if (item.classList.contains('is-open')) show(i); }).observe(item, { attributes: true, attributeFilter: ['class'] });
+  });
+});

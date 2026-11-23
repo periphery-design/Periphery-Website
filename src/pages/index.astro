@@ -5,6 +5,7 @@ import HeroDock from '../components/HeroDock.astro';
 import CapabilityPanel from '../components/CapabilityPanel.astro';
 import ProcessCards from '../components/ProcessCards.astro';
 import { capabilities, process } from '../data/site';
+import { Image } from 'astro:assets';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 
@@ -26,13 +27,27 @@ const subheading = 'Goats take in nearly 320° of the world at a glance. They’
     </div>
   </section>
 
+  <!-- Capabilities: a tall image on the left stays put while you read the list on the right. It changes to a piece
+       of work from whichever discipline you hover, focus or open (site.ts, [data-cap-show]). Phones: image on top. -->
   <section class="section" aria-labelledby="cap-h">
-    <div class="grid sec-head">
-      <h2 id="cap-h" class="label">Capabilities</h2>
-      <p class="content statement" data-reveal>One idea, made to work everywhere the brand shows up.</p>
-      <p class="content sec-sub" data-reveal>A multidisciplinary studio for brand identity, illustration and campaign design, working with commercial brands that would rather stand out than fit in.</p>
+    <div class="grid cap-sec" data-cap-show>
+      <h2 id="cap-h" class="label cap-label">Capabilities</h2>
+      <div class="cap-media" aria-hidden="true">
+        <div class="cap-frame" data-reveal>
+          {capabilities.map((c, i) => (
+            <div class:list={['cap-shot', { 'is-on': i === 0 }]} data-cap-shot>
+              <Image src={c.image} alt="" widths={[480, 800, 1100]} sizes="(min-width: 800px) 40vw, 92vw" loading="lazy" />
+            </div>
+          ))}
+          <span class="cap-tag" data-cap-tag>{capabilities[0].name}</span>
+        </div>
+      </div>
+      <div class="cap-body">
+        <p class="statement" data-reveal>One idea, made to work everywhere the brand shows up.</p>
+        <p class="sec-sub" data-reveal>A multidisciplinary studio for brand identity, illustration and campaign design, working with commercial brands that would rather stand out than fit in.</p>
+        <div class="cap-list" data-reveal><CapabilityPanel items={capabilities} idPrefix="home-cap" /></div>
+      </div>
     </div>
-    <div class="grid"><div class="full" data-reveal><CapabilityPanel items={capabilities} idPrefix="home-cap" /></div></div>
   </section>
 
   <section class="section" aria-labelledby="proc-h">
@@ -57,5 +72,30 @@ const subheading = 'Goats take in nearly 320° of the world at a glance. They’
   @media (max-width: 800px) { .st-text { grid-column: 1 / -1; } }
   .sec-head { margin-bottom: 2.5rem; }
   .sec-sub { margin-top: 1rem; color: var(--fg-muted); max-width: 40ch; }
+
+  /* ---------- Capabilities: sticky image left, statement + list right ---------- */
+  .cap-sec { row-gap: 1.5rem; align-items: start; }
+  .cap-label { grid-column: 1 / -1; }
+  .cap-media { grid-column: 1 / span 5; position: sticky; top: calc(var(--header-h) + 1.5rem); }
+  .cap-frame { position: relative; aspect-ratio: 4 / 5; max-height: calc(100svh - var(--header-h) - 3rem); border-radius: var(--radius); overflow: hidden; background: var(--bg-raised); }
+  .cap-shot { position: absolute; inset: 0; opacity: 0; transform: scale(1.04); transition: opacity 500ms var(--ease-out), transform 900ms var(--ease-out); }
+  .cap-shot.is-on { opacity: 1; transform: none; }
+  .cap-shot :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  /* The discipline's name in a small pill on the image, so it's clear which one you're looking at */
+  .cap-tag {
+    position: absolute; left: 1rem; bottom: 1rem; padding: 0.4em 0.9em; border-radius: var(--radius-pill);
+    background: var(--bg); color: var(--fg); font-size: var(--step--1); font-weight: var(--weight-medium);
+  }
+  .cap-body { grid-column: 7 / -1; }
+  .cap-list { margin-top: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+  /* The list sits in a narrower column here, so the names step down to fit */
+  .cap-list :global(.cap-name) { font-size: clamp(1.6rem, 0.6rem + 2.4vw, 3rem); }
+  .cap-list :global(.cap-panel) { padding: clamp(1.25rem, 0.75rem + 1.5vw, 2rem); }
+  @media (prefers-reduced-motion: reduce) { .cap-shot { transition: opacity 200ms ease; transform: none; } }
+  @media (max-width: 800px) {
+    .cap-media { grid-column: 1 / -1; position: static; }
+    .cap-frame { aspect-ratio: 4 / 3; }
+    .cap-body { grid-column: 1 / -1; }
+  }
   .full { grid-column: 1 / -1; }
 </style>
