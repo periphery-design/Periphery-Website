@@ -6,7 +6,7 @@
 // card beside the row; on touch there is no card, the image sits inside the opened row instead.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-interface Cap { name: string; line: string; tags: string[]; image?: ImageMetadata; alt?: string; }
+interface Cap { name: string; line: string; tags: string[]; image?: ImageMetadata; alt?: string; icon?: ImageMetadata; }
 interface Props { items: Cap[]; idPrefix: string; reveal?: boolean; }
 const { items, idPrefix, reveal = false } = Astro.props;
 const withImages = reveal && items.every((c) => c.image);
@@ -18,7 +18,11 @@ const withImages = reveal && items.every((c) => c.image);
         <h3>
           <button type="button" class="cap-trigger" data-expand aria-expanded="false" aria-controls={`${idPrefix}-${i}`}>
             <span class="cap-name">{c.name}</span>
-            <span class="cap-num" aria-hidden="true">{i + 1}</span>
+            {/* The discipline's illustrated mark (spins on its Y axis when the row is hovered or opened); the number
+                stands in until a row has a mark. With any marks in the list, a row without one keeps an empty slot. */}
+            {c.icon
+              ? <span class="cap-icon" aria-hidden="true"><img src={c.icon.src} alt="" width={c.icon.width} height={c.icon.height} loading="lazy" decoding="async" /></span>
+              : items.some((x) => x.icon) ? <span class="cap-icon" aria-hidden="true"></span> : <span class="cap-num" aria-hidden="true">{i + 1}</span>}
           </button>
         </h3>
         <div class="cap-body" id={`${idPrefix}-${i}`}>
@@ -64,6 +68,22 @@ const withImages = reveal && items.every((c) => c.image);
   }
   .cap.is-open .cap-name, .cap-trigger:focus-visible .cap-name { color: var(--fg); }
   .cap-num { font-size: var(--step-2); font-weight: var(--weight-sub); color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  /* Marks: sit where the numbers were. Hovering (or opening) a row gives its mark one full turn on the Y axis,
+     like a coin flicked on a table, with a small overshoot as it settles. */
+  .cap-icon { flex: none; align-self: center; width: clamp(3.6rem, 2.4rem + 3vw, 5.75rem); aspect-ratio: 268.71 / 230; margin-block: -0.6rem; perspective: 500px; }
+  /* Softer at rest, like the names; full strength when the row is active */
+  .cap-icon img { display: block; width: 100%; height: 100%; object-fit: contain; opacity: 0.45; transition: opacity var(--dur-fast) ease; }
+  .cap.is-open .cap-icon img, .cap-trigger:focus-visible .cap-icon img { opacity: 1; }
+  @media (hover: hover) { .cap:hover .cap-icon img { opacity: 1; } }
+  .cap:hover .cap-icon img, .cap.is-open .cap-icon img, .cap-trigger:focus-visible .cap-icon img {
+    animation: cap-icon-spin 850ms cubic-bezier(0.25, 1, 0.4, 1);
+  }
+  @keyframes cap-icon-spin {
+    0%   { transform: rotateY(0deg); }
+    75%  { transform: rotateY(385deg); }
+    100% { transform: rotateY(360deg); }
+  }
+  @media (prefers-reduced-motion: reduce) { .cap-icon img { animation: none !important; } }
 
   .cap-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-med) var(--ease-inout); }
   .cap-inner {

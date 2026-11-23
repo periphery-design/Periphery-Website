@@ -7,21 +7,26 @@ import brandingImg from '../assets/projects/biotechne-multiomics/literature.jpg'
 
 // Four disciplines. Home: hover-reveal list (name + image). About: Spiegel-style panel (line + tags).
 // Images are stand-ins from the case studies; swap for a dedicated image per discipline when ready.
+// Capability icons: the owner's illustrated marks (Periphery_Studio-marks-04/05/06). Branding's is still to come.
+import strategyIcon from '../assets/icons/strategy-bolt.svg';
+import artDirectionIcon from '../assets/icons/art-direction-eye.svg';
+import illustrationIcon from '../assets/icons/illustration-nib.svg';
+
 export const capabilities = [
   {
-    name: 'Strategy',
+    name: 'Strategy', icon: strategyIcon,
     line: 'Finding the truth about a brand that nobody has used yet, and the audience who needs to hear it.',
     tags: ['Insight & research', 'Positioning', 'Audience mapping', 'Campaign platforms'],
     image: strategyImg, alt: 'Three social posts reading “Same Slide.”, “Same Section.” and “Same Moment.”',
   },
   {
-    name: 'Art Direction',
+    name: 'Art Direction', icon: artDirectionIcon,
     line: 'Making the idea look as sharp as it reads, in every format it has to live in.',
     tags: ['Visual direction', 'Photo & film direction', 'Design systems', 'Typography'],
     image: artDirectionImg, alt: 'Digital billboard of a scientist with fluorescent cells reflected in their safety glasses',
   },
   {
-    name: 'Illustration',
+    name: 'Illustration', icon: illustrationIcon,
     line: 'Placeholder: drawing that carries the idea, from a quick sketch to a whole visual language.',
     tags: ['Hand-drawn systems', 'Icons', 'Scientific illustration', 'Lettering'],
     image: illustrationImg, alt: 'Dictionary-style card for immunology with a hand-written definition and cell sketches',
