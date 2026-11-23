@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import HeroDock from '../components/HeroDock.astro';
+import MiniEye from '../components/MiniEye.astro';
 import CapabilityPanel from '../components/CapabilityPanel.astro';
 import ProcessCards from '../components/ProcessCards.astro';
 import { capabilities, process } from '../data/site';
@@ -22,7 +23,14 @@ const subheading = 'Goats take in nearly 320° of the world at a glance. They’
     <!-- Headline and subheading set as one statement in the same style, running on from each other -->
     <div class="st-text" data-reveal>
       <h2 id="st-h" class="st-h">Vision Beyond the Center<span class="st-dot" aria-hidden="true">.</span></h2>
-      <p class="st-sub">{subheading}</p>
+      <!-- Annotated, like a marked-up proof: a ring round 320°, a live eye, a hand-drawn underline, an outlined word.
+           The plain sentence is kept in `subheading` above for the page description. -->
+      <p class="st-sub">
+        Goats take in nearly <span class="mk-ring">320°</span> of the world at a glance<MiniEye />.
+        They’re <span class="mk-under">a little weird<svg class="mk-under-line" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M3 15 C 40 6, 70 20, 110 12 S 180 5, 220 13 S 275 18, 297 8" pathLength="1" /></svg></span>,
+        full of <span class="mk-outline">personality</span> and completely unapologetic about it.
+        That’s the studio: wide awake to everything around a brand, and ready to lean into the quirks that make it unmistakably itself.
+      </p>
     </div>
   </section>
 
@@ -53,6 +61,41 @@ const subheading = 'Goats take in nearly 320° of the world at a glance. They’
   .st-h, .st-sub { display: inline; font: inherit; letter-spacing: inherit; color: var(--fg); }
   .st-h::after { content: ' '; }
   .st-dot { color: #e5d838; }
+
+  /* ---------- Annotations: three or four marks, all from our own kit (stadium shape, iris yellow, the eye) ---------- */
+  /* 320° in a stadium ring, the shape of the "o"; it pops in, slightly askew, as the statement arrives */
+  .mk-ring {
+    display: inline-block; padding: 0 0.28em; margin-inline: -0.04em; line-height: 1;
+    box-shadow: inset 0 0 0 0.07em currentColor; border-radius: 999px;   /* drawn inside the box, so the line spacing stays even */
+    rotate: -3deg; transform: scale(0.6); opacity: 0;
+    transition: transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1) 450ms, opacity 200ms ease 450ms;
+  }
+  .is-in .mk-ring { transform: none; opacity: 1; }
+  /* "a little weird": a wobbly yellow underline that draws itself */
+  .mk-under { position: relative; white-space: nowrap; }
+  .mk-under-line { position: absolute; left: -0.08em; right: -0.08em; bottom: 0.01em; width: calc(100% + 0.16em); height: 0.2em; overflow: visible; z-index: -1; }
+  .mk-under-line path {
+    fill: none; stroke: #e5d838; stroke-width: 7; stroke-linecap: round; vector-effect: non-scaling-stroke;
+    stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 900ms var(--ease-out) 900ms;
+  }
+  .st-text { isolation: isolate; }
+  .is-in .mk-under-line path { stroke-dashoffset: 0; }
+  :global([data-theme='yellow']) .mk-under-line path { stroke: var(--fg); stroke-width: 4; }
+  /* "personality" in outline; it fills in on hover, and on touch screens it fills itself in after a moment */
+  .mk-outline {
+    /* Stroke under a background-coloured fill: hides the overlapping contours inside the variable font's letters */
+    color: var(--bg); -webkit-text-stroke: 0.07em var(--fg); paint-order: stroke fill;
+    transition: color 350ms var(--ease-out);
+  }
+  @media (hover: hover) { .mk-outline:hover { color: var(--fg); } }
+  @media (hover: none) { .is-in .mk-outline { color: var(--fg); transition-delay: 1800ms; transition-duration: 700ms; } }
+  @media (prefers-reduced-motion: reduce) {
+    .mk-ring { transform: none; opacity: 1; transition: none; }
+    .mk-under-line path { stroke-dashoffset: 0; transition: none; }
+  }
+  /* No JS: everything shown at rest */
+  :global(html:not(.js)) .mk-ring { transform: none; opacity: 1; }
+  :global(html:not(.js)) .mk-under-line path { stroke-dashoffset: 0; }
   :global([data-theme='yellow']) .st-dot { color: var(--fg); }   /* on the yellow page the full stop turns black */
   @media (max-width: 800px) { .st-text { grid-column: 1 / -1; } }
   .sec-head { margin-bottom: 2.5rem; }

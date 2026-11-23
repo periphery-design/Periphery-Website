@@ -1,0 +1,24 @@
+---
+// A tiny live goat eye that sits inline in a sentence, like a pictogram. It glances toward the cursor and blinks
+// now and then (site.ts, [data-mini-eye]). Built from the same "o" as the wordmark and emblem.
+import { o, counter, oViewBox } from '../lib/logo';
+---
+<svg class="mini-eye" viewBox={oViewBox} aria-hidden="true" focusable="false" data-mini-eye>
+  <clipPath id="mini-eye-clip"><path d={counter} /></clipPath>
+  <path class="me-iris" d={counter} />
+  <g clip-path="url(#mini-eye-clip)"><rect class="me-pupil" x="676" y="247" width="34" height="6.2" rx="3.1" data-mini-pupil /></g>
+  <path class="me-o" d={o} />
+  <circle class="me-glint" cx="677.6" cy="243.6" r="5.6" />
+</svg>
+
+<style>
+  .mini-eye { display: inline-block; height: 0.62em; width: auto; vertical-align: 0.02em; margin-inline: 0.06em 0.02em; color: var(--fg); overflow: visible; }
+  .me-o { fill: currentColor; stroke: currentColor; stroke-width: 0.8; }
+  .me-iris { fill: #e5d838; transition: fill 80ms ease-in; }
+  .me-pupil { fill: #111; transition: transform 180ms var(--ease-out); }
+  .me-glint { fill: #fff; }
+  /* Blink: the eye closes to one solid shape for a moment */
+  .mini-eye:global(.is-blinking) .me-iris { fill: currentColor; }
+  .mini-eye:global(.is-blinking) :is(.me-pupil, .me-glint) { opacity: 0; }
+  @media (prefers-reduced-motion: reduce) { .me-pupil { transition: none; } }
+</style>
