@@ -34,14 +34,14 @@ const year = new Date().getFullYear();
     background: #e5d838;
     /* Always dark-on-yellow, whatever the page's theme */
     --fg: #111111; --fg-muted: #4a4517; --line: rgb(0 0 0 / 0.16);
-    --invert-bg: #111111; --invert-fg: #e5d838; --placeholder: rgb(0 0 0 / 0.08);
+    --invert-bg: #111111; --invert-fg: #e5d838;
     color: var(--fg);
   }
   /* On the yellow page the footer flips to black with yellow type, so it still reads as its own block */
   :global([data-theme='yellow']) .site-footer {
     background: #111111;
     --fg: #e5d838; --fg-muted: #b9ae3a; --line: rgb(229 216 56 / 0.2);
-    --invert-bg: #e5d838; --invert-fg: #111111; --placeholder: rgb(229 216 56 / 0.1);
+    --invert-bg: #e5d838; --invert-fg: #111111;
   }
   .cta { padding-block: 4rem 6rem; }
   .cta-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
@@ -53,7 +53,7 @@ const year = new Date().getFullYear();
   .wordmark {
     font-family: var(--font-display);
     font-size: var(--step-4); line-height: 0.8; letter-spacing: -0.04em; font-weight: var(--weight-headline);
-    white-space: nowrap; color: var(--placeholder);
+    white-space: nowrap; color: var(--fg);   /* solid: black on the yellow footer, yellow on the black one */
     margin-top: 2rem; margin-bottom: -0.12em; padding-inline: calc(var(--gutter) * 0.5);
   }
 </style>
