@@ -111,7 +111,7 @@ const spots: [string, number, number, number][] = [
      hand  — splits to either side, angled like a hand of cards
      deal  — both slide inward one after the other, a staircase dealt across the table
      rise  — both lift out of the top (or bottom) edge, like pulling cards from a deck
-     strip — both glide inward flat and level, a contact-sheet row */
+     strip — both glide inward and climb away from the edge, loosely tossed at opposite angles */
   .pf-spot:is(:has(.pf-card:hover), :has(.pf-card:focus-visible)) {
     --fan-a: none; --fan-b: none;
   }
@@ -128,8 +128,8 @@ const spots: [string, number, number, number][] = [
     --fan-b: translateX(calc(34% + var(--in) * 18%)) translateY(calc(var(--v) * 66%)) rotate(7deg);
   }
   .pf-spot[data-fan='strip']:is(:has(.pf-card:hover), :has(.pf-card:focus-visible)) {
-    --fan-a: translateX(calc(var(--in) * 96%)) scale(0.9);
-    --fan-b: translateX(calc(var(--in) * 186%)) scale(0.9);
+    --fan-a: translateX(calc(var(--in) * 74%)) translateY(calc(var(--v) * 10%)) rotate(-8deg) scale(0.92);
+    --fan-b: translateX(calc(var(--in) * 128%)) translateY(calc(var(--v) * 38%)) rotate(6deg) scale(0.86);
   }
   .pf-fan-a { transform: var(--fan-a, none); }
   .pf-fan-b { transform: var(--fan-b, none); transition-delay: 60ms; }
