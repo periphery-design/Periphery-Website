@@ -187,7 +187,3 @@ html:active-view-transition-type(sheet-up)::view-transition-new(root) {
 }
 /* The page underneath sinks back slightly and dims, so the new one reads as coming over the top */
 @keyframes sheet-under { to { transform: scale(0.96); opacity: 0.4; } }
-
-/* Wireframe 4 docking wordmark: without JS, or with reduced motion, the header lockup is simply always shown */
-html:not(.js)[data-dock] { --dock-p: 1; --dock-done: 1; }
-@media (prefers-reduced-motion: reduce) { html[data-dock] { --dock-p: 1; --dock-done: 1; } }

@@ -367,49 +367,22 @@ if (logo && pupil && !reduceMotion) {
   schedule();
 }
 
-/* ---------- Wireframe 4: the wordmark docks into the header ----------
-   The big wordmark (with the eye) starts under the nav. Over the first stretch of scrolling it shrinks and glides
-   onto the small header wordmark; once it lands, the header lockup takes over and the big one hides. Scroll back
-   and it grows out again. The mover is fixed-position so it never lags behind the scroll; a spacer keeps the
-   layout. Phones: the header only has the emblem, so the wordmark heads for it and fades out as it arrives.
-   Progress is shared as --dock-p (0 → 1) and --dock-done (0 or 1) on <html> for the header to fade in. */
-const mover = document.querySelector<HTMLElement>('[data-dock-mover]');
-const dockTarget = document.querySelector<HTMLElement>('[data-dock-target]');
-const dockEmblem = document.querySelector<HTMLElement>('[data-dock-logo] .logo-emblem');
-if (mover && dockTarget && !reduceMotion) {
+/* ---------- Wireframe 4: the header logo drops in once the big wordmark has gone ----------
+   The big wordmark stays where it is and scrolls away with the page. Once it is fully out of view, the header
+   lockup (emblem + wordmark) drops down into the top-left corner; scroll back up to the wordmark and it lifts
+   away again. Shared as .logo-in on <html>; the motion itself is CSS (Header.astro). */
+const bigMark = document.querySelector<HTMLElement>('[data-dock-mover]');
+if (bigMark && document.documentElement.hasAttribute('data-dock')) {
   const root = document.documentElement;
-  const space = mover.parentElement!;
-  let start = { x: 0, y: 0, w: 1 }, end = { x: 0, y: 0, w: 1 }, fade = false, dist = 1;
-  const measure = () => {
-    mover.classList.remove('is-fixed'); mover.style.transform = '';
-    const s = space.getBoundingClientRect();
-    start = { x: s.left, y: s.top + window.scrollY, w: s.width };   // where it sits at the very top of the page
-    const t = dockTarget.getBoundingClientRect();
-    fade = t.width === 0;   // phones: no header wordmark, aim at the emblem and fade out on arrival
-    const e = fade && dockEmblem ? dockEmblem.getBoundingClientRect() : t;
-    end = fade ? { x: e.left, y: e.top + e.height * 0.1, w: e.width * 2.2 } : { x: t.left, y: t.top, w: t.width };
-    // How much scrolling the trip takes: about two-thirds of the wordmark's own height, never under 160px
-    dist = Math.max(160, s.height * 0.7);
-    Object.assign(mover.style, { left: `${start.x}px`, top: `${start.y}px`, width: `${start.w}px`, height: `${s.height}px` });
-    mover.classList.add('is-fixed');
-    update();
+  const headerH = () => document.querySelector<HTMLElement>('.site-header')?.offsetHeight ?? 56;
+  let io: IntersectionObserver | null = null;
+  const watch = () => {
+    io?.disconnect();
+    // Treat the strip under the sticky header as "out of view", so the logo arrives as the wordmark slips under it
+    io = new IntersectionObserver(([e]) => root.classList.toggle('logo-in', !e.isIntersecting && e.boundingClientRect.top < 0),
+      { rootMargin: `-${headerH()}px 0px 0px 0px` });
+    io.observe(bigMark);
   };
-  const ease = (t: number) => 1 - Math.pow(1 - t, 2.2);   // quick to leave, gentle as it lands
-  let last = -1;
-  const update = () => {
-    const raw = Math.min(1, Math.max(0, window.scrollY / dist));
-    if (raw === last) return; last = raw;
-    const p = ease(raw), k = 1 + (end.w / start.w - 1) * p;
-    const x = (end.x - start.x) * p, y = (end.y - start.y) * p;
-    mover.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) scale(${k.toFixed(4)})`;
-    const done = raw >= 1;
-    mover.style.opacity = fade ? String(Math.max(0, 1 - Math.max(0, p - 0.55) / 0.45)) : '';
-    mover.style.visibility = done ? 'hidden' : '';
-    root.style.setProperty('--dock-p', p.toFixed(3));
-    root.style.setProperty('--dock-done', done ? '1' : '0');
-  };
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', () => { last = -1; measure(); });
-  document.fonts?.ready.then(() => { last = -1; measure(); });
-  measure();
+  watch();
+  window.addEventListener('resize', watch);
 }
