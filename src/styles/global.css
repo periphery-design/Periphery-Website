@@ -20,6 +20,7 @@
   --weight-headline: 800;  /* ExtraBold: the hero line, page titles, big display names */
   --weight-sub: 700;       /* Bold: subheadings, section statements, card and list titles */
   --weight-semi: 600;      /* SemiBold: header navigation */
+  --weight-medium: 500;    /* Medium: section labels ("Periphery Studio", "Capabilities"…) */
   --weight-body: 400;      /* Regular: nav, labels, body copy */
   --leading-sub: 1.2;      /* line spacing for subheadings and statements */
   --leading-body: 1.4;     /* line spacing for body copy */
@@ -138,7 +139,7 @@ p { text-wrap: pretty; }
   .grid > .label { margin-bottom: 1.5rem; }
 }
 
-.label { font-size: var(--step--1); color: var(--fg-muted); font-weight: var(--weight-body); }
+.label { font-size: var(--step--1); color: var(--fg-muted); font-weight: var(--weight-medium); }
 .meta { font-size: var(--step--1); color: var(--fg-muted); font-weight: var(--weight-body); }
 .statement { font-size: var(--step-2); max-width: 22ch; font-weight: var(--weight-sub); line-height: var(--leading-sub); }
 .section { padding-block: var(--section) 0; }
