@@ -34,8 +34,10 @@ const spots: [string, number, number, number][] = [
       // Two more images from the campaign's slideshow set fan out from behind the card on hover
       const fan = d.carousel.filter((img) => img.src !== d.homeCard!.image.src).slice(0, 2);
       const inward = pos.includes('left') ? 1 : -1;   // lean the fan toward the middle of the screen
+      const away = pos.includes('top') ? 1 : -1;       // vertical moves head away from the nearest screen edge
+      const fanStyle = ['hand', 'deal', 'rise', 'strip'][i % 4];   // each card fans out its own way
       return (
-        <li class="pf-spot" style={`${pos} --tilt: ${tilt}deg; --dur: ${dur}s; --delay: ${delay}s; --in: ${inward};`}>
+        <li class="pf-spot" data-fan={fanStyle} style={`${pos} --tilt: ${tilt}deg; --dur: ${dur}s; --delay: ${delay}s; --in: ${inward}; --v: ${away};`}>
           {fan.map((img, k) => (
             <span class:list={['pf-fan', k === 0 ? 'pf-fan-a' : 'pf-fan-b']} aria-hidden="true">
               <Image src={img} alt="" widths={[300, 500]} sizes="(min-width: 900px) 14vw, 1px" loading="lazy" />
@@ -105,12 +107,34 @@ const spots: [string, number, number, number][] = [
   .pf-fan :global(img) { width: 100%; height: 100%; object-fit: cover; }
   .pf-spot { isolation: isolate; }
   .pf-spot:has(.pf-card:hover) .pf-fan, .pf-spot:has(.pf-card:focus-visible) .pf-fan { opacity: 1; }
-  .pf-spot:has(.pf-card:hover) .pf-fan-a, .pf-spot:has(.pf-card:focus-visible) .pf-fan-a {
-    transform: translateX(calc(-42% + var(--in) * 14%)) translateY(-4%) rotate(-11deg);
+  /* Four ways out, one per card, so the homepage doesn't repeat itself:
+     hand  — splits to either side, angled like a hand of cards
+     deal  — both slide inward one after the other, a staircase dealt across the table
+     rise  — both lift out of the top (or bottom) edge, like pulling cards from a deck
+     strip — both glide inward flat and level, a contact-sheet row */
+  .pf-spot:is(:has(.pf-card:hover), :has(.pf-card:focus-visible)) {
+    --fan-a: none; --fan-b: none;
   }
-  .pf-spot:has(.pf-card:hover) .pf-fan-b, .pf-spot:has(.pf-card:focus-visible) .pf-fan-b {
-    transform: translateX(calc(42% + var(--in) * 14%)) translateY(4%) rotate(11deg); transition-delay: 60ms;
+  .pf-spot[data-fan='hand']:is(:has(.pf-card:hover), :has(.pf-card:focus-visible)) {
+    --fan-a: translateX(calc(-42% + var(--in) * 14%)) translateY(-4%) rotate(-11deg);
+    --fan-b: translateX(calc(42% + var(--in) * 14%)) translateY(4%) rotate(11deg);
   }
+  .pf-spot[data-fan='deal']:is(:has(.pf-card:hover), :has(.pf-card:focus-visible)) {
+    --fan-a: translateX(calc(var(--in) * 58%)) translateY(calc(var(--v) * 14%)) rotate(calc(var(--in) * 5deg));
+    --fan-b: translateX(calc(var(--in) * 112%)) translateY(calc(var(--v) * 28%)) rotate(calc(var(--in) * 10deg));
+  }
+  .pf-spot[data-fan='rise']:is(:has(.pf-card:hover), :has(.pf-card:focus-visible)) {
+    --fan-a: translateX(calc(-30% + var(--in) * 18%)) translateY(calc(var(--v) * 78%)) rotate(-8deg);
+    --fan-b: translateX(calc(34% + var(--in) * 18%)) translateY(calc(var(--v) * 66%)) rotate(7deg);
+  }
+  .pf-spot[data-fan='strip']:is(:has(.pf-card:hover), :has(.pf-card:focus-visible)) {
+    --fan-a: translateX(calc(var(--in) * 96%)) scale(0.9);
+    --fan-b: translateX(calc(var(--in) * 186%)) scale(0.9);
+  }
+  .pf-fan-a { transform: var(--fan-a, none); }
+  .pf-fan-b { transform: var(--fan-b, none); transition-delay: 60ms; }
+  .pf-spot[data-fan='deal'] .pf-fan-b, .pf-spot[data-fan='strip'] .pf-fan-b { transition-delay: 110ms; }
+  .pf-spot[data-fan='rise'] .pf-fan { transition-duration: 700ms, 300ms; }
   /* No hover on touch screens: the fan stays tucked away */
   @media (hover: none), (max-width: 900px) { .pf-fan { display: none; } }
   @media (prefers-reduced-motion: reduce) { .pf-fan { transition: opacity 200ms ease; } }
