@@ -31,8 +31,16 @@ const spots: [string, number, number, number][] = [
     {cards.map((p, i) => {
       const d = p.data;
       const [pos, tilt, dur, delay] = spots[i % spots.length];
+      // Two more images from the campaign's slideshow set fan out from behind the card on hover
+      const fan = d.carousel.filter((img) => img.src !== d.homeCard!.image.src).slice(0, 2);
+      const inward = pos.includes('left') ? 1 : -1;   // lean the fan toward the middle of the screen
       return (
-        <li class="pf-spot" style={`${pos} --tilt: ${tilt}deg; --dur: ${dur}s; --delay: ${delay}s;`}>
+        <li class="pf-spot" style={`${pos} --tilt: ${tilt}deg; --dur: ${dur}s; --delay: ${delay}s; --in: ${inward};`}>
+          {fan.map((img, k) => (
+            <span class:list={['pf-fan', k === 0 ? 'pf-fan-a' : 'pf-fan-b']} aria-hidden="true">
+              <Image src={img} alt="" widths={[300, 500]} sizes="(min-width: 900px) 14vw, 1px" loading="lazy" />
+            </span>
+          ))}
           <a href={`/work/${p.id}/`} class="pf-card" aria-label={`${d.title} — ${d.client}`} data-pf-card>
             <Image src={d.homeCard!.image} alt="" widths={[300, 500, 700]} sizes="(min-width: 900px) 16vw, 45vw" loading="eager" style={`object-position: ${d.homeCard!.focus}`} />
             {d.homeCard!.video && <video class="card-video" src={d.homeCard!.video} muted loop playsinline preload="none" aria-hidden="true" data-card-video></video>}
@@ -85,6 +93,27 @@ const spots: [string, number, number, number][] = [
   /* Hover / focus: grows a little, straightens, lifts, shows the title */
   .pf-card:hover, .pf-card:focus-visible { transform: scale(1.08); rotate: calc(var(--tilt) * -1); box-shadow: 0 1.25rem 2.5rem -0.75rem rgb(0 0 0 / 0.18); z-index: 2; }
   .pf-spot:has(.pf-card:hover), .pf-spot:has(.pf-card:focus-visible) { z-index: 2; }
+
+  /* Fan: two images tucked behind the card; on hover they slide out to either side, angled like a hand of cards */
+  .pf-fan {
+    position: absolute; inset: 6% 8%; z-index: -1; pointer-events: none;
+    border-radius: var(--radius); overflow: hidden; background: var(--bg-raised);
+    box-shadow: 0 0.75rem 2rem -0.75rem rgb(0 0 0 / 0.18);
+    opacity: 0; transform: none;
+    transition: transform 600ms var(--ease-out), opacity 300ms var(--ease-out);
+  }
+  .pf-fan :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .pf-spot { isolation: isolate; }
+  .pf-spot:has(.pf-card:hover) .pf-fan, .pf-spot:has(.pf-card:focus-visible) .pf-fan { opacity: 1; }
+  .pf-spot:has(.pf-card:hover) .pf-fan-a, .pf-spot:has(.pf-card:focus-visible) .pf-fan-a {
+    transform: translateX(calc(-42% + var(--in) * 14%)) translateY(-4%) rotate(-11deg);
+  }
+  .pf-spot:has(.pf-card:hover) .pf-fan-b, .pf-spot:has(.pf-card:focus-visible) .pf-fan-b {
+    transform: translateX(calc(42% + var(--in) * 14%)) translateY(4%) rotate(11deg); transition-delay: 60ms;
+  }
+  /* No hover on touch screens: the fan stays tucked away */
+  @media (hover: none), (max-width: 900px) { .pf-fan { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .pf-fan { transition: opacity 200ms ease; } }
   .pf-title {
     position: absolute; inset: auto 0 0 0; padding: 2.5rem 0.9rem 0.9rem;
     background: linear-gradient(to top, rgb(0 0 0 / 0.55), rgb(0 0 0 / 0));
