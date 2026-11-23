@@ -17,15 +17,12 @@ const fullTitle = title ? `${title} — Periphery Studio` : 'Periphery Studio';
     <meta name="description" content={description} />
     <meta name="color-scheme" content={forceTheme ?? 'light dark'} />
     <link rel="preload" href={syneUrl} as="font" type="font/woff2" crossorigin />
-    <!-- Theme before first paint: page lock > saved choice (light / yellow) > light. -->
+    <!-- Theme before first paint. Wireframe 4 has no theme toggle: pages are light, unless a page locks its own
+         theme (e.g. a project shot on black). -->
     <script is:inline>
       (() => {
-        let saved = null;
-        try { saved = localStorage.getItem('theme'); } catch (e) {}
-        // Wireframe 3: the toggle switches between light and yellow; anything else saved starts on light.
-        // A page can lock its theme (e.g. a project shot on black). The visitor's saved choice is untouched.
         const forced = document.documentElement.dataset.forceTheme;
-        document.documentElement.dataset.theme = forced || (saved === 'yellow' ? 'yellow' : 'light');
+        document.documentElement.dataset.theme = forced || 'light';
         document.documentElement.classList.add('js');
       })();
     </script>
