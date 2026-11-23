@@ -17,11 +17,11 @@ const { projects } = Astro.props;
 </section>
 
 <style>
-  .hd { padding-top: clamp(0.25rem, 0.5vw, 0.75rem); overflow-x: clip; }
+  .hd { padding-top: clamp(1.25rem, 0.5rem + 2.5vw, 3.25rem); overflow-x: clip; }   /* room between the nav and the wordmark */
   /* Full bleed: the wordmark runs edge to edge, a hair inside the window */
   .hd-mark { margin-inline: calc(var(--gutter) * -0.4); }
   .dock-space { display: block; aspect-ratio: 950 / 222; }
-  .hd-reel { margin-top: clamp(1rem, 0.5rem + 1.5vw, 2rem); }
+  .hd-reel { margin-top: clamp(1.75rem, 0.75rem + 3vw, 4rem); }   /* and between the wordmark and the work */
   /* A slightly shorter reel than wireframe 2, so wordmark + cards fit one laptop screen */
   .hd-reel :global(.reel) { --card-h: clamp(16rem, 6rem + 22vw, 28rem); }
   @media (max-width: 800px) { .hd-reel :global(.reel) { --card-h: 90vw; } }
