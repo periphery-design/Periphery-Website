@@ -413,25 +413,3 @@ if (mover && dockTarget && !reduceMotion) {
   document.fonts?.ready.then(() => { last = -1; measure(); });
   measure();
 }
-
-/* ---------- Wireframe 4: the little inline eye in the statement ----------
-   Glances toward the cursor (a short, quick move, like a real glance) and blinks every few seconds.
-   Pupil positions are in the logo's own SVG units. Reduced motion: still. */
-document.querySelectorAll<SVGSVGElement>('[data-mini-eye]').forEach((eye) => {
-  if (reduceMotion) return;
-  const pupil = eye.querySelector<SVGRectElement>('[data-mini-pupil]');
-  if (!pupil) return;
-  window.addEventListener('pointermove', (e) => {
-    if (e.pointerType !== 'mouse') return;
-    const r = eye.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > innerHeight) return;
-    const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1;
-    const reach = Math.min(1, d / 200);
-    pupil.style.transform = `translate(${((dx / d) * 8 * reach).toFixed(2)}px, ${((dy / d) * 3.4 * reach).toFixed(2)}px)`;
-  }, { passive: true });
-  const blink = () => setTimeout(() => {
-    if (!document.hidden) { eye.classList.add('is-blinking'); setTimeout(() => eye.classList.remove('is-blinking'), 120); }
-    blink();
-  }, 3000 + Math.random() * 5000);
-  blink();
-});
