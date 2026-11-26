@@ -40,12 +40,8 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
       {d.overview.length > 0 && <h2 class="band-h intro-h">{d.overviewHeading ?? 'Overview'}</h2>}
     </section>
 
-    <dl class="grid facts" data-reveal>
-      <div><dt class="meta">Client</dt><dd>{d.client}</dd></div>
-      <div><dt class="meta">Year</dt><dd>{d.year}</dd></div>
-      <div><dt class="meta">Role</dt><dd>{d.role}</dd></div>
-      <div><dt class="meta">Channels</dt><dd>{d.channels.join(', ')}</dd></div>
-    </dl>
+    {/* Facts row (client, year, role, channels) removed in wireframe 4. To come in its place: the capability marks
+        used on the project, and whether it's client work or a personal project. The fields stay in the content files. */}
 
     {d.insight && (
       <section class="section insight" aria-labelledby="ins-h">
@@ -264,11 +260,6 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   .p-title { font-size: calc(var(--step-3) * 0.8); font-weight: var(--weight-headline); line-height: 1.02; letter-spacing: -0.02em; margin-bottom: clamp(1rem, 0.75rem + 1vw, 1.75rem); }
   .full { grid-column: 1 / -1; }
 
-  .facts { margin-top: var(--flow); row-gap: 1.5rem; }
-  .facts > div { grid-column: span 3; border-top: 1px solid var(--line); padding-top: 0.75rem; }
-  .facts dt { font-weight: var(--weight-semi); }   /* labels: semibold, same size */
-  .facts dd { margin-top: 0.25rem; }
-  @media (max-width: 800px) { .facts > div { grid-column: span 6; } }
 
   .gallery { margin-top: 2rem; row-gap: var(--gutter); }
   .g-wide { grid-column: 1 / -1; }
@@ -303,7 +294,7 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   .frame-tall :global(img) { max-height: 90svh; object-fit: contain; }
   .blocks { display: grid; gap: var(--flow); margin-top: 2rem; }
   .story { display: grid; gap: var(--flow); }
-  /* Real projects: the story starts close under the facts row, matching the tighter text/image rhythm */
+  /* Real projects: the story starts close under the intro, matching the tighter text/image rhythm */
   .work-sec { padding-top: var(--flow); }
   .work-sec .blocks { margin-top: 0; }
 
@@ -312,7 +303,7 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   /* Spacing comes only from the gap between blocks (var(--flow)), so every text band has the same space above and below */
   .band { padding-block: 0; align-items: start; row-gap: 0.75rem; }
   .band-h { grid-column: 1 / span 6; font-size: var(--step-1); font-weight: var(--weight-sub); line-height: var(--leading-sub); }
-  /* Copy starts at column 7, the same line as 'Role' in the facts row; 80% of the previous size */
+  /* Copy starts at column 7, half way across the grid; 80% of the previous size */
   .band-text { grid-column: 7 / -1; font-size: calc(var(--step-1) * 0.8); line-height: var(--leading-body); max-width: 62ch; }
   .insight .band, .band-first { padding-top: 0; }
   .band-text.prose { max-width: 62ch; }
