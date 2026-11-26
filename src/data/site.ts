@@ -52,3 +52,11 @@ export const faqs = [
   { title: 'Do you work with agencies as well as brands?', body: 'Placeholder answer.' },
   { title: 'How do we get started?', body: 'Placeholder answer: send a note with the brief, or a half-formed idea, and we’ll set up a call.' },
 ];
+
+/** Capability id (as used in project files) → its name and mark, for the case-study strip */
+export const capabilityById = {
+  'strategy': capabilities[0],
+  'art-direction': capabilities[1],
+  'illustration': capabilities[2],
+  'branding': capabilities[3],
+} as const;

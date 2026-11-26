@@ -12,6 +12,8 @@ channels: ["Out of home", "Events", "Social", "Web", "Print literature"]
 summary: "A campaign built the same way the technology works: two visual languages, scientific and human, layered into one system."  # DRAFT: condensed from the overview
 tags: ["Art Direction", "Strategy", "Campaign"]
 order: 1
+capabilities: [strategy, art-direction]   # DRAFT: marks under the intro (strategy, art-direction, illustration, branding)
+kind: client   # client or personal
 cover: "../../assets/projects/biotechne-multiomics/multiomics-cover.jpg"
 theme: dark         # the work is shot on black: this page always displays dark
 accent: "#7a1fd6"   # campaign purple, brightened so the thin carousel bars read over dark images

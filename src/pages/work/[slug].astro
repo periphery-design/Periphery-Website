@@ -1,4 +1,5 @@
 ---
+import { capabilityById } from '../../data/site';
 // Campaign case-study template: overview → insight (or brief/idea) → execution → results → note → next.
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
@@ -40,8 +41,27 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
       {d.overview.length > 0 && <h2 class="band-h intro-h">{d.overviewHeading ?? 'Overview'}</h2>}
     </section>
 
-    {/* Facts row (client, year, role, channels) removed in wireframe 4. To come in its place: the capability marks
-        used on the project, and whether it's client work or a personal project. The fields stay in the content files. */}
+    {/* In place of the old facts row: client work or personal project, and the capabilities the project used, each
+        as its mark and name in a soft chip. Deliberately not like the nav pills (no outline, no hover), so they read as
+        labels rather than buttons; the marks give one spin as the row scrolls in, then stay still. */}
+    {(d.kind || d.capabilities.length > 0) && (
+      <div class="grid made" data-reveal>
+        {d.kind && <p class="label made-kind">{d.kind === 'personal' ? 'Personal project' : 'Client work'}</p>}
+        {d.capabilities.length > 0 && (
+          <ul class="made-caps" aria-label="Capabilities">
+            {d.capabilities.map((id, i) => {
+              const c = capabilityById[id];
+              return (
+                <li class="made-cap" style={`--i: ${i}`}>
+                  {c.icon && <span class="made-mark" aria-hidden="true"><img src={c.icon.src} alt="" width={c.icon.width} height={c.icon.height} loading="lazy" decoding="async" /></span>}
+                  <span>{c.name}</span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+    )}
 
     {d.insight && (
       <section class="section insight" aria-labelledby="ins-h">
@@ -296,6 +316,26 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   .story { display: grid; gap: var(--flow); }
   /* Real projects: the story starts close under the intro, matching the tighter text/image rhythm */
   .work-sec { padding-top: var(--flow); }
+
+  /* Kind + capabilities row */
+  .made { margin-top: clamp(1.75rem, 1.25rem + 1.5vw, 2.75rem); align-items: center; row-gap: 1rem; }
+  .made-kind { grid-column: 1 / span 6; }
+  .made-caps { grid-column: 7 / -1; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .made-cap {
+    display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.95rem 0.35rem 0.6rem;
+    border-radius: var(--radius-pill); background: var(--bg-raised);
+    font-size: var(--step--1); font-weight: var(--weight-medium); color: var(--fg);
+  }
+  .made-cap:not(:has(.made-mark)) { padding-left: 0.95rem; }
+  .made-mark { width: 1.9rem; aspect-ratio: 268.71 / 230; perspective: 300px; display: block; }
+  .made-mark img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  /* One spin each as the row arrives, one after another */
+  .made:global(.is-in) .made-mark img { animation: made-spin 850ms cubic-bezier(0.25, 1, 0.4, 1) calc(350ms + var(--i) * 140ms) both; }
+  @keyframes made-spin { 0% { transform: rotateY(0deg); } 75% { transform: rotateY(385deg); } 100% { transform: rotateY(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .made:global(.is-in) .made-mark img { animation: none; } }
+  /* Dark pages: the white parts of the marks need a light chip to sit on */
+  :global([data-theme='dark']) .made-cap { background: #e6e6e6; color: #111; }
+  @media (max-width: 800px) { .made-kind, .made-caps { grid-column: 1 / -1; } }
   .work-sec .blocks { margin-top: 0; }
 
   /* Text band: the story text on its own between images. Heading on the left, text across ~60%

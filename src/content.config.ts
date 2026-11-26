@@ -120,6 +120,9 @@ const projects = defineCollection({
       channels: z.array(z.string()),
       summary: z.string(),          // one or two sentences for the homepage card
       tags: z.array(z.string()).default([]),   // pill tags along the bottom of the homepage card
+      // Which capabilities the project used (shown as marks under the intro), and client work vs personal project
+      capabilities: z.array(z.enum(['strategy', 'art-direction', 'illustration', 'branding'])).default([]),
+      kind: z.enum(['client', 'personal']).optional(),
       order: z.number(),            // position on the homepage
       cover: image().optional(),    // homepage card + project hero
       coverAlt: z.string().optional(),

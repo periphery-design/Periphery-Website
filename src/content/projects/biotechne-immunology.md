@@ -11,6 +11,8 @@ channels: ["Out of home", "Social", "Web", "Email", "Print literature"]   # DRAF
 summary: "Redefining scientific terms with the honest humour of lab life, to make a market leader the brand that truly gets immunologists."   # DRAFT: condensed from the board
 tags: ["Art Direction", "Strategy", "Campaign"]
 order: 3
+capabilities: [strategy, art-direction, illustration]   # DRAFT: marks under the intro (strategy, art-direction, illustration, branding)
+kind: client   # client or personal
 accent: "#0034B7"               # BT Blue (PMS 293 C), the campaign's primary colour
 theme: light                    # the campaign is built on light grey and blue ink: this page always displays light
 cover: "../../assets/projects/biotechne-immunology/hero-lab.jpg"

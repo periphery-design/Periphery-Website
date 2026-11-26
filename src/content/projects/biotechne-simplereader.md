@@ -11,6 +11,8 @@ channels: ["Product video", "Out of home", "Social", "Packaging"]        # DRAFT
 summary: "A launch film and visual system that made a compact plate reader feel modern, energetic and built for early-career scientists."   # DRAFT
 tags: ["Art Direction", "Strategy", "Campaign"]        # DRAFT: same as the other two; Motion may fit better
 order: 4
+capabilities: [strategy, art-direction]   # DRAFT: marks under the intro (strategy, art-direction, illustration, branding)
+kind: client   # client or personal
 accent: "#ff7000"   # campaign orange, sampled from the boards
 cover: "../../assets/projects/simplereader/cover.jpg"
 coverAlt: "Key visual on Bio-Techne blue: the line “Plug In, Read, Discover” above the word SimpleReader in huge white letters, with the compact grey SimpleReader instrument rising in front of it."
