@@ -42,10 +42,10 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
     </section>
 
     {/* In place of the old facts row: client work or personal project, and the capabilities the project used, each
-        as its mark and name in a soft chip. Deliberately not like the nav pills (no outline, no hover), so they read as
-        labels rather than buttons; the marks give one spin as the row scrolls in, then stay still. */}
+        as its mark and name in a soft chip. Deliberately not like the nav pills (no outline, no hover, no motion), so they
+        read as labels rather than buttons. The label sits above the chips, both on the intro's text column. */}
     {(d.kind || d.capabilities.length > 0) && (
-      <div class="grid made" data-reveal>
+      <div class="grid made" data-reveal><div class="made-in">
         {d.kind && <p class="label made-kind">{d.kind === 'personal' ? 'Personal project' : 'Client work'}</p>}
         {d.capabilities.length > 0 && (
           <ul class="made-caps" aria-label="Capabilities">
@@ -60,7 +60,7 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
             })}
           </ul>
         )}
-      </div>
+      </div></div>
     )}
 
     {d.insight && (
@@ -317,25 +317,22 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   /* Real projects: the story starts close under the intro, matching the tighter text/image rhythm */
   .work-sec { padding-top: var(--flow); }
 
-  /* Kind + capabilities row */
-  .made { margin-top: clamp(1.75rem, 1.25rem + 1.5vw, 2.75rem); align-items: center; row-gap: 1rem; }
-  .made-kind { grid-column: 1 / span 6; }
-  .made-caps { grid-column: 7 / -1; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  /* Kind + capabilities: label above the chips, on the intro's text column */
+  .made { margin-top: clamp(1.75rem, 1.25rem + 1.5vw, 2.75rem); }
+  .made-in { grid-column: 7 / -1; display: grid; gap: 0.75rem; justify-items: start; }
+  .made-kind { color: var(--fg); font-weight: var(--weight-sub); }   /* Bold */
+  .made-caps { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .made-cap {
     display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.95rem 0.35rem 0.6rem;
     border-radius: var(--radius-pill); background: var(--bg-raised);
     font-size: var(--step--1); font-weight: var(--weight-medium); color: var(--fg);
   }
   .made-cap:not(:has(.made-mark)) { padding-left: 0.95rem; }
-  .made-mark { width: 1.9rem; aspect-ratio: 268.71 / 230; perspective: 300px; display: block; }
+  .made-mark { width: 1.9rem; aspect-ratio: 268.71 / 230; display: block; }
   .made-mark img { display: block; width: 100%; height: 100%; object-fit: contain; }
-  /* One spin each as the row arrives, one after another */
-  .made:global(.is-in) .made-mark img { animation: made-spin 850ms cubic-bezier(0.25, 1, 0.4, 1) calc(350ms + var(--i) * 140ms) both; }
-  @keyframes made-spin { 0% { transform: rotateY(0deg); } 75% { transform: rotateY(385deg); } 100% { transform: rotateY(360deg); } }
-  @media (prefers-reduced-motion: reduce) { .made:global(.is-in) .made-mark img { animation: none; } }
   /* Dark pages: the white parts of the marks need a light chip to sit on */
   :global([data-theme='dark']) .made-cap { background: #e6e6e6; color: #111; }
-  @media (max-width: 800px) { .made-kind, .made-caps { grid-column: 1 / -1; } }
+  @media (max-width: 800px) { .made-in { grid-column: 1 / -1; } }
   .work-sec .blocks { margin-top: 0; }
 
   /* Text band: the story text on its own between images. Heading on the left, text across ~60%
