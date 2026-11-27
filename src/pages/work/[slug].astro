@@ -467,14 +467,16 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   }
 
   /* Sequence: two synced frame animations side by side. Frames are stacked; only .is-on shows (hard cut, like a GIF). */
-  /* Story: animation on one half, the story beside it, vertically centred */
-  .story-split { align-items: center; row-gap: 1.5rem; }
+  /* Story: animation on the left half, the story on the right starting on the same column as the intro text (7),
+     top-aligned with the image. On desktop the text stays in view while the image scrolls past it. */
+  .story-split { align-items: start; row-gap: 1.5rem; }
   .ss-media { grid-column: 1 / span 6; display: grid; gap: 0.75rem; }
-  .ss-text { grid-column: 8 / -1; display: grid; gap: 1rem; }
+  .ss-text { grid-column: 7 / -1; display: grid; gap: 1rem; align-content: start; }
+  @media (min-width: 801px) { .ss-text { position: sticky; top: calc(var(--header-h) + 1.5rem); } }
   .story-split.media-right .ss-media { grid-column: 7 / -1; order: 2; }
-  .story-split.media-right .ss-text { grid-column: 1 / span 5; }
+  .story-split.media-right .ss-text { grid-column: 1 / span 6; }
   .ss-h { grid-column: auto; }
-  .ss-prose { font-size: calc(var(--step-1) * 0.8); line-height: var(--leading-body); max-width: 52ch; display: grid; gap: 0.9em; }
+  .ss-prose { font-size: calc(var(--step-1) * 0.8); line-height: var(--leading-body); max-width: 62ch; display: grid; gap: 0.9em; }   /* same size and measure as the intro text */
   .ss-toggle { justify-self: start; }
   @media (max-width: 800px) { .ss-media, .ss-text, .story-split.media-right .ss-media, .story-split.media-right .ss-text { grid-column: 1 / -1; order: 0; } }
   .seq { row-gap: var(--gutter); }
