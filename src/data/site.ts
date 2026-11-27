@@ -7,10 +7,11 @@ import brandingImg from '../assets/projects/biotechne-multiomics/literature.jpg'
 
 // Four disciplines. Home: hover-reveal list (name + image). About: Spiegel-style panel (line + tags).
 // Images are stand-ins from the case studies; swap for a dedicated image per discipline when ready.
-// Capability icons: the owner's illustrated marks (Periphery_Studio-marks-04/05/06). Branding's is still to come.
+// Capability icons: the owner's illustrated marks (Periphery_Studio-marks-04/05/06, branding-07).
 import strategyIcon from '../assets/icons/strategy-bolt.svg';
 import artDirectionIcon from '../assets/icons/art-direction-eye.svg';
 import illustrationIcon from '../assets/icons/illustration-nib.svg';
+import brandingIcon from '../assets/icons/branding-badge.svg';
 
 export const capabilities = [
   {
@@ -32,7 +33,7 @@ export const capabilities = [
     image: illustrationImg, alt: 'Dictionary-style card for immunology with a hand-written definition and cell sketches',
   },
   {
-    name: 'Branding',
+    name: 'Branding', icon: brandingIcon,
     line: 'Placeholder: identities built to flex across every channel without losing themselves.',
     tags: ['Identity systems', 'Brand guidelines', 'Literature', 'Packaging'],
     image: brandingImg, alt: 'A spread of printed brochures with researcher portraits and fluorescent imagery',
