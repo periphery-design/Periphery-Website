@@ -39,9 +39,30 @@ carousel:
 
 overview:   # DRAFT: placeholder until the owner's story arrives
   - "Little Devils is a hot sauce I make myself, and a brand I built around it from the ground up: the name, the identity, the packaging, the illustration and the campaign."
-  - "Placeholder: the story of how it started, and what “Heat, not your Midwest” means."
 
 gallery:
+  # The origin story beside the new illustrations (adapted from the owner's LinkedIn post)
+  - type: story
+    interval: 1500
+    frames:
+      - "../../assets/projects/little-devils/illustrations/frame-01.jpg"
+      - "../../assets/projects/little-devils/illustrations/frame-02.jpg"
+      - "../../assets/projects/little-devils/illustrations/frame-03.jpg"
+      - "../../assets/projects/little-devils/illustrations/frame-04.jpg"
+      - "../../assets/projects/little-devils/illustrations/frame-05.jpg"
+      - "../../assets/projects/little-devils/illustrations/frame-06.jpg"
+      - "../../assets/projects/little-devils/illustrations/frame-07.jpg"
+      - "../../assets/projects/little-devils/illustrations/frame-08.jpg"
+      - "../../assets/projects/little-devils/illustrations/frame-09.jpg"
+      - "../../assets/projects/little-devils/illustrations/frame-10.jpg"
+      - "../../assets/projects/little-devils/illustrations/frame-11.jpg"
+      - "../../assets/projects/little-devils/illustrations/frame-12.jpg"
+    alt: "New Little Devils illustrations, each going from pencil sketch to finished artwork to where it could live: a horned goat with its tongue out and a Goat Milk carton, praying hands on a “Pray for wet naps” T-shirt, and a flaming tongue on an “It’s a good burn” billboard and a burger."
+    heading: "Fermented in lockdown"
+    paragraphs:
+      - "During lockdown I picked up a new hobby: making hot sauce. I cleared the pepper shelves at Kowalski’s, packed everything into mason jars like a mad science experiment, and left it for thirty days to bubble, stink and grow in the dark."
+      - "Friends and family were hesitant to try it, then loved it. For a designer and illustrator with an ink-filled heart, the next question was obvious: how can I design a brand around this? Mechanical pencil in hand, I sketched my way to Little Devils: logos, type, colour, stickers, packaging, even real printed labels."
+      - "I still make the sauce, and the idea kept fermenting too. These new illustrations take it further, from pencil sketch to finished art to the places it could live. Ideas only get better once you take them out of the jar."
   - type: image
     image: "../../assets/projects/little-devils/logo-suite.jpg"
     alt: "The Little Devils identity on red: the stacked blackletter wordmark “little devils HOT SAUCE” in yellow with a horned flame devil for the O, a horizontal version, an LD HS monogram with pitchfork, a “Heat, not your Midwest” roundel, a scalloped seal and an arched badge reading “raise a little hell, all natural ingredients”."

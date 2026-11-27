@@ -172,6 +172,21 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
                 <Image src={b.bottom.image} alt={b.bottom.alt} widths={[500, 800, 1200]} sizes="(min-width: 800px) 33vw, 100vw" />
               </div>
             </div>
+          ) : b.type === 'story' ? (
+            <div class:list={['grid story-split', b.mediaSide === 'right' && 'media-right']} data-reveal data-seq={b.interval} style={`--seq-ratio: ${b.ratio}`}>
+              <figure class="ss-media">
+                <div class="seq-frames" role="img" aria-label={b.alt}>
+                  {b.frames.map((f, i) => (
+                    <Image class:list={['seq-frame', i === 0 && 'is-on']} src={f} alt="" widths={[700, 1000, 1400]} sizes="(min-width: 800px) 48vw, 100vw" loading="lazy" />
+                  ))}
+                </div>
+                <button type="button" class="pill ghost seq-toggle ss-toggle" data-seq-toggle aria-pressed="false" hidden>Pause</button>
+              </figure>
+              <div class="ss-text">
+                {b.heading && <h2 class="band-h ss-h">{b.heading}</h2>}
+                <div class="prose ss-prose">{b.paragraphs.map((t) => <p>{t}</p>)}</div>
+              </div>
+            </div>
           ) : b.type === 'sequence' ? (
             <div class="grid seq" data-reveal data-seq={b.interval} style={`--seq-ratio: ${b.ratio}`}>
               {[b.left, b.right].map((side) => (
@@ -452,6 +467,16 @@ const ink = (hex: string) => (lum(hex) > 0.4 ? '#111111' : '#ffffff');
   }
 
   /* Sequence: two synced frame animations side by side. Frames are stacked; only .is-on shows (hard cut, like a GIF). */
+  /* Story: animation on one half, the story beside it, vertically centred */
+  .story-split { align-items: center; row-gap: 1.5rem; }
+  .ss-media { grid-column: 1 / span 6; display: grid; gap: 0.75rem; }
+  .ss-text { grid-column: 8 / -1; display: grid; gap: 1rem; }
+  .story-split.media-right .ss-media { grid-column: 7 / -1; order: 2; }
+  .story-split.media-right .ss-text { grid-column: 1 / span 5; }
+  .ss-h { grid-column: auto; }
+  .ss-prose { font-size: calc(var(--step-1) * 0.8); line-height: var(--leading-body); max-width: 52ch; display: grid; gap: 0.9em; }
+  .ss-toggle { justify-self: start; }
+  @media (max-width: 800px) { .ss-media, .ss-text, .story-split.media-right .ss-media, .story-split.media-right .ss-text { grid-column: 1 / -1; order: 0; } }
   .seq { row-gap: var(--gutter); }
   .seq-side { grid-column: span 6; }
   .seq-frames { position: relative; aspect-ratio: var(--seq-ratio, 4 / 3); border-radius: var(--radius); overflow: hidden; background: #fff; }

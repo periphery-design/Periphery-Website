@@ -97,6 +97,18 @@ const projects = defineCollection({
         type: z.literal('mosaic'),
         rows: z.array(z.array(z.object({ image: image(), alt: z.string() })).min(1)).min(1),
       }),
+      // story: a frame-by-frame animation (e.g. a GIF split into frames) on one side, a heading and paragraphs on the
+      // other. Uses the same player as 'sequence' (pauses off-screen, still for reduced motion, Pause button).
+      z.object({
+        type: z.literal('story'),
+        frames: z.array(image()).min(1),
+        alt: z.string(),
+        interval: z.number().default(1500),          // ms per frame
+        ratio: z.string().regex(/^\d+ \/ \d+$/).default('1 / 1'),
+        heading: z.string().optional(),
+        paragraphs: z.array(z.string()),
+        mediaSide: z.enum(['left', 'right']).default('left'),
+      }),
       // sequence: two frame-by-frame animations side by side, driven by one clock so they change on the same
       // tick (two GIFs drift). Both sides need the same number of frames. Pauses off-screen; static for reduced motion.
       z.object({
